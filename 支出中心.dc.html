@@ -118,11 +118,10 @@
                     <span style="{{ c.catPencilStyle }}" onClick="{{ c.onEditCat }}" style-hover="color:#8b7a63;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M14.5 4.5l5 5L8.5 20.5h-5v-5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
                     <span style="{{ c.catTrashStyle }}" onClick="{{ c.onDeleteCat }}" style-hover="color:#c0533f;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
                   </div>
-                  <div style="height:6px; background:#eee9de; border-radius:4px; overflow:hidden; margin-top:6px; width:100%;"><div style="{{ c.barStyle }}"></div></div>
                 </div>
                 <div style="text-align:right; flex-shrink:0;">
                   <div class="num" style="font-size:17px; font-weight:500; color:#37424d;">{{ c.totalF }}</div>
-                  <div style="display:flex; align-items:center; gap:6px; justify-content:flex-end; margin-top:3px;"><span style="{{ c.pctStyle }}">{{ c.pct }}%</span><span style="{{ c.tagStyle }}">{{ c.tag }}</span></div>
+                  <div style="display:flex; align-items:center; gap:6px; justify-content:flex-end; margin-top:3px;"><span style="{{ c.pctStyle }}">{{ c.pct }}%</span></div>
                 </div>
                 <svg viewBox="0 0 24 24" width="18" height="18" style="{{ c.chevStyle }}"><path d="M6 9.5l6 6 6-6" fill="none" stroke="#9aa2ab" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
               </div>
@@ -139,7 +138,7 @@
                     <div style="display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid #f1ece1;">
                       <span style="width:6px; height:6px; border-radius:50%; background:{{ c.dot }}; flex-shrink:0;"></span>
                       <span style="{{ it.nameStyle }}" contentEditable="{{ it.editable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ it.nameFkey }}" onBlur="{{ blurField }}" onKeyDown="{{ keyField }}">{{ it.name }}</span>
-                      <span style="{{ it.tagStyle }}">{{ it.tag }}</span>
+                      <span style="{{ it.tagStyle }}" onClick="{{ it.onTagClick }}" title="點擊切換 固定／變動" style-hover="filter:brightness(0.94);">{{ it.tag }}</span>
                       <span class="num" style="{{ it.amtStyle }}" contentEditable="{{ it.editable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ it.amtFkey }}" onBlur="{{ blurField }}" onKeyDown="{{ keyField }}">{{ it.amtText }}</span>
                       <span style="{{ it.pencilStyle }}" onClick="{{ it.onEdit }}" style-hover="color:#8b7a63;"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M14.5 4.5l5 5L8.5 20.5h-5v-5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
                       <span style="{{ it.trashStyle }}" onClick="{{ it.onDelete }}" style-hover="color:#c0533f;"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
@@ -281,6 +280,49 @@ class Component extends DCLogic {
     return M[key] || { ic: I.other, color: '#9aa5ad' };
   }
 
+  // 資金分配是規劃預算的主頁：支出分類跟著資金分配的支出項目對齊（投資類不算支出）
+  allocationSpendItems() {
+    let d = null;
+    try { const s = localStorage.getItem('zijin-plan-v1'); if (s) d = JSON.parse(s); } catch (e) {}
+    if (!d || !d.buckets) return null;
+    if (d._v !== 2) {
+      // 舊資金分配資料：先併成與本頁一致的六大項
+      const CANON = ['居住', '飲食', '娛樂', '汽車', '訂閱', '其他'];
+      const O2N = { '居住': '居住', '生活': '其他', '預留資金': '其他', '訂閱': '訂閱', '旅遊': '其他', '娛樂': '娛樂', '學習': '其他', '治裝': '其他', '飲食': '飲食', '汽車': '汽車', '其他': '其他' };
+      const defaults = { '居住': 20000, '飲食': 9200, '娛樂': 5000, '汽車': 3200, '訂閱': 2500, '其他': 2000 };
+      const sums = {}; CANON.forEach((n) => { sums[n] = 0; });
+      d.buckets.forEach((b) => { if (b.tag === '投資' || b.tag === '彈性') return; (b.items || []).forEach((it) => { sums[O2N[it.name] || '其他'] += it.amt || 0; }); });
+      return CANON.map((n) => ({ name: n, amt: sums[n] > 0 ? sums[n] : defaults[n] }));
+    }
+    const out = [];
+    d.buckets.forEach((b) => {
+      if (b.tag === '投資' || b.tag === '彈性') return;
+      if (b.items && b.items.length) b.items.forEach((it) => out.push({ name: it.name, amt: it.amt || 0 }));
+      else out.push({ name: b.name, amt: b.amt || 0 });
+    });
+    return out;
+  }
+  allocationBudgets() {
+    const items = this.allocationSpendItems() || [];
+    const m = {};
+    items.forEach((a) => { m[a.name] = (m[a.name] || 0) + (a.amt || 0); });
+    return m;
+  }
+  // 依資金分配重建支出分類清單，並保留同名分類原本的細項
+  alignCatsToAllocation(d) {
+    const alloc = this.allocationSpendItems();
+    if (!alloc || !alloc.length) return d;
+    const byName = {}; (d.cats || []).forEach((c) => { byName[c.name] = c; });
+    const seen = {}; const cats = [];
+    alloc.forEach((a) => {
+      if (seen[a.name]) return; seen[a.name] = 1;
+      const ex = byName[a.name];
+      cats.push(ex ? { key: ex.key || a.name, name: a.name, tag: ex.tag || '變動', items: ex.items || [] } : { key: a.name, name: a.name, tag: '變動', items: [] });
+    });
+    d.cats = cats;
+    return d;
+  }
+
   planCatStyle() {
     return {
       '保險': { dot: '#5a7ba6', bg: '#e9f0f7', fg: '#42648d' },
@@ -321,6 +363,8 @@ class Component extends DCLogic {
   componentDidMount() {
     let d = this.seed();
     try { const s = localStorage.getItem('expense-plan-v1'); if (s) d = JSON.parse(s); } catch (e) {}
+    d = this.alignCatsToAllocation(d);
+    try { localStorage.setItem('expense-plan-v1', JSON.stringify(d)); } catch (e) {}
     let entries = [];
     try { const c = localStorage.getItem('mob-entries-cache'); if (c) entries = JSON.parse(c); } catch (e) {}
     this.setState({ d, entries });
@@ -370,6 +414,7 @@ class Component extends DCLogic {
   addItemToCat(ci) { const d = this.clone(); d.cats[ci].items.push({ name: '新項目', amt: 0, tag: '變動' }); const j = d.cats[ci].items.length - 1; this.setState({ editKey: `item:${ci}:${j}`, open: { ...this.state.open, [d.cats[ci].key]: true } }); this.persist(d); }
   addCat() { const d = this.clone(); const key = 'cat' + Date.now(); d.cats.push({ key, name: '新分類', tag: '變動', items: [] }); const i = d.cats.length - 1; this.setState({ editKey: `cat:${i}`, open: { ...this.state.open, [key]: true } }); this.persist(d); }
   addPlanItem(mi) { const d = this.clone(); d.plan[mi].items.push({ name: '新項目', amt: 0, cat: '其他' }); const j = d.plan[mi].items.length - 1; this.setState({ editKey: `plan:${mi}:${j}` }); this.persist(d); }
+  cycleItemTag(ci, ii) { const d = this.clone(); const it = d.cats[ci].items[ii]; it.tag = it.tag === '固定' ? '變動' : '固定'; this.persist(d); }
 
   renderVals() {
     const S = this.state;
@@ -385,7 +430,9 @@ class Component extends DCLogic {
     const CATS = D.cats.map((c) => ({ ...c, ...this.metaFor(c.key) }));
 
     const catTotals = CATS.map((c) => c.items.reduce((s, it) => s + it.amt, 0));
-    const monthExpense = catTotals.reduce((s, x) => s + x, 0);
+    const allocByCat = this.allocationBudgets();
+    const catBudgets = CATS.map((c, i) => (allocByCat[c.name] != null ? allocByCat[c.name] : catTotals[i]));
+    const monthExpense = catBudgets.reduce((s, x) => s + x, 0);
     const denom = monthExpense || 1;
 
     // ── 手機實際支出（Supabase）對照預算 ──
@@ -401,7 +448,8 @@ class Component extends DCLogic {
       actualByCat[bc] = (actualByCat[bc] || 0) + Number(e.amount);
       (actualItemsByCat[bc] = actualItemsByCat[bc] || []).push(e);
     });
-    const actualTotal = Object.keys(actualByCat).reduce((s, k) => s + actualByCat[k], 0);
+    const fixedActualTotal = CATS.reduce((s, c) => s + c.items.filter((it) => it.tag === '固定').reduce((a, it) => a + (it.amt || 0), 0), 0);
+    const actualTotal = Object.keys(actualByCat).reduce((s, k) => s + actualByCat[k], 0) + fixedActualTotal;
     const budgetTotal = 52000;
     const maxVal = catTotals.length ? Math.max(...catTotals) : 0;
     const maxCat = Math.max(1, maxVal);
@@ -417,8 +465,9 @@ class Component extends DCLogic {
     };
 
     const categories = CATS.map((c, i) => {
-      const total = catTotals[i];
-      const actual = actualByCat[c.name] || 0;
+      const total = catBudgets[i];
+      const fixedActual = c.items.filter((it) => it.tag === '固定').reduce((a, it) => a + (it.amt || 0), 0);
+      const actual = (actualByCat[c.name] || 0) + fixedActual;
       const cmpPct = total > 0 ? actual / total * 100 : (actual > 0 ? 100 : 0);
       const over = total > 0 && actual > total;
       const open = !!S.open[c.key];
@@ -432,21 +481,21 @@ class Component extends DCLogic {
         onAddItem: () => this.addItemToCat(i),
         catTrashStyle: catOn ? 'width:22px; height:22px; border-radius:7px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; color:#d69a8a;' : 'display:none;',
         onDeleteCat: (e) => { e.stopPropagation(); this.deleteItem('cat', i); },
-        totalF: this.ntd(total), pct: Math.round(total / denom * 100),
-        pctStyle: 'font-size:10px; font-weight:600; color:#6a747e; background:#f1ece1; padding:1px 8px; border-radius:20px;',
+        totalF: this.ntd(total), pct: total > 0 ? Math.round(actual / total * 100) : 0,
+        pctStyle: `font-size:10px; font-weight:600; color:${over ? '#c0533f' : '#6a747e'}; background:${over ? '#f8e3dc' : '#f1ece1'}; padding:1px 8px; border-radius:20px;`,
         tag: c.tag, tagStyle: tagMap[c.tag] || tagMap['變動'],
         barStyle: `width:${(total / maxCat * 100).toFixed(1)}%; height:100%; border-radius:4px; background:${c.color};`,
         actualF: this.ntd(actual), budgetF: this.ntd(total),
         cmpLabel: total > 0 ? `${Math.round(actual / total * 100)}%` : (actual > 0 ? '未編列預算' : '—'),
         actualColor: over ? '#c0533f' : '#37424d',
         cmpBarStyle: `width:${Math.min(100, cmpPct).toFixed(1)}%; height:100%; border-radius:4px; background:${over ? '#c05a44' : cmpPct > 85 ? '#c7a05e' : '#7ba38c'};`,
-        actualItems: (actualItemsByCat[c.name] || []).map((e) => ({
+        actualItems: c.items.filter((it) => it.tag === '固定').map((it) => ({ dateF: '固定', label: it.name, account: '自動帶入', amtText: this.fmt(it.amt) })).concat((actualItemsByCat[c.name] || []).map((e) => ({
           dateF: (e.occurred_on || '').slice(5).replace('-', '/'),
           label: (e.note && e.note.trim()) ? e.note : e.category,
           account: e.account || '現金', amtText: this.fmt(e.amount),
-        })),
-        hasActualItems: (actualItemsByCat[c.name] || []).length > 0,
-        actualWrapStyle: (actualItemsByCat[c.name] || []).length > 0 ? 'margin-top:10px; padding-top:8px; border-top:2px dotted #e4ded1;' : 'display:none;',
+        }))),
+        hasActualItems: true,
+        actualWrapStyle: (c.items.some((it) => it.tag === '固定') || (actualItemsByCat[c.name] || []).length > 0) ? 'margin-top:10px; padding-top:8px; border-top:2px dotted #e4ded1;' : 'display:none;',
         toggle: () => this.setState((st) => ({ open: { ...st.open, [c.key]: !st.open[c.key] } })),
         chevStyle: `flex-shrink:0; transition:transform .2s ease; transform:rotate(${open ? 180 : 0}deg);`,
         bodyStyle: `overflow:hidden; transition:all .2s ease; ${open ? '' : 'max-height:0; opacity:0;'}`,
@@ -454,7 +503,8 @@ class Component extends DCLogic {
           const rowKey = `item:${i}:${j}`;
           const on = editKey === rowKey;
           return {
-            idx: j, name: it.name, tag: it.tag, tagStyle: tagMap[it.tag] || tagMap['變動'],
+            idx: j, name: it.name, tag: it.tag, tagStyle: (tagMap[it.tag] || tagMap['變動']) + ' cursor:pointer;',
+            onTagClick: () => this.cycleItemTag(i, j),
             amtText: on ? String(it.amt) : this.fmt(it.amt),
             editable: on, nameFkey: `${rowKey}:name`, amtFkey: `${rowKey}:amt`, pencilStyle: pencil(on),
             onEdit: () => this.toggleKey(rowKey),
