@@ -21,9 +21,10 @@
   .num { font-family: 'Jost', 'Noto Sans TC', sans-serif; font-feature-settings: 'tnum'; }
   @keyframes dotpulse { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
 </style>
+<script>(function(){function f(){var r=document.getElementById('fitroot');if(r){r.style.zoom=Math.min(1.2,document.documentElement.clientWidth/1440);}}window.addEventListener('resize',f);window.addEventListener('load',f);var n=0,t=setInterval(function(){if(document.getElementById('fitroot'))f();if(++n>60)clearInterval(t);},120);})();</script>
 </helmet>
 
-<div ref="{{ rootRef }}" style="zoom:1.2; width:1440px; margin:0 auto; padding:30px 34px 40px; display:flex; gap:26px; align-items:flex-start;">
+<div ref="{{ rootRef }}" id="fitroot" style="width:1440px; margin:0 auto; padding:30px 34px 40px; display:flex; gap:26px; align-items:flex-start;">
 
   <!-- SIDEBAR -->
   <aside style="width:214px; flex-shrink:0; position:sticky; top:30px; display:flex; flex-direction:column; gap:22px;">

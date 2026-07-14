@@ -20,9 +20,10 @@
   .num { font-family: 'Jost', 'Noto Sans TC', sans-serif; font-feature-settings: 'tnum'; }
   @keyframes livepulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.7); } }
 </style>
+<script>(function(){function f(){var r=document.getElementById('fitroot');if(r){r.style.zoom=Math.min(1.2,document.documentElement.clientWidth/1440);}}window.addEventListener('resize',f);window.addEventListener('load',f);var n=0,t=setInterval(function(){if(document.getElementById('fitroot'))f();if(++n>60)clearInterval(t);},120);})();</script>
 </helmet>
 
-<div ref="{{ rootRef }}" style="zoom:1.2; width:1440px; margin:0 auto; padding:26px 30px 34px; display:flex; gap:24px; align-items:flex-start;">
+<div ref="{{ rootRef }}" id="fitroot" style="width:1440px; margin:0 auto; padding:26px 30px 34px; display:flex; gap:24px; align-items:flex-start;">
 
   <!-- ============ SIDEBAR ============ -->
   <aside style="width:220px; flex-shrink:0; position:sticky; top:26px; display:flex; flex-direction:column; gap:20px;">
