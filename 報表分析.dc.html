@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Marcellus&family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans TC', sans-serif; background: #e9e5dc; color: #3b4650; -webkit-font-smoothing: antialiased; }
+  a { color: #5a7ba6; text-decoration: none; }
+  a:hover { color: #45648d; }
+  .serif { font-family: 'Marcellus', 'Noto Serif TC', serif; }
+  .num { font-family: 'Jost', 'Noto Sans TC', sans-serif; font-feature-settings: 'tnum'; }
+</style>
+</helmet>
+
+<div ref="{{ rootRef }}" style="zoom:1.2; width:1440px; margin:0 auto; padding:26px 30px 34px; display:flex; gap:24px; align-items:flex-start;">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside style="width:220px; flex-shrink:0; position:sticky; top:26px; display:flex; flex-direction:column; gap:20px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span style="width:44px; height:44px; border-radius:14px; background:#37424d; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 20px -10px rgba(55,66,77,.7);">
+        <svg viewBox="0 0 24 24" width="26" height="26"><path d="M4.5 12c2.4-4 6-6.1 9.4-5 2.6.8 4.4 2.8 5.1 5-.7 2.2-2.5 4.2-5.1 5-3.4 1.1-7-1-9.4-5z M4.5 12L2.5 9.4v5.2z" fill="none" stroke="#c7a05e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 10.6h.01" fill="none" stroke="#c7a05e" stroke-width="2.2" stroke-linecap="round"></path></svg>
+      </span>
+      <div>
+        <div class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1px;">魚家財務室</div>
+        <div class="num" style="font-size:9.5px; color:#9aa2ab; letter-spacing:3px; margin-top:1px;">HOUSEHOLD OS</div>
+      </div>
+    </div>
+
+    <!-- savings card -->
+    <div style="background:#37424d; border-radius:20px; padding:18px 17px; box-shadow:0 18px 34px -20px rgba(55,66,77,.8); color:#fff;">
+      <div class="num" style="font-size:10px; color:rgba(255,255,255,.55); letter-spacing:3px;">SAVINGS RATE · 儲蓄率</div>
+      <div class="num" style="font-size:34px; font-weight:500; color:#e3c789; line-height:1.15; margin-top:6px;">{{ savingsRate }}</div>
+      <div style="margin-top:12px; padding-top:12px; border-top:2px dotted rgba(255,255,255,.16); display:flex; justify-content:space-between; font-size:11px; color:rgba(255,255,255,.6);">
+        <span>年度結餘</span><span class="num" style="color:#fff; font-weight:600;">{{ surplusShort }}</span>
+      </div>
+    </div>
+
+    <!-- nav -->
+    <div>
+      <div class="num" style="font-size:10px; color:#9aa2ab; letter-spacing:3px; margin:0 4px 10px;">MENU</div>
+      <div style="display:flex; flex-direction:column; gap:2px;">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="7">
+          <a href="{{ n.href }}" style="{{ n.rowStyle }}" style-hover="background:#efeae0;">
+            <svg viewBox="0 0 24 24" width="17" height="17" style="flex-shrink:0;"><path d="{{ n.ip }}" fill="none" stroke="{{ n.stroke }}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="{{ n.ia }}" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <span style="flex:1;">{{ n.label }}</span></a>
+        </sc-for>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:18px;">
+
+    <!-- header -->
+    <div style="display:flex; align-items:flex-end; justify-content:space-between;">
+      <div>
+        <div style="position:relative; display:inline-block;">
+          <span class="serif" style="position:absolute; top:-16px; left:2px; font-size:15px; color:#c7a05e; letter-spacing:3px;">&#65340;&#65295;</span>
+          <h1 class="serif" style="font-weight:700; font-size:30px; color:#37424d; letter-spacing:3px; border-bottom:2px dotted #cdc6b7; padding-bottom:8px;">年度報表分析</h1>
+        </div>
+        <div class="num" style="font-size:11px; color:#9aa2ab; letter-spacing:4px; margin-top:8px;">ANNUAL REVIEW · 這一年，錢怎麼流動？</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:4px; background:#fff; border:1px solid #ece7dd; border-radius:14px; padding:6px 8px; box-shadow:0 10px 24px -18px rgba(59,70,80,.4);">
+        <span style="width:28px; height:28px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#8a939c; font-size:15px;" style-hover="background:#f1ede2; color:#37424d;">&#8249;</span>
+        <span class="serif" style="font-size:16px; color:#37424d; letter-spacing:1px; min-width:90px; text-align:center;">{{ yearLabel }}</span>
+        <span style="width:28px; height:28px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#8a939c; font-size:15px;" style-hover="background:#f1ede2; color:#37424d;">&#8250;</span>
+      </div>
+    </div>
+
+    <!-- ===== KPI strip ===== -->
+    <section id="trend" style="background:#fff; border:1px solid #ece7dd; border-radius:24px; padding:22px 24px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+      <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:0;">
+        <sc-for list="{{ kpis }}" as="h" hint-placeholder-count="5">
+          <div style="{{ h.cell }}">
+            <div class="num" style="font-size:10px; color:#9aa2ab; letter-spacing:2.5px;">{{ h.eng }}</div>
+            <div style="font-size:12px; color:#6a747e; margin-top:2px;">{{ h.label }}</div>
+            <div class="num" style="font-size:22px; font-weight:500; color:{{ h.valColor }}; margin-top:7px;">{{ h.val }}</div>
+            <div style="{{ h.deltaStyle }}">{{ h.delta }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- ===== ① 收支趨勢 ===== -->
+    <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3.5 19.5h17M6 16v-4M10.5 16V8M15 16v-6M19.5 16v-9" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <h2 class="serif" style="font-weight:700; font-size:17px; color:#37424d; letter-spacing:1.5px;">收支趨勢 · 錢流進又流出，結餘多少？</h2>
+        <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
+        <div style="display:flex; gap:14px;">
+          <span style="display:flex; align-items:center; gap:6px; font-size:11px; color:#6a747e;"><span style="width:10px; height:10px; border-radius:3px; background:#5a7ba6;"></span>收入</span>
+          <span style="display:flex; align-items:center; gap:6px; font-size:11px; color:#6a747e;"><span style="width:10px; height:10px; border-radius:3px; background:#cf8b6f;"></span>支出</span>
+          <span style="display:flex; align-items:center; gap:6px; font-size:11px; color:#6a747e;"><span style="width:14px; height:3px; border-radius:2px; background:#c7a05e;"></span>結餘</span>
+        </div>
+      </div>
+      <div style="font-size:11px; color:#a3abb2; margin:0 0 12px 30px;">近 12 個月每月收入、支出與結餘</div>
+      <svg viewBox="0 0 1000 260" style="width:100%; height:auto; display:block;">
+        <sc-for list="{{ trendGrid }}" as="g" hint-placeholder-count="5">
+          <line x1="54" y1="{{ g.y }}" x2="980" y2="{{ g.y }}" stroke="#eee9de" stroke-width="1"></line>
+        </sc-for>
+        <sc-for list="{{ trendGrid }}" as="g" hint-placeholder-count="5">
+          <text x="46" y="{{ g.ty }}" text-anchor="end" font-size="12" font-family="Jost" fill="#b3ab98">{{ g.label }}</text>
+        </sc-for>
+        <sc-for list="{{ trendBars }}" as="b" hint-placeholder-count="12">
+          <rect x="{{ b.incX }}" y="{{ b.incY }}" width="{{ b.bw }}" height="{{ b.incH }}" rx="3" fill="#5a7ba6"></rect>
+        </sc-for>
+        <sc-for list="{{ trendBars }}" as="b" hint-placeholder-count="12">
+          <rect x="{{ b.expX }}" y="{{ b.expY }}" width="{{ b.bw }}" height="{{ b.expH }}" rx="3" fill="#cf8b6f"></rect>
+        </sc-for>
+        <path d="{{ surplusLine }}" fill="none" stroke="#c7a05e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <sc-for list="{{ trendBars }}" as="b" hint-placeholder-count="12">
+          <circle cx="{{ b.lx }}" cy="{{ b.sy }}" r="3.5" fill="#fff" stroke="#c7a05e" stroke-width="2"></circle>
+        </sc-for>
+      </svg>
+      <div style="display:grid; grid-template-columns:repeat(12,1fr); padding:6px 2% 0 5.4%;">
+        <sc-for list="{{ monthLabels }}" as="m" hint-placeholder-count="12">
+          <div class="num" style="font-size:12px; font-weight:500; color:#6a747e; text-align:center;">{{ m }}</div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- ===== ② 資產成長 | ⑤ 收入來源 ===== -->
+    <div style="display:grid; grid-template-columns:1.3fr 1fr; gap:18px; align-items:stretch;">
+
+      <!-- ② 資產成長 -->
+      <section style="background:#37424d; border-radius:22px; padding:20px 22px; box-shadow:0 26px 46px -30px rgba(55,66,77,.8); color:#fff;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3.5 18.5L9.5 12l3.5 3.5 7-8" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16 7.5h4v4" fill="none" stroke="#e3c789" stroke-width="1.7" stroke-linecap="round"></path></svg>
+          <h2 class="serif" style="font-weight:700; font-size:16px; letter-spacing:1.5px;">資產成長 · 淨值變多了嗎？</h2>
+          <span style="margin-left:auto; text-align:right;">
+            <span class="num" style="font-size:20px; font-weight:500; color:#fff;">{{ nwNow }}</span>
+          </span>
+        </div>
+        <div style="font-size:11px; color:rgba(255,255,255,.55); margin:0 0 10px 30px;">近 12 個月家庭淨值走勢 · 今年 {{ nwDelta }}</div>
+        <svg viewBox="0 0 620 222" style="width:100%; height:auto; display:block;">
+          <sc-for list="{{ assetGrid }}" as="g" hint-placeholder-count="4">
+            <line x1="52" y1="{{ g.y }}" x2="600" y2="{{ g.y }}" stroke="rgba(255,255,255,.12)" stroke-width="1"></line>
+          </sc-for>
+          <sc-for list="{{ assetGrid }}" as="g" hint-placeholder-count="4">
+            <text x="44" y="{{ g.ty }}" text-anchor="end" font-size="12" font-family="Jost" fill="rgba(255,255,255,.45)">{{ g.label }}</text>
+          </sc-for>
+          <path d="{{ assetArea }}" fill="rgba(227,199,137,.14)"></path>
+          <path d="{{ assetPath }}" fill="none" stroke="#e3c789" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          <sc-for list="{{ assetPts }}" as="p" hint-placeholder-count="12">
+            <circle cx="{{ p.x }}" cy="{{ p.y }}" r="3.5" fill="#37424d" stroke="#e3c789" stroke-width="2"></circle>
+          </sc-for>
+        </svg>
+        <div style="display:grid; grid-template-columns:repeat(12,1fr); padding:6px 3.2% 0 8.4%;">
+          <sc-for list="{{ monthLabels }}" as="m" hint-placeholder-count="12">
+            <div class="num" style="font-size:12px; font-weight:500; color:rgba(255,255,255,.7); text-align:center;">{{ m }}</div>
+          </sc-for>
+        </div>
+      </section>
+
+      <!-- ⑤ 收入來源分析 -->
+      <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 4a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z" fill="none" stroke="#3f4a54" stroke-width="1.7"></path><path d="M5.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round"></path></svg>
+          <h2 class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1.5px;">收入來源</h2>
+        </div>
+        <div style="font-size:11px; color:#a3abb2; margin:0 0 14px 30px;">錢主要從哪裡來？</div>
+        <div style="display:flex; align-items:center; gap:18px;">
+          <div style="position:relative; width:120px; height:120px; flex-shrink:0;">
+            <div style="width:120px; height:120px; border-radius:50%; background:{{ incomeDonut }};"></div>
+            <div style="position:absolute; inset:26px; background:#fff; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+              <div class="num" style="font-size:8.5px; color:#9aa2ab; letter-spacing:2px;">被動</div>
+              <div class="num" style="font-size:17px; font-weight:500; color:#37424d;">{{ passivePct }}%</div>
+            </div>
+          </div>
+          <div style="flex:1; display:flex; flex-direction:column; gap:10px;">
+            <sc-for list="{{ incomeSources }}" as="s" hint-placeholder-count="4">
+              <div style="display:flex; align-items:center; gap:9px;">
+                <span style="width:9px; height:9px; border-radius:3px; background:{{ s.color }}; flex-shrink:0;"></span>
+                <span style="flex:1; font-size:12px; color:#4b5560;">{{ s.label }}</span>
+                <span class="num" style="font-size:11.5px; color:#8a939c;">{{ s.valShort }}</span>
+                <span class="num" style="font-size:12px; font-weight:600; color:#37424d; width:36px; text-align:right;">{{ s.pct }}%</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===== ③ 支出分析 | ④ 預算達成率 ===== -->
+    <div style="display:grid; grid-template-columns:1fr 1.25fr; gap:18px; align-items:stretch;">
+
+      <!-- ③ 支出分析 -->
+      <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 3.5a8.5 8.5 0 1 0 8.5 8.5" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round"></path><path d="M12 12V3.5A8.5 8.5 0 0 1 20.5 12z" fill="none" stroke="#cf8b6f" stroke-width="1.7" stroke-linejoin="round"></path></svg>
+          <h2 class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1.5px;">支出分析</h2>
+        </div>
+        <div style="font-size:11px; color:#a3abb2; margin:0 0 14px 30px;">錢花去哪了？年度累計</div>
+        <div style="display:flex; align-items:center; gap:18px;">
+          <div style="position:relative; width:120px; height:120px; flex-shrink:0;">
+            <div style="width:120px; height:120px; border-radius:50%; background:{{ expenseDonut }};"></div>
+            <div style="position:absolute; inset:26px; background:#fff; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+              <div class="num" style="font-size:8.5px; color:#9aa2ab; letter-spacing:2px;">總支出</div>
+              <div class="num" style="font-size:15px; font-weight:500; color:#37424d;">{{ expenseShort }}</div>
+            </div>
+          </div>
+          <div style="flex:1; display:flex; flex-direction:column; gap:9px;">
+            <sc-for list="{{ expenseCats }}" as="e" hint-placeholder-count="5">
+              <div style="display:flex; align-items:center; gap:9px;">
+                <span style="width:9px; height:9px; border-radius:3px; background:{{ e.color }}; flex-shrink:0;"></span>
+                <span style="flex:1; font-size:12px; color:#4b5560;">{{ e.label }}</span>
+                <span class="num" style="font-size:11.5px; color:#8a939c;">{{ e.valShort }}</span>
+                <span class="num" style="font-size:12px; font-weight:600; color:#37424d; width:36px; text-align:right;">{{ e.pct }}%</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- ④ 預算達成率 -->
+      <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3.5 12a8.5 8.5 0 1 0 17 0a8.5 8.5 0 1 0-17 0" fill="none" stroke="#3f4a54" stroke-width="1.7"></path><path d="M12 12V4M12 12l6 3" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round"></path></svg>
+          <h2 class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1.5px;">預算達成率</h2>
+          <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
+          <span class="num" style="font-size:11px; color:#6a747e;">本月 實際 / 預算</span>
+        </div>
+        <div style="font-size:11px; color:#a3abb2; margin:0 0 14px 30px;">花得比計畫多還是少？超支以紅色標示</div>
+        <div style="display:flex; flex-direction:column; gap:13px;">
+          <sc-for list="{{ budgets }}" as="b" hint-placeholder-count="6">
+            <div>
+              <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:5px;">
+                <span style="font-size:12.5px; color:#4b5560; flex:1;">{{ b.label }}</span>
+                <span class="num" style="font-size:12px; color:#8a939c;">{{ b.actualF }} / {{ b.budgetF }}</span>
+                <span class="num" style="{{ b.pctStyle }}">{{ b.pct }}%</span>
+              </div>
+              <div style="height:9px; background:#eee9de; border-radius:6px; overflow:hidden;"><div style="{{ b.barStyle }}"></div></div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===== AI ===== -->
+    <section style="background:#3b4650; border-radius:22px; padding:20px 22px; box-shadow:0 26px 46px -30px rgba(55,66,77,.85); color:#fff;">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px;">
+        <svg viewBox="0 0 24 24" width="19" height="19"><path d="M12 3.5V8M12 16v4.5M3.5 12H8M16 12h4.5" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 9.5l2.5 2.5-2.5 2.5L9.5 12z" fill="none" stroke="#e3c789" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <h2 class="serif" style="font-weight:700; font-size:16px; letter-spacing:1.5px;">AI 年度洞察</h2>
+        <span style="flex:1; border-top:2px dotted rgba(255,255,255,.18);"></span>
+        <span class="num" style="font-size:9px; letter-spacing:3px; color:rgba(255,255,255,.55);">ADVISOR</span>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <sc-for list="{{ insights }}" as="ins" hint-placeholder-count="4">
+          <div style="{{ ins.style }}">
+            <svg viewBox="0 0 24 24" width="16" height="16" style="flex-shrink:0; margin-top:2px;"><path d="{{ ins.ip }}" fill="none" stroke="{{ ins.stroke }}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="{{ ins.ia }}" fill="none" stroke="#e3c789" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <span style="font-size:12.5px; line-height:1.55;">{{ ins.text }}</span></div>
+        </sc-for>
+      </div>
+    </section>
+
+    <div class="num" style="text-align:center; font-size:10px; color:#a9a596; letter-spacing:4px; padding:6px 0 2px;">魚家財務室 · ANNUAL REVIEW · 2026</div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1730,&quot;height&quot;:2500}}">
+class Component extends DCLogic {
+  icons() {
+    const circle = 'M3.5 12a8.5 8.5 0 1 0 17 0a8.5 8.5 0 1 0-17 0';
+    return {
+      home: { p: 'M5 11.5l7-6.5 7 6.5M6.5 10v9.5h11V10', a: 'M10.5 19.5V16h3v3.5' },
+      coin: { p: circle, a: 'M9.5 9l2.5 3 2.5-3M12 12v4M9.8 13.5h4.4' },
+      alloc: { p: circle, a: 'M12 12V3.5M12 12l7 3.5' },
+      expense: { p: 'M4 12.5h4l2.5-5 4 10 2.5-5h4', a: 'M12 3.5v2M12 18.5v2' },
+      asset: { p: 'M4 9.5l8-5 8 5M5.5 9.5v8M18.5 9.5v8M4 19.5h16', a: 'M9 12v4M15 12v4' },
+      report: { p: 'M6.5 3.5h8l4 4v13h-12zM14 3.5v4h4', a: 'M9 12.5h6M9 16h4' },
+      settings: { p: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM12 3v2.5M12 18.5V21M4.2 7.5l2.2 1.3M17.6 15.2l2.2 1.3M4.2 16.5l2.2-1.3M17.6 8.8l2.2-1.3', a: '' },
+      grow: { p: 'M3.5 18.5L9.5 12l3.5 3.5 7-8', a: 'M16 7.5h4v4' },
+      warn: { p: 'M12 3.5L2.5 20h19z', a: 'M12 10v4M12 17h.01' },
+      pie: { p: 'M12 3.5a8.5 8.5 0 1 0 8.5 8.5', a: 'M12 12V3.5' },
+    };
+  }
+
+  fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+  ntd(n) { return `NT$ ${this.fmt(n)}`; }
+  kf(n) { return n >= 1e8 ? (n / 1e8).toFixed(2) + '億' : Math.round(n / 10000).toLocaleString('en-US') + '萬'; }
+  donutOf(rows, total) { let acc = 0; return `conic-gradient(${rows.map((r) => { const s = acc / total * 100; acc += r.v; const e = acc / total * 100; return `${r.color} ${s.toFixed(2)}% ${e.toFixed(2)}%`; }).join(', ')})`; }
+
+  renderVals() {
+    const I = this.icons();
+
+    // ── ① 收支趨勢（近12個月）──
+    const months = ['8月', '9月', '10月', '11月', '12月', '1月', '2月', '3月', '4月', '5月', '6月', '7月'];
+    const inc = [82000, 84000, 83000, 86000, 97000, 92000, 88000, 90000, 95000, 88000, 93000, 110000];
+    const exp = [68000, 72000, 70000, 74000, 80000, 76000, 72000, 70000, 78000, 72000, 75000, 85000];
+    const n = months.length;
+    const L = 54, R = 980, T = 24, B = 250, maxV = 120000;
+    const gw = (R - L) / n, bw = gw * 0.26;
+    const yAt = (v) => B - (B - T) * v / maxV;
+    const trendBars = months.map((m, i) => {
+      const cx = L + gw * (i + 0.5);
+      const iy = yAt(inc[i]), ey = yAt(exp[i]), sy = yAt(inc[i] - exp[i]);
+      return { label: m, bw: bw.toFixed(1), incX: (cx - bw - 1.5).toFixed(1), incY: iy.toFixed(1), incH: (B - iy).toFixed(1), expX: (cx + 1.5).toFixed(1), expY: ey.toFixed(1), expH: (B - ey).toFixed(1), lx: cx.toFixed(1), sy: sy.toFixed(1) };
+    });
+    const surplusLine = trendBars.map((b, i) => `${i === 0 ? 'M' : 'L'}${b.lx} ${b.sy}`).join(' ');
+    const trendGrid = [0, 0.25, 0.5, 0.75, 1].map((f) => { const v = maxV * f; const y = yAt(v); return { y: y.toFixed(1), ty: (y + 4).toFixed(1), label: this.kf(v) }; });
+
+    // ── ② 資產成長（淨值 萬）──
+    const aVals = [980, 995, 1005, 1012, 1030, 1048, 1055, 1070, 1088, 1095, 1112, 1133];
+    const L2 = 52, R2 = 600, T2 = 20, B2 = 212, aMax = 1180, aMin = 940;
+    const xA = (i) => L2 + (R2 - L2) * i / (n - 1);
+    const yA = (v) => B2 - (B2 - T2) * (v - aMin) / (aMax - aMin);
+    const assetPts = aVals.map((v, i) => ({ x: xA(i).toFixed(1), y: yA(v).toFixed(1), label: months[i] }));
+    const assetPath = assetPts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x} ${p.y}`).join(' ');
+    const assetArea = `${assetPath} L${assetPts[n - 1].x} ${B2} L${assetPts[0].x} ${B2} Z`;
+    const assetGrid = [aMin, 1020, 1100, aMax].map((v) => { const y = yA(v); return { y: y.toFixed(1), ty: (y + 4).toFixed(1), label: Math.round(v) + '萬' }; });
+
+    // ── ③ 支出分析（年度累計）──
+    const expenseRaw = [
+      { label: '生活開銷', v: 168000, color: '#37424d' },
+      { label: '居住貸款', v: 153118, color: '#5a7ba6' },
+      { label: '投資扣款', v: 91000, color: '#c7a05e' },
+      { label: '保險', v: 84000, color: '#8a9bb2' },
+      { label: '其他', v: 63882, color: '#b9b0a0' },
+    ];
+    const expenseTotal = expenseRaw.reduce((s, e) => s + e.v, 0);
+    const expenseDonut = this.donutOf(expenseRaw, expenseTotal);
+    const expenseCats = expenseRaw.map((e) => ({ label: e.label, color: e.color, valShort: this.kf(e.v), pct: (e.v / expenseTotal * 100).toFixed(0) }));
+
+    // ── ⑤ 收入來源分析（年度累計）──
+    const incomeRaw = [
+      { label: '工作收入', v: 294000, color: '#5a7ba6' },
+      { label: '家庭轉入', v: 280000, color: '#8a9bb2' },
+      { label: '投資現金', v: 75000, color: '#c7a05e' },
+      { label: '其他', v: 8000, color: '#b9b0a0' },
+    ];
+    const incomeTotal = incomeRaw.reduce((s, e) => s + e.v, 0);
+    const incomeDonut = this.donutOf(incomeRaw, incomeTotal);
+    const incomeSources = incomeRaw.map((e) => ({ label: e.label, color: e.color, valShort: this.kf(e.v), pct: (e.v / incomeTotal * 100).toFixed(0) }));
+    const passivePct = (75000 / incomeTotal * 100).toFixed(0);
+
+    // ── ④ 預算達成率（本月）──
+    const budgetRaw = [
+      { label: '生活開銷', actual: 24300, budget: 25000 },
+      { label: '餐飲', actual: 12800, budget: 12000 },
+      { label: '育兒教育', actual: 9500, budget: 10000 },
+      { label: '保險', actual: 7000, budget: 7000 },
+      { label: '交通', actual: 4200, budget: 6000 },
+      { label: '娛樂', actual: 3100, budget: 4000 },
+    ];
+    const budgets = budgetRaw.map((b) => {
+      const pct = Math.round(b.actual / b.budget * 100);
+      const over = pct > 100;
+      const near = pct >= 92 && pct <= 100;
+      const barColor = over ? '#d68a76' : near ? '#e3c789' : '#7ba38c';
+      const txtColor = over ? '#c05a44' : near ? '#a07f3a' : '#6e9257';
+      return {
+        label: b.label, actualF: this.fmt(b.actual), budgetF: this.fmt(b.budget), pct,
+        pctStyle: `font-size:12px; font-weight:700; color:${txtColor}; width:44px; text-align:right;`,
+        barStyle: `width:${Math.min(pct, 100)}%; height:100%; border-radius:6px; background:${barColor};`,
+      };
+    });
+
+    // ── KPI strip ──
+    const totalIncome = incomeTotal, totalExpense = expenseTotal;
+    const surplus = totalIncome - totalExpense;
+    const savingsRate = (surplus / totalIncome * 100).toFixed(1) + '%';
+    const up = 'font-size:11px; font-weight:700; color:#6e9257; margin-top:6px;';
+    const flat = 'font-size:11px; font-weight:700; color:#5a7ba6; margin-top:6px;';
+    const down = 'font-size:11px; font-weight:700; color:#c05a44; margin-top:6px;';
+    const cellBase = 'padding:2px 18px;';
+    const cellDiv = cellBase + ' border-left:2px dotted #e4ded1;';
+    const kpis = [
+      { eng: 'INCOME', label: '年度總收入', val: this.ntd(totalIncome), valColor: '#37424d', delta: '▲ 較去年 +11%', deltaStyle: up, cell: cellBase },
+      { eng: 'EXPENSE', label: '年度總支出', val: this.ntd(totalExpense), valColor: '#c05a44', delta: '▲ 較去年 +6%', deltaStyle: down, cell: cellDiv },
+      { eng: 'SURPLUS', label: '年度結餘', val: this.ntd(surplus), valColor: '#6e9257', delta: '▲ 淨流入', deltaStyle: up, cell: cellDiv },
+      { eng: 'SAVINGS', label: '儲蓄率', val: savingsRate, valColor: '#37424d', delta: '穩健區間', deltaStyle: flat, cell: cellDiv },
+      { eng: 'NET WORTH', label: '淨值成長', val: '+153萬', valColor: '#6e9257', delta: '▲ +15.6%', deltaStyle: up, cell: cellDiv },
+    ];
+
+    // ── AI insights ──
+    const insBase = 'display:flex; gap:9px; background:rgba(255,255,255,.1); border-radius:12px; padding:10px 12px;';
+    const warnBase = 'display:flex; gap:9px; background:rgba(222,91,66,.16); border-radius:12px; padding:10px 12px;';
+    const insights = [
+      { ic: I.grow, stroke: '#fff', style: insBase, text: `今年家庭淨值成長 15.6%，主要來自台股帳面獲利與持續儲蓄，趨勢良好。` },
+      { ic: I.coin, stroke: '#fff', style: insBase, text: `儲蓄率 ${savingsRate}，每月平均結餘約 ${this.fmt(surplus / n)}，建議維持並優先累積緊急預備金。` },
+      { ic: I.warn, stroke: '#f4c9be', style: warnBase, text: `本月「餐飲」超出預算 7%，是唯一超支項目，可留意外食頻率。` },
+      { ic: I.pie, stroke: '#fff', style: insBase, text: `被動收入僅占總收入 ${passivePct}%，收入仍高度依賴工作與家庭轉入，可逐步提高配息部位。` },
+    ].map((x) => ({ ip: x.ic.p, ia: x.ic.a, stroke: x.stroke, style: x.style, text: x.text }));
+
+    // ── sidebar nav ──
+    const navItems = [
+      { label: '首頁', ic: I.home, href: '記帳CFO v2.dc.html' },
+      { label: '收入', ic: I.coin, href: '收入中心.dc.html' },
+      { label: '資金分配', ic: I.alloc, href: '資金分配.dc.html' },
+      { label: '支出', ic: I.expense, href: '支出中心.dc.html' },
+      { label: '資產', ic: I.asset, href: '資產.dc.html' },
+      { label: '報表', ic: I.report, href: '#trend', active: true },
+      { label: '設定', ic: I.settings, href: '#' },
+    ].map((nv) => ({
+      label: nv.label, href: nv.href, ip: nv.ic.p, ia: nv.ic.a,
+      stroke: nv.active ? '#37424d' : '#3f4a54',
+      rowStyle: `display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px; font-size:13.5px; transition:background .2s ease; ${nv.active ? 'color:#37424d; font-weight:700; background:#f1ede2;' : 'color:#5b6670;'}`,
+    }));
+
+    return {
+      rootRef: (el) => { this.root = el; },
+      navItems, kpis, yearLabel: '2026 年', monthLabels: months,
+      savingsRate, surplusShort: this.ntd(surplus),
+      trendBars, trendGrid, surplusLine,
+      assetPts, assetPath, assetArea, assetGrid, nwNow: '1,133萬', nwDelta: '+15.6%',
+      expenseDonut, expenseCats, expenseShort: this.kf(expenseTotal),
+      incomeDonut, incomeSources, passivePct,
+      budgets,
+      insights,
+    };
+  }
+}
+</script>
+</body>
+</html>

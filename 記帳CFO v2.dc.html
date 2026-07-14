@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Marcellus&family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans TC', sans-serif; background: #e9e5dc; color: #3b4650; -webkit-font-smoothing: antialiased; }
+  a { color: #5a7ba6; text-decoration: none; }
+  a:hover { color: #45648d; }
+  .serif { font-family: 'Marcellus', 'Noto Serif TC', serif; }
+  .num { font-family: 'Jost', 'Noto Sans TC', sans-serif; font-feature-settings: 'tnum'; }
+</style>
+</helmet>
+
+<div style="zoom:1.2; width:1440px; margin:0 auto; padding:30px 34px 40px; display:flex; gap:26px; align-items:flex-start;">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside style="width:214px; flex-shrink:0; position:sticky; top:30px; display:flex; flex-direction:column; gap:22px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span style="width:44px; height:44px; border-radius:14px; background:#37424d; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 20px -10px rgba(55,66,77,.7);">
+        <svg viewBox="0 0 24 24" width="26" height="26"><path d="M4.5 12c2.4-4 6-6.1 9.4-5 2.6.8 4.4 2.8 5.1 5-.7 2.2-2.5 4.2-5.1 5-3.4 1.1-7-1-9.4-5z M4.5 12L2.5 9.4v5.2z" fill="none" stroke="#c7a05e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 10.6h.01" fill="none" stroke="#c7a05e" stroke-width="2.2" stroke-linecap="round"></path></svg>
+      </span>
+      <div>
+        <div class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1px;">魚家財務室</div>
+        <div class="num" style="font-size:9.5px; color:#9aa2ab; letter-spacing:3px; margin-top:1px;">HOUSEHOLD OS</div>
+      </div>
+    </div>
+
+    <!-- health score card -->
+    <div style="background:#fff; border:1px solid #ece7dd; border-radius:20px; padding:18px 17px; box-shadow:0 14px 30px -20px rgba(59,70,80,.35); text-align:center;">
+      <div class="num" style="font-size:10px; color:#9aa2ab; letter-spacing:3px;">HEALTH SCORE</div>
+      <div class="serif" style="font-size:48px; color:{{ scoreColor }}; line-height:1.1; margin-top:4px;">{{ score }}</div>
+      <div class="serif" style="font-size:12.5px; font-weight:600; color:#5b6670; letter-spacing:2px;">{{ scoreWord }}</div>
+      <div style="margin-top:13px; padding-top:13px; border-top:2px dotted #e4ded1; display:flex; justify-content:space-between; font-size:11px; color:#9aa2ab;">
+        <span>淨資產</span><span class="num" style="color:#37424d; font-weight:600;">{{ netWorthF }}</span>
+      </div>
+    </div>
+
+    <!-- nav -->
+    <div>
+      <div class="num" style="font-size:10px; color:#9aa2ab; letter-spacing:3px; margin:0 4px 10px;">MENU</div>
+      <div style="display:flex; flex-direction:column; gap:3px;">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="7">
+          <a href="{{ n.href }}" style="{{ n.rowStyle }}" style-hover="background:#efeae0;">
+            <svg viewBox="0 0 24 24" width="18" height="18" style="flex-shrink:0;"><path d="{{ n.ip }}" fill="none" stroke="{{ n.stroke }}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="{{ n.ia }}" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <span>{{ n.label }}</span></a>
+        </sc-for>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:22px;">
+
+    <!-- header -->
+    <div style="display:flex; align-items:flex-end; justify-content:space-between;">
+      <div>
+        <h1 class="serif" style="font-weight:700; font-size:32px; color:#37424d; letter-spacing:2px;">{{ greeting }}，魚太</h1>
+        <div class="num" style="font-size:12px; color:#9aa2ab; letter-spacing:2px; margin-top:6px;">{{ dateLine }} · 30 秒掌握家庭財務</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:4px; background:#fff; border:1px solid #ece7dd; border-radius:14px; padding:6px 8px; box-shadow:0 10px 24px -18px rgba(59,70,80,.4);">
+        <span style="width:28px; height:28px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#8a939c; font-size:15px; transition:background .2s ease;" onClick="{{ prevMonth }}" style-hover="background:#f1ede2; color:#37424d;">&#8249;</span>
+        <span class="serif" style="font-size:16px; color:#37424d; letter-spacing:1px; min-width:110px; text-align:center;">{{ ymLabel }}</span>
+        <span style="width:28px; height:28px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#8a939c; font-size:15px; transition:background .2s ease;" onClick="{{ nextMonth }}" style-hover="background:#f1ede2; color:#37424d;">&#8250;</span>
+      </div>
+    </div>
+
+    <!-- ===== HERO：本月狀況 一眼看完 ===== -->
+    <section style="background:#fff; border:1px solid #ece7dd; border-radius:26px; padding:30px 34px; box-shadow:0 26px 50px -36px rgba(59,70,80,.55);">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:30px;">
+        <div style="flex:1;">
+          <div class="num" style="font-size:11px; color:#9aa2ab; letter-spacing:3px;">本月可支配 · DISPOSABLE</div>
+          <div style="display:flex; align-items:baseline; gap:14px; margin-top:8px;">
+            <span class="num" style="font-size:52px; font-weight:500; color:#37424d; line-height:1;">{{ balanceF }}</span>
+            <span style="font-size:12px; font-weight:600; color:#6e9257; background:#e6efd8; padding:4px 12px; border-radius:20px;">儲蓄率 {{ savingsRate }}%</span>
+          </div>
+          <div style="font-size:13px; color:#8e97a0; margin-top:14px; line-height:1.6; max-width:440px;">{{ statusLine }}</div>
+        </div>
+        <div style="width:200px; flex-shrink:0; border-left:2px dotted #e4ded1; padding-left:26px; display:flex; flex-direction:column; gap:16px;">
+          <sc-for list="{{ heroMini }}" as="m" hint-placeholder-count="2">
+            <div>
+              <div style="font-size:11px; color:#9aa2ab;">{{ m.label }}</div>
+              <div style="display:flex; align-items:baseline; gap:8px; margin-top:2px;">
+                <span class="num" style="font-size:22px; font-weight:500; color:{{ m.color }};">{{ m.val }}</span>
+                <span style="font-size:11px; color:#a9b0b7;">{{ m.sub }}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 今日 Brief + 財務行事曆 ===== -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:22px; align-items:stretch;">
+
+      <!-- Today Brief -->
+      <section style="background:#37424d; border-radius:24px; padding:24px 26px; box-shadow:0 26px 50px -34px rgba(55,66,77,.85); color:#fff;">
+        <div style="display:flex; align-items:center; gap:11px; margin-bottom:5px;">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 3.5V7M12 17v3.5M3.5 12H7M17 12h3.5" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 9l3 3-3 3-3-3z" fill="none" stroke="#e3c789" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <h2 class="serif" style="font-weight:700; font-size:18px; letter-spacing:1.5px;">今日 Brief</h2>
+          <span class="num" style="margin-left:auto; font-size:9px; letter-spacing:3px; color:rgba(255,255,255,.5);">TODAY</span>
+        </div>
+        <div style="font-size:11.5px; color:rgba(255,255,255,.5); margin:0 0 16px 31px;">今天需要注意的事</div>
+        <div style="display:flex; flex-direction:column; gap:11px;">
+          <sc-for list="{{ brief }}" as="b" hint-placeholder-count="3">
+            <div style="display:flex; align-items:flex-start; gap:13px;">
+              <span style="{{ b.dot }}"></span>
+              <div style="flex:1;">
+                <div style="font-size:13.5px; color:#fff; line-height:1.5;">{{ b.text }}</div>
+                <div style="font-size:11px; color:rgba(255,255,255,.5); margin-top:2px;">{{ b.sub }}</div>
+              </div>
+              <span style="{{ b.tagStyle }}">{{ b.tag }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <!-- 財務行事曆 -->
+      <section style="background:#fff; border:1px solid #ece7dd; border-radius:24px; padding:24px 26px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+        <div style="display:flex; align-items:center; gap:11px; margin-bottom:5px;">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4.5 6.5h15v13h-15zM4.5 10.5h15" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.5 3.5v4M15.5 3.5v4" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <h2 class="serif" style="font-weight:700; font-size:18px; color:#37424d; letter-spacing:1.5px;">近期扣款提醒</h2>
+          <a href="支出中心.dc.html" style="margin-left:auto; font-size:11px; color:#9aa2ab;">年度規劃 →</a>
+        </div>
+        <div style="font-size:11.5px; color:#a3abb2; margin:0 0 16px 31px;">近期扣款與信用卡繳費</div>
+        <div style="display:flex; flex-direction:column;">
+          <sc-for list="{{ calendar }}" as="e" hint-placeholder-count="4">
+            <div style="display:flex; align-items:center; gap:14px; padding:11px 0; border-bottom:1px solid #f1ece1;">
+              <div style="width:46px; flex-shrink:0; text-align:center;">
+                <div class="num" style="font-size:17px; font-weight:600; color:#37424d; line-height:1;">{{ e.day }}</div>
+                <div class="num" style="font-size:10px; color:#b3ab98; letter-spacing:1px;">{{ e.mon }}</div>
+              </div>
+              <span style="width:34px; height:34px; border-radius:11px; background:#faf8f2; border:1px solid #ece7dd; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg viewBox="0 0 24 24" width="18" height="18"><path d="{{ e.ip }}" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="{{ e.ia }}" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+              <div style="flex:1; min-width:0;"><div style="font-size:13.5px; color:#3b4650;">{{ e.name }}</div><div style="font-size:11px; color:#a3abb2;">{{ e.kindLabel }}</div></div>
+              <span class="num" style="{{ e.amtStyle }}">{{ e.amtF }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===== 摘要卡：預算 / 支出 / 淨資產（各回答一個問題，點入模組看細節） ===== -->
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px;">
+      <sc-for list="{{ summaryCards }}" as="c" hint-placeholder-count="3">
+        <a href="{{ c.href }}" style="display:block; background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:22px 24px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5); transition:box-shadow .2s ease;" style-hover="box-shadow:0 26px 50px -30px rgba(59,70,80,.6);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+            <svg viewBox="0 0 24 24" width="19" height="19"><path d="{{ c.ip }}" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="{{ c.ia }}" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <h2 class="serif" style="font-weight:700; font-size:15.5px; color:#37424d; letter-spacing:1px;">{{ c.q }}</h2>
+            <span style="margin-left:auto; color:#c3ccd2; font-size:15px;">→</span>
+          </div>
+          <div class="num" style="font-size:28px; font-weight:500; color:{{ c.valColor }};">{{ c.val }}</div>
+          <div style="font-size:12px; color:#8e97a0; margin-top:4px;">{{ c.sub }}</div>
+          <div style="height:8px; background:#eee9de; border-radius:5px; overflow:hidden; margin-top:14px;"><div style="{{ c.barStyle }}"></div></div>
+        </a>
+      </sc-for>
+    </div>
+
+    <div class="num" style="text-align:center; font-size:10px; color:#a9a596; letter-spacing:4px; padding:8px 0 2px;">魚家財務室 · HOUSEHOLD OS · 2026</div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:980}}">
+class Component extends DCLogic {
+  state = { ym: { y: 2026, m: 8 } };
+  stepMonth(d) { let { y, m } = this.state.ym; m += d; if (m < 1) { m = 12; y -= 1; } else if (m > 12) { m = 1; y += 1; } this.setState({ ym: { y, m } }); }
+
+  fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+  ntd(n) { return `NT$ ${this.fmt(n)}`; }
+
+  icons() {
+    const circle = 'M3.5 12a8.5 8.5 0 1 0 17 0a8.5 8.5 0 1 0-17 0';
+    return {
+      home:   { p: 'M5 11.5l7-6.5 7 6.5M6.5 10v9.5h11V10', a: 'M10.5 19.5V16h3v3.5' },
+      coin:   { p: circle, a: 'M9.5 9l2.5 3 2.5-3M12 12v4M9.8 13.5h4.4' },
+      expense:{ p: 'M4 12.5h4l2.5-5 4 10 2.5-5h4', a: 'M12 3.5v2M12 18.5v2' },
+      budget: { p: circle, a: 'M12 12V3.5M12 12l6 6' },
+      alloc:  { p: circle, a: 'M12 12V3.5M12 12l7 3.5' },
+      settings:{ p: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM12 3v2.5M12 18.5V21M4.2 7.5l2.2 1.3M17.6 15.2l2.2 1.3M4.2 16.5l2.2-1.3M17.6 8.8l2.2-1.3', a: '' },
+      calendar:{ p: 'M4.5 6.5h15v13h-15zM4.5 10.5h15', a: 'M8.5 3.5v4M15.5 3.5v4' },
+      asset:  { p: 'M4 9.5l8-5 8 5M5.5 9.5v8M18.5 9.5v8M4 19.5h16', a: 'M9 12v4M15 12v4' },
+      report: { p: 'M6.5 3.5h8l4 4v13h-12zM14 3.5v4h4', a: 'M9 12.5h6M9 16h4' },
+      home2:  { p: 'M5 11.5l7-6.5 7 6.5M6.5 10v9.5h11V10', a: 'M10.5 19.5V16h3v3.5' },
+      shield: { p: 'M12 3.5l7 2.5v5c0 4.5-3 7.5-7 9.5-4-2-7-5-7-9.5v-5z', a: 'M9 11.5l2 2 4-4' },
+      dividend:{ p: circle, a: 'M9.5 9l2.5 3 2.5-3M12 12v4M9.8 13.5h4.4' },
+      person: { p: 'M12 4a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z', a: 'M5.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6' },
+      clock:  { p: 'M20.5 12a8.5 8.5 0 1 1-17 0a8.5 8.5 0 1 1 17 0', a: 'M12 8v4l2.5 1.5' },
+      card:   { p: 'M3.5 7h17v10h-17zM3.5 10.5h17', a: 'M6.5 14h4' },
+    };
+  }
+
+  renderVals() {
+    const I = this.icons();
+
+    const income = 68000, expense = 45400, budgetTotal = 52000, netWorth = 2180000;
+    const balance = income - expense;
+    const savingsRate = Math.round(balance / income * 100);
+    const score = 'B+', scoreColor = '#37424d', scoreWord = '結構穩健';
+
+    const statusLine = `本月已結餘 ${this.ntd(balance)}，儲蓄率 ${savingsRate}%，高於 30% 目標。支出控制良好，只有娛樂略微超標 — 整體狀況健康。`;
+
+    const heroMini = [
+      { label: '本月收入', val: this.ntd(income), sub: '+8%', color: '#5a7ba6' },
+      { label: '本月支出', val: this.ntd(expense), sub: '預算內', color: '#c0533f' },
+    ];
+
+    // ---- Today Brief：優先今天要注意的事 ----
+    const warnDot = 'width:9px; height:9px; border-radius:50%; background:#de5b42; margin-top:6px; flex-shrink:0;';
+    const soonDot = 'width:9px; height:9px; border-radius:50%; background:#e3c789; margin-top:6px; flex-shrink:0;';
+    const infoDot = 'width:9px; height:9px; border-radius:50%; background:#7ba38c; margin-top:6px; flex-shrink:0;';
+    const tagRed = 'font-size:10px; font-weight:600; color:#f0b3a3; background:rgba(222,91,66,.28); padding:2px 9px; border-radius:20px; flex-shrink:0;';
+    const tagGold = 'font-size:10px; font-weight:600; color:#e3c789; background:rgba(199,160,94,.24); padding:2px 9px; border-radius:20px; flex-shrink:0;';
+    const tagGreen = 'font-size:10px; font-weight:600; color:#b6d0b8; background:rgba(123,163,140,.26); padding:2px 9px; border-radius:20px; flex-shrink:0;';
+    const brief = [
+      { dot: soonDot, text: '房租將於 7/31 扣款 NT$ 18,000', sub: '距今 20 天 · 請確認帳戶餘額', tag: '待扣款', tagStyle: tagGold },
+      { dot: warnDot, text: '娛樂支出本月超出預算 NT$ 200', sub: '已用 4,200 / 4,000', tag: '超支', tagStyle: tagRed },
+      { dot: infoDot, text: '2 筆收入待入帳 NT$ 20,000', sub: '接案款 · 臨時轉帳', tag: '待入帳', tagStyle: tagGreen },
+    ];
+
+    // ---- 財務行事曆 ----
+    const outAmt = 'font-size:14px; font-weight:600; color:#c0533f; flex-shrink:0;';
+    const remindPill = 'font-size:10px; font-weight:600; color:#8a6d2f; background:#f3ede0; padding:3px 11px; border-radius:20px; flex-shrink:0;';
+    const calendar = [
+      { day: '15', mon: 'JUL', name: '玉山 U Bear 卡', kindLabel: '信用卡繳費', ic: I.card, remind: true },
+      { day: '31', mon: 'JUL', name: '房租', kindLabel: '固定支出', ic: I.home2, amt: -18000 },
+      { day: '02', mon: 'AUG', name: '台新 @GoGo 卡', kindLabel: '信用卡繳費', ic: I.card, remind: true },
+      { day: '15', mon: 'AUG', name: '保險', kindLabel: '固定支出', ic: I.shield, amt: -11040 },
+    ].map((e) => ({
+      day: e.day, mon: e.mon, name: e.name, kindLabel: e.kindLabel, ip: e.ic.p, ia: e.ic.a,
+      amtF: e.remind ? '繳費提醒' : `-${this.fmt(Math.abs(e.amt))}`,
+      amtStyle: e.remind ? remindPill : outAmt,
+    }));
+
+    // ---- 摘要卡（點入各模組）----
+    const budgetUsedPct = Math.round(expense / budgetTotal * 100);
+    const summaryCards = [
+      { q: '預算還好嗎？', ic: I.budget, href: '#', val: `已用 ${budgetUsedPct}%`, valColor: '#37424d',
+        sub: '1 個類別超支 · 其餘安全', barStyle: `width:${budgetUsedPct}%; height:100%; border-radius:5px; background:#c7a05e;` },
+      { q: '錢花去哪？', ic: I.expense, href: '#', val: this.ntd(expense), valColor: '#c0533f',
+        sub: '住房最多 · 較上月 -12%', barStyle: 'width:64%; height:100%; border-radius:5px; background:#8fa8c4;' },
+      { q: '身家多少？', ic: I.asset, href: '#', val: this.ntd(netWorth), valColor: '#37424d',
+        sub: '較上月 +3.2% · 持續累積', barStyle: 'width:82%; height:100%; border-radius:5px; background:#7ba38c;' },
+    ].map((c) => ({ q: c.q, ip: c.ic.p, ia: c.ic.a, href: c.href, val: c.val, valColor: c.valColor, sub: c.sub, barStyle: c.barStyle }));
+
+    // ---- sidebar nav ----
+    const navItems = [
+      { label: '首頁', ic: I.home, href: '記帳CFO v2.dc.html', active: true },
+      { label: '收入', ic: I.coin, href: '收入中心.dc.html' },
+      { label: '資金分配', ic: I.alloc, href: '資金分配.dc.html' },
+      { label: '支出', ic: I.expense, href: '支出中心.dc.html' },
+      { label: '資產', ic: I.asset, href: '資產.dc.html' },
+      { label: '報表', ic: I.report, href: '報表分析.dc.html' },
+      { label: '設定', ic: I.settings, href: '#' },
+    ].map((nv) => ({
+      label: nv.label, href: nv.href, ip: nv.ic.p, ia: nv.ic.a,
+      stroke: nv.active ? '#37424d' : '#3f4a54',
+      rowStyle: `display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px; font-size:13.5px; transition:background .2s ease; ${nv.active ? 'color:#37424d; font-weight:700; background:#f1ede2;' : 'color:#5b6670;'}`,
+    }));
+
+    const hr = new Date().getHours();
+    const greeting = hr < 11 ? '早安' : hr < 18 ? '午安' : '晚安';
+
+    const ym = this.state.ym;
+    return {
+      score, scoreColor, scoreWord, netWorthF: this.ntd(netWorth),
+      ymLabel: `${ym.y} 年 ${ym.m} 月`, prevMonth: () => this.stepMonth(-1), nextMonth: () => this.stepMonth(1),
+      navItems, greeting, dateLine: '今天是 7 月 11 日',
+      balanceF: this.ntd(balance), savingsRate, statusLine, heroMini,
+      brief, calendar, summaryCards,
+    };
+  }
+}
+</script>
+</body>
+</html>

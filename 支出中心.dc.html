@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Marcellus&family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans TC', sans-serif; background: #e9e5dc; color: #3b4650; -webkit-font-smoothing: antialiased; }
+  a { color: #5a7ba6; text-decoration: none; }
+  a:hover { color: #45648d; }
+  .serif { font-family: 'Marcellus', 'Noto Serif TC', serif; }
+  .num { font-family: 'Jost', 'Noto Sans TC', sans-serif; font-feature-settings: 'tnum'; }
+  [contenteditable="true"] { cursor: text; }
+  [contenteditable="true"]:hover { background: #f3ecda !important; }
+  [contenteditable="true"]:focus { background: #faf7ef !important; box-shadow: inset 0 -1.5px 0 #c7a05e; }
+</style>
+</helmet>
+
+<div ref="{{ rootRef }}" style="zoom:1.2; width:1440px; margin:0 auto; padding:30px 34px 40px; display:flex; gap:26px; align-items:flex-start;">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside style="width:214px; flex-shrink:0; position:sticky; top:30px; display:flex; flex-direction:column; gap:22px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span style="width:44px; height:44px; border-radius:14px; background:#37424d; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 20px -10px rgba(55,66,77,.7);">
+        <svg viewBox="0 0 24 24" width="26" height="26"><path d="M4.5 12c2.4-4 6-6.1 9.4-5 2.6.8 4.4 2.8 5.1 5-.7 2.2-2.5 4.2-5.1 5-3.4 1.1-7-1-9.4-5z M4.5 12L2.5 9.4v5.2z" fill="none" stroke="#c7a05e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 10.6h.01" fill="none" stroke="#c7a05e" stroke-width="2.2" stroke-linecap="round"></path></svg>
+      </span>
+      <div>
+        <div class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1px;">魚家財務室</div>
+        <div class="num" style="font-size:9.5px; color:#9aa2ab; letter-spacing:3px; margin-top:1px;">HOUSEHOLD OS</div>
+      </div>
+    </div>
+
+    <div style="background:#fff; border:1px solid #ece7dd; border-radius:20px; padding:18px 17px; box-shadow:0 14px 30px -20px rgba(59,70,80,.35); text-align:center;">
+      <div class="num" style="font-size:10px; color:#9aa2ab; letter-spacing:3px;">HEALTH SCORE</div>
+      <div class="serif" style="font-size:48px; color:#37424d; line-height:1.1; margin-top:4px;">B+</div>
+      <div class="serif" style="font-size:12.5px; font-weight:600; color:#5b6670; letter-spacing:2px;">結構穩健</div>
+      <div style="margin-top:13px; padding-top:13px; border-top:2px dotted #e4ded1; display:flex; justify-content:space-between; font-size:11px; color:#9aa2ab;">
+        <span>淨資產</span><span class="num" style="color:#37424d; font-weight:600;">NT$ 2,180,000</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="num" style="font-size:10px; color:#9aa2ab; letter-spacing:3px; margin:0 4px 10px;">MENU</div>
+      <div style="display:flex; flex-direction:column; gap:3px;">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="7">
+          <a href="{{ n.href }}" style="{{ n.rowStyle }}" style-hover="background:#efeae0;">
+            <svg viewBox="0 0 24 24" width="18" height="18" style="flex-shrink:0;"><path d="{{ n.ip }}" fill="none" stroke="{{ n.stroke }}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="{{ n.ia }}" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <span>{{ n.label }}</span></a>
+        </sc-for>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:22px;">
+
+    <!-- header -->
+    <div style="display:flex; align-items:flex-end; justify-content:space-between;">
+      <div>
+        <div style="position:relative; display:inline-block;">
+          <span class="serif" style="position:absolute; top:-16px; left:2px; font-size:15px; color:#c7a05e; letter-spacing:3px;">&#65340;&#65295;</span>
+          <h1 class="serif" style="font-weight:700; font-size:30px; color:#37424d; letter-spacing:3px; border-bottom:2px dotted #cdc6b7; padding-bottom:8px;">支出總覽</h1>
+        </div>
+        <div class="num" style="font-size:11px; color:#9aa2ab; letter-spacing:4px; margin-top:8px;">EXPENSE CENTER · 錢花去哪？每月該預留多少？</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:4px; background:#fff; border:1px solid #ece7dd; border-radius:14px; padding:6px 8px; box-shadow:0 10px 24px -18px rgba(59,70,80,.4);">
+        <span style="width:28px; height:28px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#8a939c; font-size:15px; transition:background .2s ease;" onClick="{{ prevMonth }}" style-hover="background:#f1ede2; color:#37424d;">&#8249;</span>
+        <span class="serif" style="font-size:16px; color:#37424d; letter-spacing:1px; min-width:110px; text-align:center;">{{ ymLabel }}</span>
+        <span style="width:28px; height:28px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#8a939c; font-size:15px; transition:background .2s ease;" onClick="{{ nextMonth }}" style-hover="background:#f1ede2; color:#37424d;">&#8250;</span>
+      </div>
+    </div>
+
+    <!-- KPI strip -->
+    <section style="background:#fff; border:1px solid #ece7dd; border-radius:24px; padding:22px 24px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0;">
+        <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
+          <div style="{{ k.cell }}">
+            <div class="num" style="font-size:10px; color:#9aa2ab; letter-spacing:2.5px;">{{ k.eng }}</div>
+            <div style="font-size:12px; color:#6a747e; margin-top:2px;">{{ k.label }}</div>
+            <div class="num" style="font-size:24px; font-weight:500; color:{{ k.color }}; margin-top:7px;">{{ k.val }}</div>
+            <div style="font-size:10.5px; color:#a9b0b7; margin-top:5px;">{{ k.sub }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- ===== 主體：左 支出分類 · 右 年度固定支出規劃 ===== -->
+    <div style="display:grid; grid-template-columns:1.05fr 1fr; gap:22px; align-items:stretch;">
+
+      <!-- 左：支出分類 -->
+      <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4.5 4.5h15v15h-15zM4.5 9.5h15" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9 9.5v10" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <h2 class="serif" style="font-weight:700; font-size:17px; color:#37424d; letter-spacing:1.5px;">本月錢花去哪？</h2>
+          <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
+          <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:#8a939c; letter-spacing:1px; margin-right:4px;"><span style="{{ syncDotStyle }}"></span>{{ syncLabel }}</span>
+          <span class="num" style="font-size:11px; color:#c7a05e; background:#faf3e4; padding:5px 12px; border-radius:20px; letter-spacing:1px; cursor:pointer;" onClick="{{ addCat }}">＋ 新增</span>
+        </div>
+        <div style="font-size:11px; color:#a3abb2; margin:0 0 16px 30px;">{{ catAnswer }}</div>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <sc-for list="{{ categories }}" as="c" hint-placeholder-count="6">
+            <div style="border:1px solid #ece7dd; border-radius:16px; overflow:hidden; background:#fdfcf9;">
+              <div style="display:flex; align-items:center; gap:12px; padding:13px 15px; cursor:pointer;" onClick="{{ c.toggle }}" style-hover="background:#faf7f0;">
+                <span style="width:34px; height:34px; border-radius:10px; background:#fff; border:1px solid #ece7dd; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg viewBox="0 0 24 24" width="18" height="18"><path d="{{ c.ip }}" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="{{ c.ia }}" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+                <div style="flex:1; min-width:0;">
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <div class="serif" style="{{ c.nameStyle }}" contentEditable="{{ c.nameEditable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ c.nameFkey }}" onBlur="{{ blurField }}" onKeyDown="{{ keyField }}" onClick="{{ stopClick }}">{{ c.name }}</div>
+                    <span style="{{ c.catPencilStyle }}" onClick="{{ c.onEditCat }}" style-hover="color:#8b7a63;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M14.5 4.5l5 5L8.5 20.5h-5v-5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+                    <span style="{{ c.catTrashStyle }}" onClick="{{ c.onDeleteCat }}" style-hover="color:#c0533f;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+                  </div>
+                  <div style="height:6px; background:#eee9de; border-radius:4px; overflow:hidden; margin-top:6px; width:100%;"><div style="{{ c.barStyle }}"></div></div>
+                </div>
+                <div style="text-align:right; flex-shrink:0;">
+                  <div class="num" style="font-size:17px; font-weight:500; color:#37424d;">{{ c.totalF }}</div>
+                  <div style="display:flex; align-items:center; gap:6px; justify-content:flex-end; margin-top:3px;"><span style="{{ c.pctStyle }}">{{ c.pct }}%</span><span style="{{ c.tagStyle }}">{{ c.tag }}</span></div>
+                </div>
+                <svg viewBox="0 0 24 24" width="18" height="18" style="{{ c.chevStyle }}"><path d="M6 9.5l6 6 6-6" fill="none" stroke="#9aa2ab" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </div>
+              <div style="padding:0 15px 13px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:5px;">
+                  <span style="font-size:11px; color:#8a939c;">本月實際 <span class="num" style="color:{{ c.actualColor }}; font-weight:600;">{{ c.actualF }}</span> / 預算 <span class="num">{{ c.budgetF }}</span></span>
+                  <span class="num" style="font-size:11px; color:#a3abb2;">{{ c.cmpLabel }}</span>
+                </div>
+                <div style="height:7px; background:#eee9de; border-radius:4px; overflow:hidden;"><div style="{{ c.cmpBarStyle }}"></div></div>
+              </div>
+              <div style="{{ c.bodyStyle }}">
+                <div style="padding:2px 15px 13px; border-top:2px dotted #e4ded1;">
+                  <sc-for list="{{ c.items }}" as="it" hint-placeholder-count="3">
+                    <div style="display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid #f1ece1;">
+                      <span style="width:6px; height:6px; border-radius:50%; background:{{ c.dot }}; flex-shrink:0;"></span>
+                      <span style="{{ it.nameStyle }}" contentEditable="{{ it.editable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ it.nameFkey }}" onBlur="{{ blurField }}" onKeyDown="{{ keyField }}">{{ it.name }}</span>
+                      <span style="{{ it.tagStyle }}">{{ it.tag }}</span>
+                      <span class="num" style="{{ it.amtStyle }}" contentEditable="{{ it.editable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ it.amtFkey }}" onBlur="{{ blurField }}" onKeyDown="{{ keyField }}">{{ it.amtText }}</span>
+                      <span style="{{ it.pencilStyle }}" onClick="{{ it.onEdit }}" style-hover="color:#8b7a63;"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M14.5 4.5l5 5L8.5 20.5h-5v-5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+                      <span style="{{ it.trashStyle }}" onClick="{{ it.onDelete }}" style-hover="color:#c0533f;"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+                    </div>
+                  </sc-for>
+                  <div style="display:flex; align-items:center; justify-content:center; gap:7px; padding:10px 0 2px; font-size:11.5px; color:#a3907a; cursor:pointer;" style-hover="color:#8b7a63;" onClick="{{ c.onAddItem }}">
+                    <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 5v14M5 12h14" fill="none" stroke="#b3a48a" stroke-width="1.8" stroke-linecap="round"></path></svg>新增細項
+                  </div>
+                  <div style="{{ c.actualWrapStyle }}">
+                    <div class="num" style="font-size:10px; color:#a3907a; letter-spacing:2px; margin:2px 0 6px;">本月實際記帳 · 手機同步</div>
+                    <sc-for list="{{ c.actualItems }}" as="ai" hint-placeholder-count="2">
+                      <div style="display:flex; align-items:center; gap:10px; padding:7px 0; border-bottom:1px solid #f4efe4;">
+                        <span class="num" style="font-size:11px; color:#a3abb2; width:44px; flex-shrink:0;">{{ ai.dateF }}</span>
+                        <span style="flex:1; min-width:0; font-size:12.5px; color:#3b4650;">{{ ai.label }}</span>
+                        <span style="font-size:10.5px; color:#9aa2ab;">{{ ai.account }}</span>
+                        <span class="num" style="font-size:12.5px; font-weight:600; color:#c05a44;">- {{ ai.amtText }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <!-- 右：年度固定支出規劃 -->
+      <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4.5 6.5h15v13h-15zM4.5 10.5h15" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8 14h3M8 16.5h6" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <h2 class="serif" style="font-weight:700; font-size:17px; color:#37424d; letter-spacing:1.5px;">年度固定支出規劃</h2>
+        </div>
+
+        <!-- 摘要 -->
+        <div style="background:#37424d; border-radius:18px; padding:16px 18px; color:#fff; display:grid; grid-template-columns:1fr 1fr 1fr; gap:0; margin-bottom:8px;">
+          <div style="padding-right:16px;">
+            <div style="font-size:10.5px; color:rgba(255,255,255,.6);">年度固定支出總額</div>
+            <div class="num" style="font-size:20px; font-weight:600; margin-top:4px;">{{ planTotalF }}</div>
+          </div>
+          <div style="padding:0 16px; border-left:1px solid rgba(255,255,255,.16);">
+            <div style="font-size:10.5px; color:rgba(255,255,255,.6);">平均每月建議預留</div>
+            <div class="num" style="font-size:20px; font-weight:600; margin-top:4px; color:#e3c789;">{{ planAvgF }}</div>
+          </div>
+          <div style="padding-left:16px; border-left:1px solid rgba(255,255,255,.16);">
+            <div style="font-size:10.5px; color:rgba(255,255,255,.6);">本月(7月)需預留</div>
+            <div class="num" style="font-size:20px; font-weight:600; margin-top:4px;">{{ planThisMonthF }}</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; font-size:10.5px; color:#a3907a; background:#f3ede1; border:1px dashed #d8ceba; border-radius:11px; padding:8px 12px; margin-bottom:16px;">
+          <svg viewBox="0 0 24 24" width="14" height="14" style="flex-shrink:0;"><path d="M20.5 3.5L4 10.5l5.5 2L11 18.5l3.5-5" fill="none" stroke="#a3907a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          {{ prepNote }}
+        </div>
+
+        <!-- 類別圖例 -->
+        <div style="display:flex; flex-wrap:wrap; gap:12px; padding:0 2px 12px;">
+          <sc-for list="{{ legend }}" as="l" hint-placeholder-count="5">
+            <span style="display:inline-flex; align-items:center; gap:6px; font-size:11px; color:#8e97a0;"><span style="width:9px; height:9px; border-radius:3px; background:{{ l.color }};"></span>{{ l.name }}</span>
+          </sc-for>
+        </div>
+
+        <!-- 每月分布 -->
+        <div style="display:flex; flex-direction:column; gap:9px;">
+          <sc-for list="{{ plan }}" as="m" hint-placeholder-count="12">
+            <div style="{{ m.blockStyle }}">
+              <!-- month header band -->
+              <div style="display:flex; align-items:center; gap:10px; padding:8px 13px; {{ m.headBg }}">
+                <span class="serif" style="font-size:15px; font-weight:600; color:{{ m.monColor }};">{{ m.mon }}</span>
+                <span class="num" style="font-size:9px; color:#b3ab98; letter-spacing:1px;">{{ m.eng }}</span>
+                <span style="{{ m.peakStyle }}">最高月</span>
+                <span style="flex:1;"></span>
+                <span class="num" style="{{ m.totalStyle }}">{{ m.totalF }}</span>
+                <span style="width:22px; height:22px; border-radius:7px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#b3ab98; flex-shrink:0;" onClick="{{ m.onAddPlan }}" style-hover="color:#8a6d2f;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"></path></svg></span>
+              </div>
+              <!-- items -->
+              <div style="{{ m.itemsWrap }}">
+                <sc-for list="{{ m.chips }}" as="ch" hint-placeholder-count="2">
+                  <div style="display:flex; align-items:center; gap:9px; padding:6px 13px; border-top:1px solid #f4efe4;">
+                    <span style="width:8px; height:8px; border-radius:3px; background:{{ ch.dot }}; flex-shrink:0;"></span>
+                    <span style="{{ ch.nameStyle }}" contentEditable="{{ ch.editable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ ch.nameFkey }}" onBlur="{{ blurField }}" onKeyDown="{{ keyField }}">{{ ch.name }}</span>
+                    <span style="{{ ch.prepStyle }}">⟡ 提前換匯</span>
+                    <span style="flex:1;"></span>
+                    <span class="num" style="{{ ch.amtStyle }}" contentEditable="{{ ch.editable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ ch.amtFkey }}" onBlur="{{ blurField }}" onKeyDown="{{ keyField }}">{{ ch.amtText }}</span>
+                    <span style="{{ ch.pencilStyle }}" onClick="{{ ch.onEdit }}" style-hover="color:#8b7a63;"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M14.5 4.5l5 5L8.5 20.5h-5v-5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+                    <span style="{{ ch.trashStyle }}" onClick="{{ ch.onDelete }}" style-hover="color:#c0533f;"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+                  </div>
+                </sc-for>
+                <div style="{{ m.emptyStyle }}">本月無固定支出</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </div>
+
+    <div class="num" style="text-align:center; font-size:10px; color:#a9a596; letter-spacing:4px; padding:8px 0 2px;">魚家財務室 · EXPENSE CENTER · 2026</div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1180}}">
+class Component extends DCLogic {
+  sbUrl = 'https://itxilfaobczncmxgbehh.supabase.co';
+  sbKey = 'sb_publishable_unDwhwkXE3f12fefr8bSrQ_UL-li019';
+  state = { open: { 居住: true, 訂閱: true, 汽車: false, 娛樂: false, 飲食: false, 其他: false }, ym: { y: 2026, m: 7 }, editKey: null, d: null, entries: [], sbStatus: 'connecting' };
+  stepMonth(d) { let { y, m } = this.state.ym; m += d; if (m < 1) { m = 12; y -= 1; } else if (m > 12) { m = 1; y += 1; } this.setState({ ym: { y, m } }); }
+
+  fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+  ntd(n) { return `NT$ ${this.fmt(n)}`; }
+
+  icons() {
+    const circle = 'M3.5 12a8.5 8.5 0 1 0 17 0a8.5 8.5 0 1 0-17 0';
+    return {
+      home:   { p: 'M5 11.5l7-6.5 7 6.5M6.5 10v9.5h11V10', a: 'M10.5 19.5V16h3v3.5' },
+      coin:   { p: circle, a: 'M9.5 9l2.5 3 2.5-3M12 12v4M9.8 13.5h4.4' },
+      expense:{ p: 'M4 12.5h4l2.5-5 4 10 2.5-5h4', a: 'M12 3.5v2M12 18.5v2' },
+      budget: { p: circle, a: 'M12 12V3.5M12 12l6 6' },
+      alloc:  { p: circle, a: 'M12 12V3.5M12 12l7 3.5' },
+      settings:{ p: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM12 3v2.5M12 18.5V21M4.2 7.5l2.2 1.3M17.6 15.2l2.2 1.3M4.2 16.5l2.2-1.3M17.6 8.8l2.2-1.3', a: '' },
+      asset:  { p: 'M4 9.5l8-5 8 5M5.5 9.5v8M18.5 9.5v8M4 19.5h16', a: 'M9 12v4M15 12v4' },
+      report: { p: 'M6.5 3.5h8l4 4v13h-12zM14 3.5v4h4', a: 'M9 12.5h6M9 16h4' },
+      house:  { p: 'M5 11.5l7-6.5 7 6.5M6.5 10v9.5h11V10', a: 'M10.5 19.5V16h3v3.5' },
+      food:   { p: 'M4 12.5h16a8 8 0 0 1-16 0z', a: 'M9.5 9.5L8.5 4M14.5 9.5l1-5.5' },
+      car:    { p: 'M4 16h16M6 16v-5.5A2.5 2.5 0 0 1 8.5 8h7a2.5 2.5 0 0 1 2.5 2.5V16', a: 'M8.5 19h.01M15.5 19h.01' },
+      fun:    { p: circle, a: 'M10.5 9.5v5l4-2.5z' },
+      sub:    { p: 'M4.5 5.5h15v10.5h-15zM9 19.5h6', a: 'M12 16v3.5' },
+      other:  { p: 'M4.5 6.5h15v11h-15z', a: 'M8.5 12h.01M12 12h.01M15.5 12h.01' },
+    };
+  }
+
+  metaFor(key) {
+    const I = this.icons();
+    const M = {
+      '居住': { ic: I.house, color: '#5a7ba6' },
+      '飲食': { ic: I.food,  color: '#c99a5b' },
+      '娛樂': { ic: I.fun,   color: '#c98f9a' },
+      '汽車': { ic: I.car,   color: '#7f9fb3' },
+      '訂閱': { ic: I.sub,   color: '#a58bb0' },
+      '其他': { ic: I.other, color: '#9aa5ad' },
+    };
+    return M[key] || { ic: I.other, color: '#9aa5ad' };
+  }
+
+  planCatStyle() {
+    return {
+      '保險': { dot: '#5a7ba6', bg: '#e9f0f7', fg: '#42648d' },
+      '汽車': { dot: '#6e9257', bg: '#e7efe1', fg: '#5b7a48' },
+      '稅務': { dot: '#c7a05e', bg: '#f5eeda', fg: '#8a6d2f' },
+      '訂閱': { dot: '#9a7fae', bg: '#efe8f2', fg: '#6f5786' },
+      '其他': { dot: '#c0846a', bg: '#f3e8e2', fg: '#9c6449' },
+    };
+  }
+
+  seed() {
+    return {
+      cats: [
+        { key: '居住', name: '居住', tag: '固定', items: [ { name: '房租', amt: 18000, tag: '固定' }, { name: '水電瓦斯', amt: 2400, tag: '變動' }, { name: '網路', amt: 800, tag: '固定' } ] },
+        { key: '飲食', name: '飲食', tag: '變動', items: [ { name: '外食', amt: 6200, tag: '變動' }, { name: '食材採買', amt: 3000, tag: '變動' } ] },
+        { key: '娛樂', name: '娛樂', tag: '超支', items: [ { name: '電影 · 展覽', amt: 2400, tag: '變動' }, { name: '聚餐', amt: 1800, tag: '變動' } ] },
+        { key: '汽車', name: '汽車', tag: '變動', items: [ { name: '油資', amt: 2400, tag: '變動' }, { name: '停車費', amt: 800, tag: '固定' } ] },
+        { key: '訂閱', name: '訂閱', tag: '固定', items: [ { name: 'Netflix', amt: 390, tag: '固定' }, { name: 'Gemini', amt: 650, tag: '固定' }, { name: 'Claude', amt: 650, tag: '固定' }, { name: 'Canva', amt: 380, tag: '固定' }, { name: 'Google One', amt: 90, tag: '固定' } ] },
+        { key: '其他', name: '其他', tag: '變動', items: [ { name: '日用品', amt: 1400, tag: '變動' }, { name: '雜支', amt: 600, tag: '變動' } ] },
+      ],
+      plan: [
+        { mon: '一月', eng: 'JAN', items: [ { name: '終身醫療險', amt: 4455, cat: '保險' }, { name: '失能險', amt: 7784, cat: '保險' }, { name: '機車保險', amt: 2270, cat: '汽車' } ] },
+        { mon: '二月', eng: 'FEB', items: [ { name: '紅包', amt: 40000, cat: '其他' }, { name: 'OT公會', amt: 5000, cat: '其他' } ] },
+        { mon: '三月', eng: 'MAR', items: [ { name: '重大傷病', amt: 51250, cat: '保險' }, { name: '醫美保養', amt: 70000, cat: '其他' }, { name: '牌照稅', amt: 7120, cat: '汽車' }, { name: '機車保險', amt: 1708, cat: '汽車' } ] },
+        { mon: '四月', eng: 'APR', items: [ { name: '汽車保險', amt: 39191, cat: '汽車' }, { name: '地價稅', amt: 6705, cat: '稅務' }, { name: '家電清潔', amt: 4000, cat: '其他' }, { name: '機車保險', amt: 860, cat: '汽車' } ] },
+        { mon: '五月', eng: 'MAY', items: [ { name: '實支實付', amt: 37737, cat: '保險' }, { name: '停車費', amt: 9828, cat: '汽車' }, { name: 'Artlist 音樂庫', amt: 20000, cat: '訂閱' }, { name: '手術險', amt: 3817, cat: '保險' } ] },
+        { mon: '六月', eng: 'JUN', items: [ { name: '實支實付', amt: 34276, cat: '保險' }, { name: '機車保險', amt: 4948, cat: '汽車' } ] },
+        { mon: '七月', eng: 'JUL', items: [ { name: '美元壽險', amt: 60000, cat: '保險', prep: true }, { name: '燃料稅', amt: 4800, cat: '汽車' } ] },
+        { mon: '八月', eng: 'AUG', items: [ { name: '防癌險', amt: 12680, cat: '保險' }, { name: '手術險', amt: 16926, cat: '保險' } ] },
+        { mon: '九月', eng: 'SEP', items: [ { name: '失能險', amt: 29136, cat: '保險' }, { name: '醫美保養', amt: 6133, cat: '其他' }, { name: 'Canva Pro', amt: 3825, cat: '訂閱' } ] },
+        { mon: '十月', eng: 'OCT', items: [] },
+        { mon: '十一月', eng: 'NOV', items: [ { name: '終身醫療險', amt: 10692, cat: '保險' }, { name: '失能險', amt: 18795, cat: '保險' }, { name: '地價稅', amt: 207, cat: '稅務' } ] },
+        { mon: '十二月', eng: 'DEC', items: [ { name: '機車保險', amt: 7619, cat: '汽車' } ] },
+      ],
+    };
+  }
+
+  componentDidMount() {
+    let d = this.seed();
+    try { const s = localStorage.getItem('expense-plan-v1'); if (s) d = JSON.parse(s); } catch (e) {}
+    let entries = [];
+    try { const c = localStorage.getItem('mob-entries-cache'); if (c) entries = JSON.parse(c); } catch (e) {}
+    this.setState({ d, entries });
+    this.sbConnect(0);
+  }
+  sbConnect(t) {
+    if (window.supabase && window.supabase.createClient) { this.sb = window.supabase.createClient(this.sbUrl, this.sbKey); this.sbLoad(); }
+    else if (t < 40) { setTimeout(() => this.sbConnect(t + 1), 150); }
+    else { this.setState({ sbStatus: 'offline' }); }
+  }
+  async sbLoad() {
+    try {
+      const { data, error } = await this.sb.from('entries').select('*').order('occurred_on', { ascending: false }).limit(500);
+      if (error) throw error;
+      this.setState({ entries: data || [], sbStatus: 'online' });
+      try { localStorage.setItem('mob-entries-cache', JSON.stringify(data || [])); } catch (e) {}
+    } catch (e) { this.setState({ sbStatus: 'offline' }); }
+  }
+
+  parseNum(t) { const n = parseInt(String(t).replace(/[^\d]/g, ''), 10); return isNaN(n) ? 0 : n; }
+
+  toggleKey(k) { this.setState((s) => ({ editKey: s.editKey === k ? null : k })); }
+
+  componentDidUpdate(pp, ps) {
+    const k = this.state.editKey;
+    if (k && k !== ps.editKey && this.root) {
+      const el = this.root.querySelector('[data-fkey="' + k + ':name"]') || this.root.querySelector('[data-fkey="' + k + '"]');
+      if (el) { el.focus(); const r = document.createRange(); r.selectNodeContents(el); r.collapse(false); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
+    }
+  }
+
+  commitField(el) {
+    const fkey = el.getAttribute('data-fkey'); if (!fkey) return;
+    const p = fkey.split(':'); const kind = p[0];
+    const d = JSON.parse(JSON.stringify(this.state.d || this.seed()));
+    const t = (el.textContent || '').trim();
+    if (kind === 'cat') d.cats[+p[1]].name = t;
+    else if (kind === 'item') { if (p[3] === 'name') d.cats[+p[1]].items[+p[2]].name = t; else d.cats[+p[1]].items[+p[2]].amt = this.parseNum(t); }
+    else if (kind === 'plan') { if (p[3] === 'name') d.plan[+p[1]].items[+p[2]].name = t; else d.plan[+p[1]].items[+p[2]].amt = this.parseNum(t); }
+    this.setState({ d, editKey: null });
+    try { localStorage.setItem('expense-plan-v1', JSON.stringify(d)); } catch (e) {}
+  }
+
+  clone() { return JSON.parse(JSON.stringify(this.state.d || this.seed())); }
+  persist(d) { this.setState({ d }); try { localStorage.setItem('expense-plan-v1', JSON.stringify(d)); } catch (e) {} }
+  deleteItem(kind, a, b) { const d = this.clone(); if (kind === 'item') d.cats[a].items.splice(b, 1); else if (kind === 'cat') d.cats.splice(a, 1); else if (kind === 'plan') d.plan[a].items.splice(b, 1); this.setState({ editKey: null }); this.persist(d); }
+  addItemToCat(ci) { const d = this.clone(); d.cats[ci].items.push({ name: '新項目', amt: 0, tag: '變動' }); const j = d.cats[ci].items.length - 1; this.setState({ editKey: `item:${ci}:${j}`, open: { ...this.state.open, [d.cats[ci].key]: true } }); this.persist(d); }
+  addCat() { const d = this.clone(); const key = 'cat' + Date.now(); d.cats.push({ key, name: '新分類', tag: '變動', items: [] }); const i = d.cats.length - 1; this.setState({ editKey: `cat:${i}`, open: { ...this.state.open, [key]: true } }); this.persist(d); }
+  addPlanItem(mi) { const d = this.clone(); d.plan[mi].items.push({ name: '新項目', amt: 0, cat: '其他' }); const j = d.plan[mi].items.length - 1; this.setState({ editKey: `plan:${mi}:${j}` }); this.persist(d); }
+
+  renderVals() {
+    const S = this.state;
+    const I = this.icons();
+    const deco = ' outline:none; border-radius:4px; background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; padding:0 4px;';
+    const editKey = this.state.editKey;
+    const pencil = (on) => `width:24px; height:24px; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:color .2s ease; color:${on ? '#c7a05e' : '#c9d0d6'};`;
+    const blurField = (e) => this.commitField(e.currentTarget);
+    const keyField = (e) => { if (e.key === 'Enter') { e.preventDefault(); e.currentTarget.blur(); } };
+    const stopClick = (e) => e.stopPropagation();
+    const trashBase = 'width:24px; height:24px; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:color .2s ease; color:#d69a8a;';
+    const D = this.state.d || this.seed();
+    const CATS = D.cats.map((c) => ({ ...c, ...this.metaFor(c.key) }));
+
+    const catTotals = CATS.map((c) => c.items.reduce((s, it) => s + it.amt, 0));
+    const monthExpense = catTotals.reduce((s, x) => s + x, 0);
+    const denom = monthExpense || 1;
+
+    // ── 手機實際支出（Supabase）對照預算 ──
+    const catNames = CATS.map((c) => c.name);
+    const CAT_MAP = { '餐飲': '飲食', '飲食': '飲食', '外食': '飲食', '交通': '汽車', '汽車': '汽車', '居住': '居住', '日常': '其他', '生活': '其他', '醫療': '其他', '娛樂': '娛樂', '訂閱': '訂閱', '其他': '其他' };
+    const ymStr = `${S.ym.y}-${String(S.ym.m).padStart(2, '0')}`;
+    const actualByCat = {};
+    const actualItemsByCat = {};
+    (S.entries || []).forEach((e) => {
+      if (e.type !== 'expense') return;
+      if ((e.occurred_on || '').slice(0, 7) !== ymStr) return;
+      const bc = catNames.includes(e.category) ? e.category : (CAT_MAP[e.category] && catNames.includes(CAT_MAP[e.category]) ? CAT_MAP[e.category] : '其他');
+      actualByCat[bc] = (actualByCat[bc] || 0) + Number(e.amount);
+      (actualItemsByCat[bc] = actualItemsByCat[bc] || []).push(e);
+    });
+    const actualTotal = Object.keys(actualByCat).reduce((s, k) => s + actualByCat[k], 0);
+    const budgetTotal = 52000;
+    const maxVal = catTotals.length ? Math.max(...catTotals) : 0;
+    const maxCat = Math.max(1, maxVal);
+    const fixedAmt = CATS.reduce((s, c) => s + c.items.filter((it) => it.tag === '固定').reduce((a, it) => a + it.amt, 0), 0);
+    const fixedPct = Math.round(fixedAmt / denom * 100);
+    const topIdx = catTotals.indexOf(maxVal);
+    const topCat = CATS[topIdx] ? CATS[topIdx].name : '—';
+
+    const tagMap = {
+      '固定': 'font-size:9.5px; font-weight:600; padding:2px 8px; border-radius:20px; flex-shrink:0; background:#e9f0f7; color:#5a7ba6;',
+      '變動': 'font-size:9.5px; font-weight:600; padding:2px 8px; border-radius:20px; flex-shrink:0; background:#f3ede0; color:#a07f3a;',
+      '超支': 'font-size:9.5px; font-weight:600; padding:2px 8px; border-radius:20px; flex-shrink:0; background:#f8e3dc; color:#c0533f;',
+    };
+
+    const categories = CATS.map((c, i) => {
+      const total = catTotals[i];
+      const actual = actualByCat[c.name] || 0;
+      const cmpPct = total > 0 ? actual / total * 100 : (actual > 0 ? 100 : 0);
+      const over = total > 0 && actual > total;
+      const open = !!S.open[c.key];
+      const catKey = `cat:${i}`;
+      const catOn = editKey === catKey;
+      return {
+        idx: i, name: c.name, ip: c.ic.p, ia: c.ic.a, dot: c.color,
+        nameStyle: `font-size:15px; font-weight:600; color:#37424d; letter-spacing:.5px;${catOn ? deco : ''}`,
+        nameEditable: catOn, nameFkey: catKey, catPencilStyle: pencil(catOn),
+        onEditCat: (e) => { e.stopPropagation(); this.toggleKey(catKey); },
+        onAddItem: () => this.addItemToCat(i),
+        catTrashStyle: catOn ? 'width:22px; height:22px; border-radius:7px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; color:#d69a8a;' : 'display:none;',
+        onDeleteCat: (e) => { e.stopPropagation(); this.deleteItem('cat', i); },
+        totalF: this.ntd(total), pct: Math.round(total / denom * 100),
+        pctStyle: 'font-size:10px; font-weight:600; color:#6a747e; background:#f1ece1; padding:1px 8px; border-radius:20px;',
+        tag: c.tag, tagStyle: tagMap[c.tag] || tagMap['變動'],
+        barStyle: `width:${(total / maxCat * 100).toFixed(1)}%; height:100%; border-radius:4px; background:${c.color};`,
+        actualF: this.ntd(actual), budgetF: this.ntd(total),
+        cmpLabel: total > 0 ? `${Math.round(actual / total * 100)}%` : (actual > 0 ? '未編列預算' : '—'),
+        actualColor: over ? '#c0533f' : '#37424d',
+        cmpBarStyle: `width:${Math.min(100, cmpPct).toFixed(1)}%; height:100%; border-radius:4px; background:${over ? '#c05a44' : cmpPct > 85 ? '#c7a05e' : '#7ba38c'};`,
+        actualItems: (actualItemsByCat[c.name] || []).map((e) => ({
+          dateF: (e.occurred_on || '').slice(5).replace('-', '/'),
+          label: (e.note && e.note.trim()) ? e.note : e.category,
+          account: e.account || '現金', amtText: this.fmt(e.amount),
+        })),
+        hasActualItems: (actualItemsByCat[c.name] || []).length > 0,
+        actualWrapStyle: (actualItemsByCat[c.name] || []).length > 0 ? 'margin-top:10px; padding-top:8px; border-top:2px dotted #e4ded1;' : 'display:none;',
+        toggle: () => this.setState((st) => ({ open: { ...st.open, [c.key]: !st.open[c.key] } })),
+        chevStyle: `flex-shrink:0; transition:transform .2s ease; transform:rotate(${open ? 180 : 0}deg);`,
+        bodyStyle: `overflow:hidden; transition:all .2s ease; ${open ? '' : 'max-height:0; opacity:0;'}`,
+        items: c.items.map((it, j) => {
+          const rowKey = `item:${i}:${j}`;
+          const on = editKey === rowKey;
+          return {
+            idx: j, name: it.name, tag: it.tag, tagStyle: tagMap[it.tag] || tagMap['變動'],
+            amtText: on ? String(it.amt) : this.fmt(it.amt),
+            editable: on, nameFkey: `${rowKey}:name`, amtFkey: `${rowKey}:amt`, pencilStyle: pencil(on),
+            onEdit: () => this.toggleKey(rowKey),
+            onDelete: () => this.deleteItem('item', i, j),
+            trashStyle: on ? trashBase : 'display:none;',
+            nameStyle: `flex:1; font-size:13px; color:#3b4650;${on ? deco : ''}`,
+            amtStyle: `font-size:13px; font-weight:600; color:#37424d; width:78px; text-align:right; flex-shrink:0;${on ? deco : ''}`,
+          };
+        }),
+      };
+    });
+    const catAnswer = `本月實際支出 ${this.ntd(actualTotal)}，預算 ${this.ntd(monthExpense)}；${actualTotal > monthExpense ? '已超支' : '仍在預算內'}`;
+
+    // ---- KPIs（實際 vs 預算）----
+    const usedPct = Math.round(actualTotal / (monthExpense || 1) * 100);
+    const remain = monthExpense - actualTotal;
+    const topActualCat = Object.keys(actualByCat).sort((a, b) => actualByCat[b] - actualByCat[a])[0] || topCat;
+    const cellBase = 'padding:2px 18px;';
+    const cellDiv = cellBase + ' border-left:2px dotted #e4ded1;';
+    const kpis = [
+      { eng: 'THIS MONTH', label: '本月實際支出', val: this.ntd(actualTotal), color: '#37424d', sub: `預算 ${this.ntd(monthExpense)}`, cell: cellBase },
+      { eng: 'BUDGET USED', label: '預算使用率', val: `${usedPct}%`, color: usedPct > 100 ? '#c0533f' : '#37424d', sub: usedPct > 100 ? '已超支' : '在預算內', cell: cellDiv },
+      { eng: 'REMAINING', label: '剩餘可用', val: this.ntd(Math.abs(remain)), color: remain < 0 ? '#c0533f' : '#6e9257', sub: remain < 0 ? '超出預算' : '尚可支用', cell: cellDiv },
+      { eng: 'TOP CATEGORY', label: '花最多的類', val: topActualCat, color: '#37424d', sub: this.ntd(actualByCat[topActualCat] || 0), cell: cellDiv },
+    ];
+
+    // ---- 年度固定支出規劃 ----
+    const RAW = D.plan;
+    const monTotals = RAW.map((m) => m.items.reduce((s, it) => s + it.amt, 0));
+    const planTotal = monTotals.reduce((s, x) => s + x, 0);
+    const planAvg = planTotal / 12;
+    const maxMon = Math.max(...monTotals);
+    const sorted = [...monTotals].sort((a, b) => b - a);
+    const highThreshold = sorted[2]; // 前三高月份 highlight
+    const julyIdx = RAW.findIndex((m) => m.eng === 'JUL');
+    const planThisMonth = monTotals[julyIdx];
+
+    const CS = this.planCatStyle();
+    const legend = Object.keys(CS).map((k) => ({ name: k, color: CS[k].dot }));
+    const plan = RAW.map((m, i) => {
+      const total = monTotals[i];
+      const high = total >= highThreshold && total > 0;
+      const empty = m.items.length === 0;
+      const isPeak = total === maxMon && total > 0;
+      return {
+        idx: i, mon: m.mon, eng: m.eng, onAddPlan: () => this.addPlanItem(i),
+        monColor: empty ? '#c3ccd2' : '#37424d',
+        blockStyle: `border:1px solid ${high ? '#ecdcb4' : '#ece7dd'}; border-radius:14px; overflow:hidden; background:#fff;`,
+        headBg: high ? 'background:#f9f3e6;' : 'background:#faf8f2;',
+        peakStyle: isPeak ? 'font-size:9px; font-weight:700; letter-spacing:1px; color:#8a6d2f; background:#efdcae; padding:2px 8px; border-radius:20px;' : 'display:none;',
+        totalF: empty ? '無' : `NT$ ${this.fmt(total)}`,
+        totalStyle: `font-size:14px; font-weight:600; flex-shrink:0; color:${empty ? '#c3ccd2' : high ? '#a07f3a' : '#37424d'};`,
+        itemsWrap: empty ? 'display:none;' : '',
+        emptyStyle: empty ? 'font-size:11.5px; color:#c3ccd2; padding:9px 13px; border-top:1px solid #f4efe4;' : 'display:none;',
+        chips: m.items.map((it, j) => {
+          const cs = CS[it.cat] || CS['其他'];
+          const rowKey = `plan:${i}:${j}`;
+          const on = editKey === rowKey;
+          return {
+            idx: j, name: it.name, amtText: on ? String(it.amt) : this.fmt(it.amt), dot: cs.dot,
+            editable: on, nameFkey: `${rowKey}:name`, amtFkey: `${rowKey}:amt`, pencilStyle: pencil(on),
+            onEdit: () => this.toggleKey(rowKey),
+            onDelete: () => this.deleteItem('plan', i, j),
+            trashStyle: on ? trashBase : 'display:none;',
+            nameStyle: `font-size:12.5px; color:#3b4650;${on ? deco : ''}`,
+            amtStyle: `font-size:12.5px; font-weight:600; color:#4b5560;${on ? deco : ''}`,
+            prepStyle: it.prep ? 'font-size:9.5px; font-weight:600; color:#8a6d2f; background:#f5eeda; padding:1px 7px; border-radius:20px;' : 'display:none;',
+          };
+        }),
+      };
+    });
+    const peakMon = RAW[monTotals.indexOf(maxMon)].mon;
+    const prepNote = `${peakMon}支出最高（${this.fmt(maxMon)}）；7 月美元壽險 ⟡ 建議提前分批換匯，避免匯率風險。`;
+
+    // ---- sidebar nav ----
+    const navItems = [
+      { label: '首頁', ic: I.home, href: '記帳CFO v2.dc.html' },
+      { label: '收入', ic: I.coin, href: '收入中心.dc.html' },
+      { label: '資金分配', ic: I.alloc, href: '資金分配.dc.html' },
+      { label: '支出', ic: I.expense, href: '#', active: true },
+      { label: '資產', ic: I.asset, href: '資產.dc.html' },
+      { label: '報表', ic: I.report, href: '報表分析.dc.html' },
+      { label: '設定', ic: I.settings, href: '#' },
+    ].map((nv) => ({
+      label: nv.label, href: nv.href, ip: nv.ic.p, ia: nv.ic.a,
+      stroke: nv.active ? '#37424d' : '#3f4a54',
+      rowStyle: `display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px; font-size:13.5px; transition:background .2s ease; ${nv.active ? 'color:#37424d; font-weight:700; background:#f1ede2;' : 'color:#5b6670;'}`,
+    }));
+
+    const ym = this.state.ym;
+    return {
+      navItems, kpis, categories, catAnswer,
+      ymLabel: `${ym.y} 年 ${ym.m} 月`, prevMonth: () => this.stepMonth(-1), nextMonth: () => this.stepMonth(1),
+      plan, legend, planTotalF: this.ntd(planTotal), planAvgF: this.ntd(planAvg), planThisMonthF: this.ntd(planThisMonth),
+      prepNote,
+      rootRef: (el) => { this.root = el; },
+      sbStatus: this.state.sbStatus,
+      syncLabel: this.state.sbStatus === 'online' ? '已同步' : this.state.sbStatus === 'connecting' ? '連線中' : '離線',
+      syncDotStyle: `width:7px; height:7px; border-radius:50%; background:${this.state.sbStatus === 'online' ? '#7ba38c' : this.state.sbStatus === 'connecting' ? '#c7a05e' : '#d68a76'};`,
+      blurField, keyField, stopClick, addCat: () => this.addCat(),
+    };
+  }
+}
+</script>
+</body>
+</html>

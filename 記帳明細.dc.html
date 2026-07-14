@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Marcellus&family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans TC', sans-serif; background: #e9e5dc; color: #3b4650; -webkit-font-smoothing: antialiased; }
+  a { color: #5a7ba6; text-decoration: none; }
+  a:hover { color: #45648d; }
+  .serif { font-family: 'Marcellus', 'Noto Serif TC', serif; }
+  .num { font-family: 'Jost', 'Noto Sans TC', sans-serif; font-feature-settings: 'tnum'; }
+  @keyframes dotpulse { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+</style>
+</helmet>
+
+<div ref="{{ rootRef }}" style="zoom:1.2; width:1440px; margin:0 auto; padding:30px 34px 40px; display:flex; gap:26px; align-items:flex-start;">
+
+  <!-- SIDEBAR -->
+  <aside style="width:214px; flex-shrink:0; position:sticky; top:30px; display:flex; flex-direction:column; gap:22px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span style="width:44px; height:44px; border-radius:14px; background:#37424d; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 20px -10px rgba(55,66,77,.7);">
+        <svg viewBox="0 0 24 24" width="26" height="26"><path d="M4.5 12c2.4-4 6-6.1 9.4-5 2.6.8 4.4 2.8 5.1 5-.7 2.2-2.5 4.2-5.1 5-3.4 1.1-7-1-9.4-5z M4.5 12L2.5 9.4v5.2z" fill="none" stroke="#c7a05e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 10.6h.01" fill="none" stroke="#c7a05e" stroke-width="2.2" stroke-linecap="round"></path></svg>
+      </span>
+      <div>
+        <div class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1px;">魚家財務室</div>
+        <div class="num" style="font-size:9.5px; color:#9aa2ab; letter-spacing:3px; margin-top:1px;">HOUSEHOLD OS</div>
+      </div>
+    </div>
+
+    <div style="background:#37424d; border-radius:20px; padding:16px 17px; box-shadow:0 18px 34px -20px rgba(55,66,77,.8); color:#fff;">
+      <div class="num" style="font-size:10px; color:rgba(255,255,255,.55); letter-spacing:3px;">SYNCED · 手機同步</div>
+      <div style="display:flex; align-items:center; gap:8px; margin-top:8px;">
+        <span style="{{ syncDotStyle }}"></span>
+        <span class="num" style="font-size:14px; color:#fff;">{{ syncLabel }}</span>
+      </div>
+      <div class="num" style="font-size:10.5px; color:rgba(255,255,255,.5); margin-top:6px;">{{ recCount }} 筆紀錄</div>
+    </div>
+
+    <div>
+      <div class="num" style="font-size:10px; color:#9aa2ab; letter-spacing:3px; margin:0 4px 10px;">MENU</div>
+      <div style="display:flex; flex-direction:column; gap:2px;">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="7">
+          <a href="{{ n.href }}" style="{{ n.rowStyle }}" style-hover="background:#efeae0;">
+            <span style="width:7px; height:7px; border-radius:50%; background:{{ n.dot }}; flex-shrink:0;"></span>
+            <span style="flex:1;">{{ n.label }}</span></a>
+        </sc-for>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:18px;">
+
+    <!-- header -->
+    <div style="display:flex; align-items:flex-end; justify-content:space-between;">
+      <div>
+        <div style="position:relative; display:inline-block;">
+          <span class="serif" style="position:absolute; top:-16px; left:2px; font-size:15px; color:#c7a05e; letter-spacing:3px;">&#65340;&#65295;</span>
+          <h1 class="serif" style="font-weight:700; font-size:30px; color:#37424d; letter-spacing:3px; border-bottom:2px dotted #cdc6b7; padding-bottom:8px;">記帳明細</h1>
+        </div>
+        <div class="num" style="font-size:11px; color:#9aa2ab; letter-spacing:4px; margin-top:8px;">DAILY LEDGER · 這個月錢怎麼流動？</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px; background:#fff; border:1px solid #ece7dd; border-radius:14px; padding:7px 10px; box-shadow:0 10px 24px -18px rgba(59,70,80,.4);">
+        <span onClick="{{ prevMonth }}" style="width:30px; height:30px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#8a939c;" style-hover="background:#f1ece1;"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+        <span class="num" style="font-size:14px; color:#37424d; letter-spacing:1px; min-width:96px; text-align:center;">{{ monthLabel }}</span>
+        <span onClick="{{ nextMonth }}" style="width:30px; height:30px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#8a939c;" style-hover="background:#f1ece1;"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+      </div>
+    </div>
+
+    <!-- KPI row -->
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px;">
+      <div style="background:#fff; border:1px solid #ece7dd; border-radius:20px; padding:18px 20px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+        <div class="num" style="font-size:10px; color:#9aa2ab; letter-spacing:2.5px;">INCOME · 收入</div>
+        <div class="num" style="font-size:26px; font-weight:500; color:#6e9257; margin-top:6px;">{{ incomeF }}</div>
+      </div>
+      <div style="background:#fff; border:1px solid #ece7dd; border-radius:20px; padding:18px 20px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+        <div class="num" style="font-size:10px; color:#9aa2ab; letter-spacing:2.5px;">EXPENSE · 支出</div>
+        <div class="num" style="font-size:26px; font-weight:500; color:#c05a44; margin-top:6px;">{{ expenseF }}</div>
+      </div>
+      <div style="background:#37424d; border:1px solid #37424d; border-radius:20px; padding:18px 20px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+        <div class="num" style="font-size:10px; color:rgba(255,255,255,.55); letter-spacing:2.5px;">NET · 結餘</div>
+        <div class="num" style="font-size:26px; font-weight:500; color:{{ netColor }}; margin-top:6px;">{{ netF }}</div>
+      </div>
+    </div>
+
+    <!-- breakdown row -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:stretch;">
+      <!-- expense by category -->
+      <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+          <h2 class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1.5px;">支出都花在哪？</h2>
+          <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
+        </div>
+        <div style="font-size:11px; color:#a3abb2; margin:0 0 16px 0;">本月各分類實際支出</div>
+        <sc-if value="{{ hasExpense }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex; align-items:center; gap:22px;">
+            <div style="position:relative; width:130px; height:130px; flex-shrink:0;">
+              <div style="width:130px; height:130px; border-radius:50%; background:{{ donut }};"></div>
+              <div style="position:absolute; inset:26px; background:#fff; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                <div class="num" style="font-size:9px; color:#9aa2ab; letter-spacing:2px;">TOTAL</div>
+                <div class="num" style="font-size:15px; font-weight:500; color:#37424d;">{{ expenseShort }}</div>
+              </div>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; gap:9px;">
+              <sc-for list="{{ catRows }}" as="c" hint-placeholder-count="5">
+                <div style="display:flex; align-items:center; gap:9px;">
+                  <span style="width:9px; height:9px; border-radius:3px; background:{{ c.color }}; flex-shrink:0;"></span>
+                  <span style="flex:1; font-size:12.5px; color:#4b5560;">{{ c.name }}</span>
+                  <span class="num" style="font-size:12px; color:#8a939c;">{{ c.valF }}</span>
+                  <span class="num" style="font-size:12px; font-weight:600; color:#37424d; width:42px; text-align:right;">{{ c.pct }}%</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ noExpense }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center; padding:40px 0; color:#a3abb2; font-size:12px;">本月尚無支出紀錄</div>
+        </sc-if>
+      </section>
+
+      <!-- by account -->
+      <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+          <h2 class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1.5px;">各帳戶淨變動</h2>
+          <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
+        </div>
+        <div style="font-size:11px; color:#a3abb2; margin:0 0 16px 0;">本月每個帳戶進出後的淨額（收入 − 支出）</div>
+        <div style="display:flex; flex-direction:column;">
+          <sc-for list="{{ acctRows }}" as="a" hint-placeholder-count="5">
+            <div style="display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid #f1ece1;">
+              <span style="width:8px; height:8px; border-radius:50%; background:{{ a.dot }}; flex-shrink:0;"></span>
+              <div style="flex:1; min-width:0;">
+                <div style="font-size:13px; color:#3b4650;">{{ a.name }}</div>
+                <div class="num" style="font-size:10.5px; color:#a3abb2; margin-top:1px;">進 {{ a.inF }} · 出 {{ a.outF }}</div>
+              </div>
+              <span class="num" style="font-size:14px; font-weight:600; color:{{ a.color }};">{{ a.netF }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </div>
+
+    <!-- transactions -->
+    <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+        <h2 class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1.5px;">本月明細</h2>
+        <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
+        <span class="num" style="font-size:11px; color:#9aa2ab; letter-spacing:1px;">{{ monthCount }} 筆 · 手機新增／編輯</span>
+      </div>
+      <div style="font-size:11px; color:#a3abb2; margin:0 0 14px 0;">手機記的每一筆都會出現在這裡</div>
+
+      <div style="display:grid; grid-template-columns:90px 1fr 110px 130px 40px; gap:10px; align-items:center; padding:0 8px 9px; border-bottom:2px dotted #e4ded1;">
+        <div class="num" style="font-size:11px; color:#8a939c;">日期</div>
+        <div style="font-size:11px; color:#8a939c;">分類 · 備註</div>
+        <div style="font-size:11px; color:#8a939c;">帳戶</div>
+        <div class="num" style="font-size:11px; color:#8a939c; text-align:right;">金額</div>
+        <div></div>
+      </div>
+
+      <sc-if value="{{ hasRows }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex; flex-direction:column;">
+          <sc-for list="{{ txRows }}" as="e" hint-placeholder-count="8">
+            <div style="display:grid; grid-template-columns:90px 1fr 110px 130px 40px; gap:10px; align-items:center; padding:11px 8px; border-bottom:1px solid #f1ece1;">
+              <div class="num" style="font-size:12px; color:#8a939c;">{{ e.dateF }}</div>
+              <div style="min-width:0;"><span style="font-size:13px; color:#3b4650;">{{ e.category }}</span><span style="font-size:11px; color:#b3bcc3; margin-left:8px;">{{ e.note }}</span></div>
+              <div style="font-size:12px; color:#6a747e;">{{ e.account }}</div>
+              <div class="num" style="font-size:13.5px; font-weight:600; color:{{ e.color }}; text-align:right;">{{ e.amountText }}</div>
+              <div onClick="{{ e.onDelete }}" style="display:flex; align-items:center; justify-content:center; cursor:pointer; color:#d0aca2;" style-hover="color:#c0533f;"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noRows }}" hint-placeholder-val="{{ false }}">
+        <div style="text-align:center; padding:50px 0; color:#a3abb2; font-size:12.5px;">{{ emptyMsg }}</div>
+      </sc-if>
+    </section>
+  </main>
+
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; left:50%; bottom:40px; transform:translateX(-50%); background:#37424d; color:#fff; padding:11px 22px; border-radius:24px; font-size:13px; letter-spacing:1px; box-shadow:0 14px 30px -12px rgba(0,0,0,.5); z-index:50;">{{ toast }}</div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1730,&quot;height&quot;:1400}}">
+const SB_URL = 'https://itxilfaobczncmxgbehh.supabase.co';
+const SB_KEY = 'sb_publishable_unDwhwkXE3f12fefr8bSrQ_UL-li019';
+const CAT_COLORS = ['#37424d', '#c05a44', '#5a7ba6', '#c7a05e', '#7ba38c', '#8a9bb2', '#b9b0a0', '#d68a76'];
+const ACCT_DOTS = { '中信': '#5a7ba6', '國泰': '#37424d', '永豐': '#7ba38c', '交割': '#c7a05e', '現金': '#b9b0a0' };
+
+class Component extends DCLogic {
+  state = { entries: [], status: 'connecting', ym: '', toast: '' };
+
+  componentDidMount() {
+    const d = new Date();
+    const p = (n) => String(n).padStart(2, '0');
+    this.setState({ ym: `${d.getFullYear()}-${p(d.getMonth() + 1)}` });
+    const cache = this.readCache();
+    if (cache.length) this.setState({ entries: cache });
+    this.connect(0);
+  }
+
+  connect(tries) {
+    if (window.supabase && window.supabase.createClient) {
+      this.sb = window.supabase.createClient(SB_URL, SB_KEY);
+      this.load();
+    } else if (tries < 40) { setTimeout(() => this.connect(tries + 1), 150); }
+    else { this.setState({ status: 'offline' }); }
+  }
+
+  readCache() { try { const s = localStorage.getItem('mob-entries-cache'); return s ? JSON.parse(s) : []; } catch (e) { return []; } }
+
+  async load() {
+    if (!this.sb) return;
+    try {
+      const { data, error } = await this.sb.from('entries').select('*')
+        .order('occurred_on', { ascending: false }).order('created_at', { ascending: false }).limit(500);
+      if (error) throw error;
+      this.setState({ entries: data || [], status: 'online' });
+      try { localStorage.setItem('mob-entries-cache', JSON.stringify(data || [])); } catch (e) {}
+    } catch (e) { this.setState({ status: 'offline' }); }
+  }
+
+  flash(m) { this.setState({ toast: m }); clearTimeout(this._t); this._t = setTimeout(() => this.setState({ toast: '' }), 1800); }
+
+  stepMonth(d) {
+    const [y, m] = this.state.ym.split('-').map(Number);
+    const dt = new Date(y, m - 1 + d, 1);
+    const p = (n) => String(n).padStart(2, '0');
+    this.setState({ ym: `${dt.getFullYear()}-${p(dt.getMonth() + 1)}` });
+  }
+
+  async removeEntry(id) {
+    if (!this.sb) { this.flash('尚未連上雲端'); return; }
+    try { await this.sb.from('entries').delete().eq('id', id); this.flash('已刪除'); await this.load(); }
+    catch (e) { this.flash('刪除失敗'); }
+  }
+
+  fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+  kf(n) { const a = Math.abs(n); if (a >= 10000) return `${(n / 10000).toFixed(1)}萬`; return this.fmt(n); }
+
+  renderVals() {
+    const S = this.state;
+    const inMonth = S.entries.filter((e) => (e.occurred_on || '').slice(0, 7) === S.ym);
+
+    let income = 0, expense = 0;
+    inMonth.forEach((e) => { if (e.type === 'income') income += Number(e.amount); else expense += Number(e.amount); });
+    const net = income - expense;
+
+    // expense by category
+    const catMap = {};
+    inMonth.filter((e) => e.type === 'expense').forEach((e) => { const c = e.category || '其他'; catMap[c] = (catMap[c] || 0) + Number(e.amount); });
+    const catArr = Object.keys(catMap).map((k) => ({ name: k, v: catMap[k] })).sort((a, b) => b.v - a.v);
+    let acc = 0;
+    const segs = catArr.map((c, i) => { const s = acc / (expense || 1) * 100; acc += c.v; const e = acc / (expense || 1) * 100; return `${CAT_COLORS[i % CAT_COLORS.length]} ${s.toFixed(2)}% ${e.toFixed(2)}%`; });
+    const donut = segs.length ? `conic-gradient(${segs.join(', ')})` : '#eee';
+    const catRows = catArr.map((c, i) => ({
+      name: c.name, color: CAT_COLORS[i % CAT_COLORS.length],
+      valF: `NT$ ${this.fmt(c.v)}`, pct: (c.v / (expense || 1) * 100).toFixed(1),
+    }));
+
+    // by account
+    const acctMap = {};
+    inMonth.forEach((e) => {
+      const a = e.account || '現金';
+      acctMap[a] = acctMap[a] || { in: 0, out: 0 };
+      if (e.type === 'income') acctMap[a].in += Number(e.amount); else acctMap[a].out += Number(e.amount);
+    });
+    const acctRows = Object.keys(acctMap).map((k) => {
+      const v = acctMap[k]; const nett = v.in - v.out;
+      return {
+        name: k, dot: ACCT_DOTS[k] || '#b9b0a0',
+        inF: this.fmt(v.in), outF: this.fmt(v.out),
+        netF: `${nett >= 0 ? '+' : '-'} ${this.fmt(Math.abs(nett))}`,
+        color: nett >= 0 ? '#6e9257' : '#c05a44',
+      };
+    }).sort((a, b) => (acctMap[b.name].in + acctMap[b.name].out) - (acctMap[a.name].in + acctMap[a.name].out));
+
+    // transactions
+    const txRows = inMonth.map((e) => ({
+      dateF: (e.occurred_on || '').slice(5).replace('-', '/'),
+      category: e.category || '其他', note: e.note || '', account: e.account || '現金',
+      amountText: `${e.type === 'expense' ? '-' : '+'} ${this.fmt(e.amount)}`,
+      color: e.type === 'expense' ? '#c05a44' : '#6e9257',
+      onDelete: () => this.removeEntry(e.id),
+    }));
+
+    const [yy, mm] = S.ym.split('-');
+    const status = S.status;
+
+    const nav = [
+      { label: '首頁', href: '記帳CFO v2.dc.html', dot: '#b9b0a0' },
+      { label: '收入', href: '收入中心.dc.html', dot: '#7ba38c' },
+      { label: '資金分配', href: '資金分配.dc.html', dot: '#c7a05e' },
+      { label: '支出', href: '支出中心.dc.html', dot: '#c05a44' },
+      { label: '資產', href: '資產.dc.html', dot: '#5a7ba6' },
+      { label: '記帳明細', href: '#', dot: '#37424d', active: true },
+      { label: '報表', href: '報表分析.dc.html', dot: '#8a9bb2' },
+    ].map((n) => ({
+      label: n.label, href: n.href, dot: n.dot,
+      rowStyle: `display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px; font-size:13.5px; transition:background .2s ease; ${n.active ? 'color:#37424d; font-weight:700; background:#efeae0;' : 'color:#5b6670;'}`,
+    }));
+
+    return {
+      rootRef: (el) => { this.root = el; },
+      navItems: nav,
+      syncLabel: status === 'online' ? '已同步' : status === 'connecting' ? '連線中' : '離線',
+      syncDotStyle: `width:8px; height:8px; border-radius:50%; background:${status === 'online' ? '#8fce8f' : status === 'connecting' ? '#e3c789' : '#e08a76'}; animation:dotpulse 1.6s ease-in-out infinite;`,
+      recCount: S.entries.length,
+
+      prevMonth: () => this.stepMonth(-1), nextMonth: () => this.stepMonth(1),
+      monthLabel: `${yy} 年 ${Number(mm)} 月`,
+
+      incomeF: `NT$ ${this.fmt(income)}`, expenseF: `NT$ ${this.fmt(expense)}`,
+      netF: `${net >= 0 ? '+' : '-'} NT$ ${this.fmt(Math.abs(net))}`,
+      netColor: net >= 0 ? '#8fce8f' : '#e39a88',
+
+      donut, expenseShort: this.kf(expense), catRows,
+      hasExpense: expense > 0, noExpense: expense === 0,
+      acctRows,
+
+      txRows, monthCount: inMonth.length,
+      hasRows: inMonth.length > 0, noRows: inMonth.length === 0,
+      emptyMsg: status === 'offline' ? '離線中，無法讀取雲端資料' : '這個月還沒有紀錄，去手機記一筆吧',
+      toast: S.toast,
+    };
+  }
+}
+</script>
+</body>
+</html>
