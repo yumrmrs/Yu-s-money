@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="18" fill="#37424d"/><path d="M28 64L44 46l11 11 22-26" fill="none" stroke="#e3c789" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M68 31h10v10" fill="none" stroke="#e3c789" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</template>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Marcellus&family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans TC', sans-serif; background: #e9e5dc; color: #3b4650; -webkit-font-smoothing: antialiased; }
+  a { color: #5a7ba6; text-decoration: none; }
+  a:hover { color: #45648d; }
+  .serif { font-family: 'Marcellus', 'Noto Serif TC', serif; }
+  .num { font-family: 'Jost', 'Noto Sans TC', sans-serif; font-feature-settings: 'tnum'; }
+  @keyframes livepulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.7); } }
+</style>
+<script>(function(){function f(){var r=document.getElementById('fitroot');if(r){r.style.zoom=Math.min(1.2,document.documentElement.clientWidth/1440);}}window.addEventListener('resize',f);window.addEventListener('load',f);var n=0,t=setInterval(function(){if(document.getElementById('fitroot'))f();if(++n>60)clearInterval(t);},120);})();</script>
+</helmet>
+
+<div id="fitroot" style="width:1440px; margin:0 auto; padding:26px 30px 34px; display:flex; gap:24px; align-items:flex-start;">
+
+  <!-- SIDEBAR -->
+  <aside style="width:220px; flex-shrink:0; position:sticky; top:26px; display:flex; flex-direction:column; gap:20px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span style="width:44px; height:44px; border-radius:14px; background:#37424d; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 20px -10px rgba(55,66,77,.7);">
+        <svg viewBox="0 0 24 24" width="26" height="26"><path d="M4.5 12c2.4-4 6-6.1 9.4-5 2.6.8 4.4 2.8 5.1 5-.7 2.2-2.5 4.2-5.1 5-3.4 1.1-7-1-9.4-5z M4.5 12L2.5 9.4v5.2z" fill="none" stroke="#c7a05e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 10.6h.01" fill="none" stroke="#c7a05e" stroke-width="2.2" stroke-linecap="round"></path></svg>
+      </span>
+      <div>
+        <div class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1px;">魚家財務室</div>
+        <div class="num" style="font-size:12.6px; color:#9aa2ab; letter-spacing:3px; margin-top:1px;">HOUSEHOLD OS</div>
+      </div>
+    </div>
+
+    <div style="background:#37424d; border-radius:20px; padding:18px 17px; box-shadow:0 18px 34px -20px rgba(55,66,77,.8); color:#fff;">
+      <div class="num" style="font-size:11.5px; color:rgba(255,255,255,.55); letter-spacing:2px;">每月被動收入 · PASSIVE</div>
+      <div class="num" style="font-size:33px; font-weight:500; color:#fff; line-height:1.15; margin-top:6px; white-space:nowrap;">{{ monthlyShort }}</div>
+      <div style="margin-top:12px; padding-top:12px; border-top:2px dotted rgba(255,255,255,.16); display:flex; justify-content:space-between; font-size:14.5px; color:rgba(255,255,255,.6);">
+        <span>覆蓋目標</span><span class="num" style="color:#e3c789; font-weight:600;">{{ coverPct }}%</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="num" style="font-size:13.2px; color:#9aa2ab; letter-spacing:3px; margin:0 4px 10px;">MENU</div>
+      <div style="display:flex; flex-direction:column; gap:2px;">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="9">
+          <a href="{{ n.href }}" style="{{ n.rowStyle }}" style-hover="background:#efeae0;">
+            <svg viewBox="0 0 24 24" width="17" height="17" style="flex-shrink:0;"><path d="{{ n.ip }}" fill="none" stroke="{{ n.stroke }}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="{{ n.ia }}" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <span style="flex:1;">{{ n.label }}</span></a>
+        </sc-for>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:18px;">
+
+    <div style="display:flex; align-items:flex-end; justify-content:space-between;">
+      <div>
+        <div style="position:relative; display:inline-block;">
+          <span class="serif" style="position:absolute; top:-16px; left:2px; font-size:19.8px; color:#c7a05e; letter-spacing:3px;">＼／</span>
+          <h1 class="serif" style="font-weight:700; font-size:39.6px; color:#37424d; letter-spacing:3px; border-bottom:2px dotted #cdc6b7; padding-bottom:8px;">被動收入儀表板</h1>
+        </div>
+        <div class="num" style="font-size:14.5px; color:#9aa2ab; letter-spacing:4px; margin-top:8px;">PASSIVE INCOME · 我離財務自由還有多遠？</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:9px; background:#fff; border:1px solid #ece7dd; border-radius:14px; padding:8px 14px; box-shadow:0 10px 24px -18px rgba(59,70,80,.4);">
+        <span style="width:7px; height:7px; border-radius:50%; background:#6e9257; animation:livepulse 1.6s ease-in-out infinite;"></span>
+        <span class="num" style="font-size:13.2px; color:#a07f3a; letter-spacing:2px; font-weight:600;">人生規劃視角</span>
+      </div>
+    </div>
+
+    <!-- ===== HERO: monthly passive + target + progress ===== -->
+    <section style="background:#fff; border:1px solid #ece7dd; border-radius:24px; padding:24px 26px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3.5 18.5L9.5 12l3.5 3.5 7-8" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16 7.5h4v4" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">我目前每月有多少被動收入？</h2>
+      </div>
+      <div style="display:flex; align-items:flex-end; gap:22px; margin:18px 0 6px 30px; flex-wrap:wrap;">
+        <div>
+          <div class="num" style="font-size:13.2px; color:#9aa2ab; letter-spacing:2.5px;">CURRENT / MONTH</div>
+          <div class="num" style="font-size:63.4px; font-weight:500; color:#37424d; line-height:1;">{{ monthly }}</div>
+        </div>
+        <div style="padding-bottom:8px; display:flex; align-items:center; gap:7px;">
+          <span style="display:inline-flex; align-items:center; gap:4px; background:#eef3ec; color:#6e9257; font-weight:600; font-size:15.8px; padding:5px 11px; border-radius:20px;" class="num">↑ 比去年 +<span contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="yoyPct" data-fmt="plain" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="cursor:text; border-radius:4px; outline:none;" style-focus="background:#dfead9; box-shadow:inset 0 -1.5px 0 #9dbb8c;">{{ yoyPct }}</span>%</span>
+        </div>
+      </div>
+
+      <div style="margin:14px 0 10px 30px;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;">
+          <span class="num" style="font-size:14.5px; color:#8a939c; letter-spacing:1px;">目標：{{ targetLabel }}/月</span>
+          <span class="num" style="font-size:15.8px; color:#37424d; font-weight:600;">{{ monthly }} / {{ targetLabel }}</span>
+        </div>
+        <div style="height:11px; background:#efeae0; border-radius:7px; overflow:hidden;">
+          <div style="{{ progressStyle }}"></div>
+        </div>
+        <div class="num" style="font-size:13.9px; color:#a9b0b7; margin-top:7px;">已覆蓋目標 {{ coverPct }}% · 距離目標每月還差 {{ gapMonthly }}</div>
+      </div>
+
+      <div style="margin:16px 0 0 30px; display:flex; align-items:center; gap:9px; flex-wrap:wrap;">
+        <span class="num" style="font-size:13.2px; color:#9aa2ab; letter-spacing:2px; margin-right:4px;">設定目標階段</span>
+        <sc-for list="{{ stageChips }}" as="c" hint-placeholder-count="4">
+          <span onClick="{{ c.onClick }}" style="{{ c.style }}" class="num">{{ c.label }}</span>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- ===== SOURCES ===== -->
+    <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3.5 12a8.5 8.5 0 1 0 17 0a8.5 8.5 0 1 0-17 0" fill="none" stroke="#3f4a54" stroke-width="1.7"></path><path d="M9.5 9l2.5 3 2.5-3M12 12v4M9.8 13.5h4.4" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">被動收入來源</h2>
+        <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
+        <span class="num" onClick="{{ addSource }}" style="font-size:14.5px; color:#c7a05e; background:#faf3e4; padding:5px 13px; border-radius:20px; letter-spacing:1px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" style-hover="background:#f4ecd6;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 5v14M5 12h14" fill="none" stroke="#c7a05e" stroke-width="2" stroke-linecap="round"></path></svg>新增來源</span>
+      </div>
+      <div style="font-size:14.5px; color:#a3abb2; margin:0 0 16px 30px;">每個來源可開啟或關閉，關閉後不計入每月被動收入</div>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px;">
+        <sc-for list="{{ sources }}" as="s" hint-placeholder-count="3">
+          <div style="{{ s.cardStyle }}">
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:8px;">
+              <div style="display:flex; align-items:center; gap:9px;">
+                <span style="{{ s.iconWrap }}"><svg viewBox="0 0 24 24" width="17" height="17"><path d="{{ s.ip }}" fill="none" stroke="{{ s.iconStroke }}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+                <div>
+                  <div style="font-size:17.2px; color:{{ s.titleColor }}; font-weight:500;" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ s.labelPath }}" onFocus="{{ edFocusText }}" onBlur="{{ edText }}" onKeyDown="{{ edKey }}" style-focus="outline:none; box-shadow:inset 0 -1.5px 0 #d8b978; border-radius:4px;">{{ s.label }}</div>
+                  <div class="num" style="font-size:12.6px; color:{{ s.engColor }}; letter-spacing:2px;">{{ s.eng }}</div>
+                </div>
+              </div>
+              <span onClick="{{ s.onToggle }}" style="{{ s.switchStyle }}"><span style="{{ s.knobStyle }}"></span></span>
+            </div>
+            <div style="margin-top:16px; display:flex; align-items:baseline; gap:4px;">
+              <span class="num" style="font-size:15.8px; color:{{ s.subColor }};">NT$</span>
+              <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ s.amtPath }}" data-fmt="int" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="font-size:31.7px; font-weight:600; color:{{ s.amtColor }}; cursor:text; border-radius:4px;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ s.amt }}</span>
+              <span class="num" style="font-size:15.8px; color:{{ s.subColor }};">/月</span>
+            </div>
+            <div style="margin-top:10px; display:flex; align-items:center; justify-content:space-between;">
+              <span class="num" style="font-size:13.2px; color:{{ s.subColor }};">佔比 {{ s.pct }}%</span>
+              <span onClick="{{ s.onRemove }}" style="{{ s.removeStyle }}"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- ===== DIVIDEND GROWTH CHART + INVESTED ===== -->
+    <div style="display:grid; grid-template-columns:1.5fr 1fr; gap:18px; align-items:stretch;">
+
+      <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5); display:flex; flex-direction:column;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 19.5V4M4 19.5h16" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round"></path><path d="M6.5 15l4-4 3 2.5 5-6.5" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">股息成長圖</h2>
+          <span style="flex:1;"></span>
+          <span onClick="{{ setYear }}" style="{{ yearTabStyle }}" class="num">年</span>
+          <span onClick="{{ setMonth }}" style="{{ monthTabStyle }}" class="num">月</span>
+        </div>
+        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 14px 30px;">被動收入是否逐年成長？</div>
+        <div style="flex:1; position:relative;">
+          <svg viewBox="0 0 620 240" width="100%" style="display:block; overflow:visible;">
+            <sc-for list="{{ gridLines }}" as="g" hint-placeholder-count="4">
+              <line x1="40" y1="{{ g.y }}" x2="600" y2="{{ g.y }}" stroke="#f1ece1" stroke-width="1"></line>
+            </sc-for>
+            <sc-for list="{{ gridLines }}" as="g" hint-placeholder-count="4">
+              <text x="34" y="{{ g.ty }}" text-anchor="end" font-size="11" fill="#a9b0b7" class="num">{{ g.label }}</text>
+            </sc-for>
+            <polyline points="{{ chartArea }}" fill="url(#pgrad)" stroke="none" opacity="0.12"></polyline>
+            <defs><linearGradient id="pgrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c7a05e"></stop><stop offset="100%" stop-color="#c7a05e" stop-opacity="0"></stop></linearGradient></defs>
+            <polyline points="{{ chartLine }}" fill="none" stroke="#c7a05e" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"></polyline>
+            <sc-for list="{{ chartPts }}" as="p" hint-placeholder-count="4">
+              <circle cx="{{ p.x }}" cy="{{ p.y }}" r="4.5" fill="#fff" stroke="#c7a05e" stroke-width="2.5"></circle>
+              <text x="{{ p.x }}" y="{{ p.labY }}" text-anchor="middle" font-size="12" font-weight="600" fill="#37424d" class="num">{{ p.valLabel }}</text>
+              <text x="{{ p.x }}" y="228" text-anchor="middle" font-size="11.5" fill="#8a939c" class="num">{{ p.year }}</text>
+            </sc-for>
+          </svg>
+        </div>
+        <div style="margin-top:12px; padding-top:12px; border-top:2px dotted #e4ded1; display:flex; gap:24px; flex-wrap:wrap;">
+          <sc-for list="{{ dividends }}" as="d" hint-placeholder-count="4">
+            <div style="display:flex; align-items:baseline; gap:6px;">
+              <span class="num" style="font-size:13.2px; color:#a9b0b7;">{{ d.year }}</span>
+              <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ d.path }}" data-fmt="int" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="font-size:15.8px; font-weight:600; color:#37424d; cursor:text; border-radius:4px;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ d.amt }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="background:#37424d; border-radius:22px; padding:22px; box-shadow:0 26px 46px -30px rgba(55,66,77,.8); color:#fff; display:flex; flex-direction:column;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 9.5l8-5 8 5M5.5 9.5v8M18.5 9.5v8M4 19.5h16" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9 12v4M15 12v4" fill="none" stroke="#e3c789" stroke-width="1.7" stroke-linecap="round"></path></svg>
+          <h2 class="serif" style="font-weight:700; font-size:21.1px; letter-spacing:1.5px;">累積投入</h2>
+        </div>
+        <div style="font-size:14.5px; color:rgba(255,255,255,.5); margin:0 0 18px 30px;">每月持續投入是否照計畫進行？</div>
+        <div style="display:flex; flex-direction:column; gap:16px; flex:1; justify-content:center;">
+          <sc-for list="{{ invested }}" as="v" hint-placeholder-count="3">
+            <div>
+              <div class="num" style="font-size:13.2px; color:rgba(255,255,255,.5); letter-spacing:2px;">{{ v.eng }}</div>
+              <div style="display:flex; align-items:baseline; gap:4px; margin-top:2px;">
+                <span class="num" style="font-size:17.2px; color:rgba(255,255,255,.6);">NT$</span>
+                <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ v.path }}" data-fmt="int" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="font-size:{{ v.size }}; font-weight:500; color:{{ v.color }}; cursor:text; border-radius:4px;" style-focus="background:rgba(255,255,255,.14); box-shadow:inset 0 -1.5px 0 #e3c789; outline:none;">{{ v.amt }}</span>
+              </div>
+              <div style="font-size:14.5px; color:rgba(255,255,255,.5); margin-top:2px;">{{ v.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===== FAMILY DIVIDEND MAP (milestones) ===== -->
+    <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 24px 26px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 21c4-4 6.5-7 6.5-10.5A6.5 6.5 0 0 0 5.5 10.5C5.5 14 8 17 12 21z" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linejoin="round"></path><path d="M12 12.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" fill="none" stroke="#c7a05e" stroke-width="1.7"></path></svg>
+        <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">家庭股息地圖</h2>
+        <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
+        <span class="num" style="font-size:13.2px; color:#9aa2ab; letter-spacing:2px; margin-right:4px;">殖利率估算</span>
+        <sc-for list="{{ yieldChips }}" as="y" hint-placeholder-count="3">
+          <span onClick="{{ y.onClick }}" style="{{ y.style }}" class="num">{{ y.label }}</span>
+        </sc-for>
+      </div>
+      <div style="font-size:14.5px; color:#a3abb2; margin:0 0 20px 30px;">每上一階需要增加多少資產？（以殖利率換算所需股息資產）</div>
+      <div style="display:flex; align-items:stretch; gap:0;">
+        <sc-for list="{{ milestones }}" as="m" hint-placeholder-count="5">
+          <div style="flex:1; display:flex; flex-direction:column; align-items:center; text-align:center; position:relative;">
+            <div style="{{ m.nodeStyle }}">
+              <div class="num" style="font-size:11.4px; color:{{ m.tagColor }}; letter-spacing:1.5px;">{{ m.tag }}</div>
+              <div style="display:flex; align-items:baseline; justify-content:center; gap:3px; margin-top:2px;">
+                <span class="num" style="font-size:25.2px; font-weight:600; color:{{ m.valColor }}; line-height:1.1;">{{ m.val }}</span>
+                <span class="num" style="font-size:12.6px; color:{{ m.subColor }};">/月</span>
+              </div>
+            </div>
+            <div style="{{ m.gapStyle }}">
+              <div style="display:flex; align-items:baseline; justify-content:center; gap:5px;"><span style="font-size:12.6px; color:#a9b0b7;">還差</span><span class="num" style="font-size:14.5px; font-weight:600; color:#c05a44;">{{ m.gapDiv }}</span></div>
+              <div style="display:flex; align-items:baseline; justify-content:center; gap:5px; margin-top:4px;"><span style="font-size:12px; color:#a9b0b7;">約需增加</span><span class="num" style="font-size:15.8px; font-weight:600; color:#5a7ba6;">{{ m.gapAsset }}</span></div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- ================= 投資規則 ================= -->
+    <div style="display:flex; align-items:center; gap:14px; margin-top:12px;">
+      <div style="position:relative; display:inline-block;">
+        <span class="serif" style="position:absolute; top:-14px; left:2px; font-size:16.8px; color:#c7a05e; letter-spacing:3px;">＼／</span>
+        <h1 class="serif" style="font-weight:700; font-size:31.7px; color:#37424d; letter-spacing:2px; border-bottom:2px dotted #cdc6b7; padding-bottom:6px;">投資規則</h1>
+      </div>
+      <span class="num" style="font-size:13.2px; color:#9aa2ab; letter-spacing:3px; padding-bottom:6px;">INVESTMENT RULES · 依原則行動，不依情緒</span>
+    </div>
+
+    <!-- PHILOSOPHY -->
+    <section style="background:#37424d; border-radius:24px; padding:26px 28px; box-shadow:0 26px 46px -30px rgba(55,66,77,.8); color:#fff;">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 3.5l7 2.5v5c0 4.5-3 7.5-7 9.5-4-2-7-5-7-9.5v-5z" fill="none" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"></path><path d="M9 11.5l2 2 4-4" fill="none" stroke="#e3c789" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <h2 class="serif" style="font-weight:700; font-size:21.1px; letter-spacing:1.5px;">我的投資理念</h2>
+      </div>
+      <div class="serif" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="philosophy" onBlur="{{ edText }}" style="font-size:27.6px; line-height:1.7; color:#f3ede0; letter-spacing:1px; cursor:text; border-radius:8px; padding:4px;" style-focus="outline:none; background:rgba(255,255,255,.06); box-shadow:inset 0 0 0 1px rgba(227,199,137,.4);">{{ philosophy }}</div>
+      <div class="num" style="font-size:13.2px; color:rgba(255,255,255,.4); letter-spacing:2px; margin-top:12px;">點擊文字即可自由編輯</div>
+    </section>
+
+    <!-- MONTHLY INVEST + ALLOCATION -->
+    <div style="display:grid; grid-template-columns:1fr 1.35fr; gap:18px; align-items:stretch;">
+      <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5); display:flex; flex-direction:column;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 4.5h12v15H6zM9 3v3M15 3v3M6 9.5h12" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9.5 13h5M9.5 16h3" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round"></path></svg>
+          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">每月固定投入</h2>
+        </div>
+        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 18px 30px;">固定日期 · 固定金額</div>
+        <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:18px;">
+          <div>
+            <div class="num" style="font-size:13.2px; color:#9aa2ab; letter-spacing:2px;">AMOUNT / 每月投入</div>
+            <div style="display:flex; align-items:baseline; gap:5px; margin-top:4px;">
+              <span class="num" style="font-size:19.8px; color:#a3abb2;">NT$</span>
+              <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="investMonthly" data-fmt="int" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="font-size:46.2px; font-weight:600; color:#37424d; cursor:text; border-radius:4px;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ investMonthly }}</span>
+            </div>
+          </div>
+          <div style="padding-top:16px; border-top:2px dotted #e4ded1; display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:15.8px; color:#6a747e;">固定扣款日</span>
+            <span style="font-size:17.2px; color:#37424d; font-weight:600;">每月 <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="investDay" data-fmt="plain" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="cursor:text; border-radius:4px; color:#c7a05e;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ investDay }}</span> 號</span>
+          </div>
+        </div>
+      </section>
+
+      <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 3.5a8.5 8.5 0 1 0 8.5 8.5" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round"></path><path d="M12 12V3.5A8.5 8.5 0 0 1 20.5 12z" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linejoin="round"></path></svg>
+          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">投資比例</h2>
+          <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
+          <span class="num" onClick="{{ addRatio }}" style="font-size:14.5px; color:#c7a05e; background:#faf3e4; padding:5px 13px; border-radius:20px; letter-spacing:1px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" style-hover="background:#f4ecd6;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 5v14M5 12h14" fill="none" stroke="#c7a05e" stroke-width="2" stroke-linecap="round"></path></svg>新增分類</span>
+        </div>
+        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 14px 30px;">目前合計 {{ ratioTotal }}%{{ ratioWarn }}</div>
+        <div style="height:11px; background:#efeae0; border-radius:7px; overflow:hidden; display:flex; margin-bottom:16px;">
+          <sc-for list="{{ ratios }}" as="r" hint-placeholder-count="3">
+            <div style="{{ r.barStyle }}"></div>
+          </sc-for>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:11px;">
+          <sc-for list="{{ ratios }}" as="r" hint-placeholder-count="3">
+            <div style="display:flex; align-items:center; gap:11px;">
+              <span style="width:11px; height:11px; border-radius:4px; background:{{ r.color }}; flex-shrink:0;"></span>
+              <span style="flex:1; font-size:17.2px; color:#4b5560;" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ r.labelPath }}" onFocus="{{ edFocusText }}" onBlur="{{ edText }}" onKeyDown="{{ edKey }}" style-focus="outline:none; box-shadow:inset 0 -1.5px 0 #d8b978; border-radius:4px;">{{ r.label }}</span>
+              <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ r.pctPath }}" data-fmt="plain" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="font-size:19.8px; font-weight:600; color:#37424d; cursor:text; border-radius:4px; min-width:34px; text-align:right;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ r.pct }}</span>
+              <span class="num" style="font-size:15.8px; color:#8a939c;">%</span>
+              <span onClick="{{ r.onRemove }}" style="width:22px; height:22px; display:flex; align-items:center; justify-content:center; border-radius:7px; cursor:pointer; color:#c8cdd2;" style-hover="background:#fbf1ee; color:#c05a44;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </div>
+
+    <!-- ADD-ON RULES + NO-SELL -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:stretch;">
+      <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 6h16M4 12h16M4 18h10" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round"></path><path d="M18 15.5v5M15.5 18h5" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round"></path></svg>
+          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">加碼規則</h2>
+          <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
+          <span class="num" onClick="{{ addDip }}" style="font-size:14.5px; color:#c7a05e; background:#faf3e4; padding:5px 13px; border-radius:20px; letter-spacing:1px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" style-hover="background:#f4ecd6;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 5v14M5 12h14" fill="none" stroke="#c7a05e" stroke-width="2" stroke-linecap="round"></path></svg>新增</span>
+        </div>
+        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 16px 30px;">預先寫下規則，避免情緒化操作</div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <sc-for list="{{ dips }}" as="d" hint-placeholder-count="3">
+            <div style="display:flex; align-items:center; gap:12px; padding:13px 15px; background:#faf7ef; border:1px solid #ece2c9; border-radius:14px;">
+              <span style="width:38px; height:38px; border-radius:11px; background:#f4ecd6; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M6 8l6 8 6-8" fill="none" stroke="#c7a05e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+              <div style="flex:1;">
+                <div style="font-size:17.2px; color:#3b4650; font-weight:500;">大盤下跌 <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ d.pctPath }}" data-fmt="plain" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="cursor:text; border-radius:4px; color:#c05a44; font-weight:600;" style-focus="background:#fff; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ d.pct }}</span>%</div>
+                <div style="font-size:14.5px; color:#8a939c; margin-top:1px;" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ d.actPath }}" onFocus="{{ edFocusText }}" onBlur="{{ edText }}" onKeyDown="{{ edKey }}" style-focus="outline:none; box-shadow:inset 0 -1.5px 0 #d8b978; border-radius:4px;">{{ d.action }}</div>
+              </div>
+              <span onClick="{{ d.onRemove }}" style="width:22px; height:22px; display:flex; align-items:center; justify-content:center; border-radius:7px; cursor:pointer; color:#c8cdd2;" style-hover="background:#fbf1ee; color:#c05a44;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 3.5l7 2.5v5c0 4.5-3 7.5-7 9.5-4-2-7-5-7-9.5v-5z" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linejoin="round"></path><path d="M9 11.5l2 2 4-4" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">不賣出原則</h2>
+          <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
+          <span class="num" onClick="{{ addPrinciple }}" style="font-size:14.5px; color:#c7a05e; background:#faf3e4; padding:5px 13px; border-radius:20px; letter-spacing:1px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" style-hover="background:#f4ecd6;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 5v14M5 12h14" fill="none" stroke="#c7a05e" stroke-width="2" stroke-linecap="round"></path></svg>新增</span>
+        </div>
+        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 16px 30px;">勾選並持續遵守的紀律</div>
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <sc-for list="{{ principles }}" as="p" hint-placeholder-count="4">
+            <div style="display:flex; align-items:center; gap:12px; padding:11px 6px; border-bottom:1px solid #f1ece1;">
+              <span onClick="{{ p.onToggle }}" style="{{ p.boxStyle }}"><svg viewBox="0 0 24 24" width="13" height="13" style="{{ p.checkStyle }}"><path d="M5 12.5l4 4 10-10" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+              <span style="flex:1; font-size:17.2px; color:{{ p.textColor }};" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ p.textPath }}" onFocus="{{ edFocusText }}" onBlur="{{ edText }}" onKeyDown="{{ edKey }}" style-focus="outline:none; box-shadow:inset 0 -1.5px 0 #d8b978; border-radius:4px;">{{ p.text }}</span>
+              <span onClick="{{ p.onRemove }}" style="width:22px; height:22px; display:flex; align-items:center; justify-content:center; border-radius:7px; cursor:pointer; color:#c8cdd2;" style-hover="background:#fbf1ee; color:#c05a44;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </div>
+
+    <!-- FUNDING + REINVEST -->
+    <div style="display:grid; grid-template-columns:1.15fr 1fr; gap:18px; align-items:stretch;">
+      <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3.5 12a8.5 8.5 0 1 0 17 0a8.5 8.5 0 1 0-17 0" fill="none" stroke="#3f4a54" stroke-width="1.7"></path><path d="M9.5 9l2.5 3 2.5-3M12 12v4" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">資金來源</h2>
+        </div>
+        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 16px 30px;">每月新增資金可勾選來源，方便檢視資產累積來源</div>
+        <div style="display:flex; flex-wrap:wrap; gap:10px;">
+          <sc-for list="{{ funding }}" as="f" hint-placeholder-count="5">
+            <span onClick="{{ f.onToggle }}" style="{{ f.chipStyle }}">
+              <svg viewBox="0 0 24 24" width="14" height="14" style="{{ f.tickStyle }}"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              {{ f.label }}
+            </span>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M20.5 12a8.5 8.5 0 1 1-2.5-6" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round"></path><path d="M18 2.5V6h-3.5" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">股利再投入</h2>
+        </div>
+        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 14px 30px;">股息要滾入複利，還是保留現金？</div>
+        <div style="display:flex; flex-direction:column; gap:9px;">
+          <sc-for list="{{ reinvestOpts }}" as="o" hint-placeholder-count="3">
+            <div onClick="{{ o.onClick }}" style="{{ o.rowStyle }}">
+              <span style="{{ o.radioStyle }}"><span style="{{ o.dotStyle }}"></span></span>
+              <span style="flex:1; font-size:17.2px; color:{{ o.textColor }}; font-weight:{{ o.weight }};">{{ o.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="{{ customWrap }}">
+          <div style="display:flex; justify-content:space-between; margin-bottom:7px; font-size:14.5px; color:#8a939c;">
+            <span>再投入 <span class="num" style="color:#6e9257; font-weight:600;">{{ reinvestPct }}%</span></span>
+            <span>保留現金 <span class="num" style="color:#c7a05e; font-weight:600;">{{ keepPct }}%</span></span>
+          </div>
+          <input type="range" min="0" max="100" step="5" value="{{ reinvestPct }}" onInput="{{ onSlide }}" style="width:100%; accent-color:#6e9257;">
+        </div>
+      </section>
+    </div>
+
+    <!-- ANNUAL REVIEW -->
+    <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 24px 24px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6.5 3.5h8l4 4v13h-12zM14 3.5v4h4" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linejoin="round"></path><path d="M9 12.5h6M9 16h4" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round"></path></svg>
+        <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">年度檢視</h2>
+        <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
+        <span class="num" style="font-size:19.8px; font-weight:600; color:#c7a05e;">{{ reviewYear }}</span>
+      </div>
+      <div style="font-size:14.5px; color:#a3abb2; margin:0 0 18px 30px;">每年底檢視一次配置與成果</div>
+      <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:0;">
+        <sc-for list="{{ review }}" as="r" hint-placeholder-count="5">
+          <div style="{{ r.cell }}">
+            <div class="num" style="font-size:13.2px; color:#9aa2ab; letter-spacing:2px;">{{ r.eng }}</div>
+            <div style="font-size:15.8px; color:#6a747e; margin-top:2px;">{{ r.label }}</div>
+            <div style="display:flex; align-items:baseline; gap:3px; margin-top:7px;">
+              <span class="num" style="font-size:15.8px; color:#a3abb2;">{{ r.prefix }}</span>
+              <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ r.path }}" data-fmt="int" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="font-size:27.6px; font-weight:500; color:{{ r.color }}; cursor:text; border-radius:4px;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ r.amt }}</span>
+            </div>
+            <div style="font-size:13.9px; color:#a9b0b7; margin-top:3px;">{{ r.note }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1700}}">
+class Component extends DCLogic {
+  state = { cfg: null };
+
+  defaults() {
+    return {
+      target: 20000,
+      yieldPct: 5,
+      chartMode: 'year',
+      yoyPct: 18,
+      stages: [20000, 30000, 50000, 100000],
+      sources: [
+        { label: '股票股利', eng: 'STOCK DIVIDEND', amt: 8900, on: true, icon: 'grow' },
+        { label: '保單', eng: 'INSURANCE', amt: 3655, on: true, icon: 'shield' },
+      ],
+      dividendsY: [
+        { year: 2026, amt: 150000 },
+        { year: 2027, amt: 180000 },
+        { year: 2028, amt: 240000 },
+        { year: 2029, amt: 300000 },
+      ],
+      invested: { current: 16250, thisYear: 16250, total: 16250 },
+      philosophy: '投資是為了打造家庭現金流，而不是追逐短期價差。',
+      investMonthly: 16250,
+      investDay: 6,
+      ratios: [
+        { label: '高股息 ETF', pct: 50, color: '#c7a05e' },
+        { label: '市值型 ETF', pct: 30, color: '#5a7ba6' },
+        { label: '現金保留', pct: 20, color: '#b9b0a0' },
+      ],
+      dips: [
+        { pct: 10, action: '加碼一次' },
+        { pct: 20, action: '再加碼一次' },
+        { pct: 30, action: '啟動預備金' },
+      ],
+      principles: [
+        { text: '不因新聞賣股票', on: true },
+        { text: '不因短期下跌停損', on: true },
+        { text: '除非投資邏輯改變才調整', on: false },
+        { text: '每半年檢視一次配置', on: true },
+      ],
+      funding: [
+        { label: '薪資', on: true },
+        { label: '股利再投入', on: true },
+        { label: '獎金', on: false },
+        { label: '接案收入', on: false },
+        { label: '其他', on: false },
+      ],
+      reinvestMode: 'custom',
+      reinvestPct: 70,
+      review: { year: 2026, invested: 360000, dividend: 152000, assetGrow: 980000, passiveFrom: 12555, passiveTo: 13850, achieve: 108 },
+    };
+  }
+
+  cfg() {
+    if (this.state.cfg) return this.state.cfg;
+    try { const s = localStorage.getItem('passive-cfg-v2'); if (s) return { ...this.defaults(), ...JSON.parse(s) }; } catch (e) {}
+    return this.defaults();
+  }
+  save(c) { this.setState({ cfg: c }); try { localStorage.setItem('passive-cfg-v2', JSON.stringify(c)); } catch (e) {} }
+
+  setPath(path, val) {
+    const c = JSON.parse(JSON.stringify(this.cfg()));
+    const keys = path.split('.'); let o = c;
+    for (let i = 0; i < keys.length - 1; i++) o = o[keys[i]];
+    o[keys[keys.length - 1]] = val;
+    this.save(c);
+  }
+  commitNum(el) { const p = el.getAttribute('data-path'); const n = parseFloat(String(el.textContent || '').replace(/[^\d.\-]/g, '')); if (isNaN(n)) { this.forceUpdate(); return; } this.setPath(p, Math.round(n)); }
+  commitText(el) { const p = el.getAttribute('data-path'); this.setPath(p, (el.textContent || '').trim() || '未命名'); }
+
+  toggleSource(i) { const c = JSON.parse(JSON.stringify(this.cfg())); c.sources[i].on = !c.sources[i].on; this.save(c); }
+  addSource() { const c = JSON.parse(JSON.stringify(this.cfg())); c.sources.push({ label: '新來源', eng: 'NEW SOURCE', amt: 0, on: true, icon: 'coin' }); this.save(c); }
+  removeSource(i) { const c = JSON.parse(JSON.stringify(this.cfg())); c.sources.splice(i, 1); this.save(c); }
+
+  clone() { return JSON.parse(JSON.stringify(this.cfg())); }
+  addRatio() { const c = this.clone(); const cols = ['#7ba38c', '#a07f3a', '#8a939c', '#5a7ba6']; c.ratios.push({ label: '新分類', pct: 0, color: cols[c.ratios.length % cols.length] }); this.save(c); }
+  removeRatio(i) { const c = this.clone(); c.ratios.splice(i, 1); this.save(c); }
+  addDip() { const c = this.clone(); c.dips.push({ pct: 40, action: '再加碼' }); this.save(c); }
+  removeDip(i) { const c = this.clone(); c.dips.splice(i, 1); this.save(c); }
+  addPrinciple() { const c = this.clone(); c.principles.push({ text: '新原則', on: false }); this.save(c); }
+  removePrinciple(i) { const c = this.clone(); c.principles.splice(i, 1); this.save(c); }
+  togglePrinciple(i) { const c = this.clone(); c.principles[i].on = !c.principles[i].on; this.save(c); }
+  toggleFunding(i) { const c = this.clone(); c.funding[i].on = !c.funding[i].on; this.save(c); }
+  setReinvest(mode) { const c = this.clone(); c.reinvestMode = mode; this.save(c); }
+  setReinvestPct(v) { const c = this.clone(); c.reinvestPct = v; c.reinvestMode = 'custom'; this.save(c); }
+
+  componentDidMount() { const c = this.cfg(); this.setState({ cfg: c }); }
+
+  fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+  kf(n) { return n >= 1e8 ? (n / 1e8).toFixed(2) + '億' : Math.round(n / 10000).toLocaleString('en-US') + '萬'; }
+  wan(n) { if (n < 10000) return this.fmt(n); const w = n / 10000; return (Math.abs(w - Math.round(w)) < 0.005 ? Math.round(w) : w.toFixed(1)) + '萬'; }
+
+  icons() {
+    const circle = 'M3.5 12a8.5 8.5 0 1 0 17 0a8.5 8.5 0 1 0-17 0';
+    return {
+      home: { p: 'M5 11.5l7-6.5 7 6.5M6.5 10v9.5h11V10', a: 'M10.5 19.5V16h3v3.5' },
+      coin: { p: circle, a: 'M9.5 9l2.5 3 2.5-3M12 12v4M9.8 13.5h4.4' },
+      alloc: { p: circle, a: 'M12 12V3.5M12 12l7 3.5' },
+      expense: { p: 'M4 12.5h4l2.5-5 4 10 2.5-5h4', a: 'M12 3.5v2M12 18.5v2' },
+      asset: { p: 'M4 9.5l8-5 8 5M5.5 9.5v8M18.5 9.5v8M4 19.5h16', a: 'M9 12v4M15 12v4' },
+      passive: { p: 'M3.5 18.5L9.5 12l3.5 3.5 7-8', a: 'M16 7.5h4v4' },
+      rule: { p: 'M12 3.5l7 2.5v5c0 4.5-3 7.5-7 9.5-4-2-7-5-7-9.5v-5z', a: 'M9 11.5l2 2 4-4' },
+      report: { p: 'M6.5 3.5h8l4 4v13h-12zM14 3.5v4h4', a: 'M9 12.5h6M9 16h4' },
+      settings: { p: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM12 3v2.5M12 18.5V21M4.2 7.5l2.2 1.3M17.6 15.2l2.2 1.3M4.2 16.5l2.2-1.3M17.6 8.8l2.2-1.3', a: '' },
+      grow: { p: 'M3.5 18.5L9.5 12l3.5 3.5 7-8M16 7.5h4v4' },
+      shield: { p: 'M12 3.5l7 2.5v5c0 4.5-3 7.5-7 9.5-4-2-7-5-7-9.5v-5z' },
+    };
+  }
+
+  renderVals() {
+    const I = this.icons();
+    const c = this.cfg();
+    const rate = 1;
+
+    const edFocus = (e) => { const el = e.currentTarget; const r = document.createRange(); r.selectNodeContents(el); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); };
+    const edFocusText = edFocus;
+    const edNum = (e) => this.commitNum(e.currentTarget);
+    const edText = (e) => this.commitText(e.currentTarget);
+    const edKey = (e) => { if (e.key === 'Enter' && !e.isComposing && e.keyCode !== 229) { e.preventDefault(); e.currentTarget.blur(); } };
+
+    const activeSources = c.sources.filter((s) => s.on);
+    const monthlyTotal = activeSources.reduce((a, s) => a + (s.amt || 0), 0);
+
+    // sources cards
+    const srcIcon = (k) => I[k] || I.coin;
+    const sources = c.sources.map((s, i) => {
+      const pct = monthlyTotal > 0 && s.on ? Math.round(s.amt / monthlyTotal * 100) : 0;
+      const ic = srcIcon(s.icon);
+      return {
+        label: s.label, eng: s.eng, amt: this.fmt(s.amt), pct,
+        labelPath: `sources.${i}.label`, amtPath: `sources.${i}.amt`,
+        ip: ic.p,
+        cardStyle: `border:1px solid ${s.on ? '#ece2c9' : '#eee9de'}; background:${s.on ? '#fffdf8' : '#f6f3ec'}; border-radius:16px; padding:16px 17px; transition:all .2s ease; opacity:${s.on ? 1 : 0.6};`,
+        iconWrap: `width:34px; height:34px; border-radius:11px; display:flex; align-items:center; justify-content:center; background:${s.on ? '#faf3e4' : '#eee9de'}; flex-shrink:0;`,
+        iconStroke: s.on ? '#c7a05e' : '#b3aa99',
+        titleColor: s.on ? '#3b4650' : '#9aa2ab',
+        engColor: s.on ? '#b9a878' : '#b3aa99',
+        amtColor: s.on ? '#37424d' : '#9aa2ab',
+        subColor: s.on ? '#a3abb2' : '#b3aa99',
+        onToggle: () => this.toggleSource(i),
+        onRemove: () => this.removeSource(i),
+        removeStyle: 'width:22px; height:22px; display:flex; align-items:center; justify-content:center; border-radius:7px; cursor:pointer; color:#c8cdd2;',
+        switchStyle: `width:40px; height:23px; border-radius:12px; background:${s.on ? '#6e9257' : '#d2ccc0'}; position:relative; cursor:pointer; transition:background .2s ease; flex-shrink:0;`,
+        knobStyle: `position:absolute; top:2.5px; ${s.on ? 'left:20px' : 'left:2.5px'}; width:18px; height:18px; border-radius:50%; background:#fff; transition:left .2s ease; box-shadow:0 1px 3px rgba(0,0,0,.2);`,
+      };
+    });
+
+    // target + progress
+    const target = c.target;
+    const coverPct = Math.min(100, Math.round(monthlyTotal / target * 100));
+    const gapMonthly = Math.max(0, target - monthlyTotal);
+    const progressStyle = `width:${Math.max(3, Math.min(100, monthlyTotal / target * 100)).toFixed(1)}%; height:100%; border-radius:7px; background:linear-gradient(90deg,#c7a05e,#dcbf86);`;
+
+    const stageChips = c.stages.map((st, i) => ({
+      label: this.stageLabel(st, i),
+      onClick: () => this.setPath('target', st),
+      style: `font-size:14.5px; padding:6px 14px; border-radius:20px; cursor:pointer; letter-spacing:.5px; border:1px solid ${target === st ? '#37424d' : '#e4ded1'}; background:${target === st ? '#37424d' : '#fff'}; color:${target === st ? '#fff' : '#8a939c'}; transition:all .18s ease;`,
+    }));
+
+    // dividends chart
+    const divs = c.dividendsY;
+    const mode = c.chartMode;
+    const vals = divs.map((d) => mode === 'month' ? Math.round(d.amt / 12) : d.amt);
+    const maxV = Math.max(...vals, 1) * 1.15;
+    const X0 = 60, X1 = 590, Y0 = 30, Y1 = 195;
+    const px = (i) => divs.length > 1 ? X0 + (X1 - X0) * i / (divs.length - 1) : (X0 + X1) / 2;
+    const py = (v) => Y1 - (Y1 - Y0) * (v / maxV);
+    const chartPts = divs.map((d, i) => ({
+      x: px(i).toFixed(1), y: py(vals[i]).toFixed(1),
+      labY: (py(vals[i]) - 12).toFixed(1),
+      valLabel: vals[i] >= 10000 ? (vals[i] / 10000).toFixed(vals[i] % 10000 === 0 ? 0 : 1) + '萬' : this.fmt(vals[i]),
+      year: d.year,
+    }));
+    const chartLine = chartPts.map((p) => `${p.x},${p.y}`).join(' ');
+    const chartArea = `${X0},${Y1} ` + chartLine + ` ${px(divs.length - 1).toFixed(1)},${Y1}`;
+    const gridLines = [0, 1, 2, 3].map((i) => { const v = maxV * (1 - i / 3); const y = Y0 + (Y1 - Y0) * i / 3; return { y: y.toFixed(1), ty: (y + 4).toFixed(1), label: v >= 10000 ? Math.round(v / 10000) + '萬' : Math.round(v) }; });
+
+    const dividends = divs.map((d, i) => ({ year: d.year, amt: this.fmt(d.amt), path: `dividendsY.${i}.amt` }));
+
+    // invested
+    const inv = c.invested;
+    const invested = [
+      { eng: 'THIS MONTH', label: '本月投入（7 月）', amt: this.fmt(inv.current), path: 'invested.current', size: '26.4px', color: '#fff' },
+      { eng: 'THIS YEAR', label: '今年投入 · 自 7 月起', amt: this.fmt(inv.thisYear), path: 'invested.thisYear', size: '26.4px', color: '#e3c789' },
+      { eng: 'TOTAL', label: '累積投入 · 自 7 月起', amt: this.fmt(inv.total), path: 'invested.total', size: '30.8px', color: '#fff' },
+    ];
+
+    // milestones
+    const yieldPct = c.yieldPct;
+    const nodes = [monthlyTotal, ...c.stages];
+    const milestones = nodes.map((v, i) => {
+      const isCurrent = i === 0;
+      const gapMon = i === 0 ? Math.max(0, c.stages[0] - monthlyTotal) : (i < nodes.length ? 0 : 0);
+      // gap from current to THIS stage (for stage nodes)
+      const gapFromCurrent = isCurrent ? 0 : Math.max(0, v - monthlyTotal);
+      const gapAnnual = gapFromCurrent * 12;
+      const assetNeeded = yieldPct > 0 ? gapAnnual / (yieldPct / 100) : 0;
+      return {
+        tag: isCurrent ? '目前' : `第 ${i} 階`,
+        tagColor: isCurrent ? '#c7a05e' : '#a9b0b7',
+        val: this.wan(v),
+        valColor: isCurrent ? '#c7a05e' : '#37424d',
+        subColor: isCurrent ? '#c7a05e' : '#a9b0b7',
+        nodeStyle: `width:100%; padding:14px 6px; border-radius:16px; border:1.5px solid ${isCurrent ? '#e6cf9c' : '#ece7dd'}; background:${isCurrent ? '#faf3e4' : '#fff'}; box-shadow:0 12px 26px -22px rgba(59,70,80,.5);`,
+        gapStyle: `margin-top:10px; padding-top:10px; ${isCurrent ? 'opacity:0;' : ''} min-height:70px;`,
+        gapDiv: isCurrent ? '—' : this.kf(gapAnnual) + '/年',
+        gapAsset: isCurrent ? '—' : this.kf(assetNeeded),
+      };
+    });
+
+    const yieldChips = [4, 5, 6].map((y) => ({
+      label: y + '%',
+      onClick: () => this.setPath('yieldPct', y),
+      style: `font-size:14.5px; padding:5px 12px; border-radius:16px; cursor:pointer; border:1px solid ${yieldPct === y ? '#5a7ba6' : '#e4ded1'}; background:${yieldPct === y ? '#eaf0f6' : '#fff'}; color:${yieldPct === y ? '#45648d' : '#8a939c'}; font-weight:${yieldPct === y ? 600 : 400};`,
+    }));
+
+    // nav
+    const navItems = [
+      { label: '首頁', ic: I.home, href: '記帳CFO v2.dc.html' },
+      { label: '收入', ic: I.coin, href: '收入中心.dc.html' },
+      { label: '資金分配', ic: I.alloc, href: '資金分配.dc.html' },
+      { label: '支出', ic: I.expense, href: '支出中心.dc.html' },
+      { label: '資產', ic: I.asset, href: '資產.dc.html' },
+      { label: '被動收入', ic: I.passive, href: '被動收入.dc.html', active: true },
+      { label: '報表', ic: I.report, href: '報表分析.dc.html' },
+      { label: '設定', ic: I.settings, href: '#' },
+    ].map((nv) => ({
+      label: nv.label, href: nv.href, ip: nv.ic.p, ia: nv.ic.a || '',
+      stroke: nv.active ? '#37424d' : '#3f4a54',
+      rowStyle: `display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px; font-size:17.9px; transition:background .2s ease; ${nv.active ? 'color:#37424d; font-weight:700; background:#efe9df;' : 'color:#5b6670;'}`,
+    }));
+
+    // ── 投資規則 ──
+    const ratioTotal = c.ratios.reduce((a, r) => a + (r.pct || 0), 0);
+    const ratios = c.ratios.map((r, i) => ({
+      label: r.label, pct: r.pct, color: r.color,
+      labelPath: `ratios.${i}.label`, pctPath: `ratios.${i}.pct`,
+      barStyle: `width:${r.pct}%; height:100%; background:${r.color};`,
+      onRemove: () => this.removeRatio(i),
+    }));
+    const dips = c.dips.map((d, i) => ({
+      pct: d.pct, action: d.action, pctPath: `dips.${i}.pct`, actPath: `dips.${i}.action`,
+      onRemove: () => this.removeDip(i),
+    }));
+    const principles = c.principles.map((p, i) => ({
+      text: p.text, textPath: `principles.${i}.text`,
+      textColor: p.on ? '#3b4650' : '#9aa2ab',
+      onToggle: () => this.togglePrinciple(i), onRemove: () => this.removePrinciple(i),
+      boxStyle: `width:22px; height:22px; border-radius:7px; flex-shrink:0; cursor:pointer; display:flex; align-items:center; justify-content:center; border:1.5px solid ${p.on ? '#6e9257' : '#d2ccc0'}; background:${p.on ? '#6e9257' : '#fff'}; transition:all .18s ease;`,
+      checkStyle: `opacity:${p.on ? 1 : 0};`,
+    }));
+    const funding = c.funding.map((f, i) => ({
+      label: f.label, onToggle: () => this.toggleFunding(i),
+      chipStyle: `display:inline-flex; align-items:center; gap:6px; font-size:16.2px; padding:9px 15px; border-radius:22px; cursor:pointer; transition:all .18s ease; border:1px solid ${f.on ? '#c7a05e' : '#e4ded1'}; background:${f.on ? '#faf3e4' : '#fff'}; color:${f.on ? '#a07f3a' : '#8a939c'}; font-weight:${f.on ? 600 : 400};`,
+      tickStyle: `color:#c7a05e; opacity:${f.on ? 1 : 0}; width:${f.on ? 14 : 0}px; transition:all .18s ease; overflow:hidden;`,
+    }));
+    const reinvestPctRaw = c.reinvestPct;
+    const reOpts = [
+      { mode: 'all', label: '全部再投入' },
+      { mode: 'keep', label: '保留現金' },
+      { mode: 'custom', label: '自訂比例' },
+    ];
+    const reinvestOpts = reOpts.map((o) => {
+      const active = c.reinvestMode === o.mode;
+      return {
+        label: o.label, onClick: () => this.setReinvest(o.mode),
+        rowStyle: `display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:13px; cursor:pointer; transition:all .18s ease; border:1px solid ${active ? '#c7a05e' : '#ece7dd'}; background:${active ? '#faf7ef' : '#fff'};`,
+        radioStyle: `width:19px; height:19px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; border:1.5px solid ${active ? '#c7a05e' : '#cfc9bc'};`,
+        dotStyle: `width:10px; height:10px; border-radius:50%; background:#c7a05e; opacity:${active ? 1 : 0};`,
+        textColor: active ? '#37424d' : '#6a747e', weight: active ? 600 : 400,
+      };
+    });
+    const effReinvest = c.reinvestMode === 'all' ? 100 : c.reinvestMode === 'keep' ? 0 : reinvestPctRaw;
+    const rv = c.review;
+    const rcell = (i) => `padding:0 20px; ${i === 0 ? '' : 'border-left:1px solid #f1ece1;'}`;
+    const review = [
+      { eng: 'INVESTED', label: '今年投入', prefix: 'NT$', amt: this.fmt(rv.invested), path: 'review.invested', color: '#37424d', note: '每月固定 + 加碼', cell: rcell(0) },
+      { eng: 'DIVIDEND', label: '今年股息', prefix: 'NT$', amt: this.fmt(rv.dividend), path: 'review.dividend', color: '#37424d', note: '含再投入', cell: rcell(1) },
+      { eng: 'ASSET GROWTH', label: '資產增加', prefix: 'NT$', amt: this.fmt(rv.assetGrow), path: 'review.assetGrow', color: '#6e9257', note: '含市值變動', cell: rcell(2) },
+      { eng: 'PASSIVE', label: '每月被動收入', prefix: '', amt: this.fmt(rv.passiveTo), path: 'review.passiveTo', color: '#c7a05e', note: `年初 ${this.fmt(rv.passiveFrom)} → 年末`, cell: rcell(3) },
+      { eng: 'ACHIEVED', label: '達成率', prefix: '', amt: this.fmt(rv.achieve), path: 'review.achieve', color: rv.achieve >= 100 ? '#6e9257' : '#c05a44', note: '對照年度計畫 %', cell: rcell(4) },
+    ];
+
+    return {
+      navItems,
+      monthly: this.fmt(monthlyTotal), monthlyShort: 'NT$' + this.fmt(monthlyTotal),
+      yoyPct: c.yoyPct,
+      targetLabel: 'NT$' + this.fmt(target),
+      coverPct, gapMonthly: 'NT$' + this.fmt(gapMonthly), progressStyle,
+      stageChips,
+      sources, addSource: () => this.addSource(),
+      edFocus, edFocusText, edNum, edText, edKey,
+      chartPts, chartLine, chartArea, gridLines, dividends,
+      yearTabStyle: this.tabStyle(mode === 'year'), monthTabStyle: this.tabStyle(mode === 'month'),
+      setYear: () => this.setPath('chartMode', 'year'), setMonth: () => this.setPath('chartMode', 'month'),
+      invested,
+      milestones, yieldChips,
+      philosophy: c.philosophy,
+      investMonthlyShort: 'NT$' + this.fmt(c.investMonthly), investMonthly: this.fmt(c.investMonthly), investDay: c.investDay,
+      ratios, ratioTotal, ratioWarn: ratioTotal === 100 ? '' : (ratioTotal > 100 ? ' · 超過 100%，請調整' : ' · 尚未滿 100%'),
+      addRatio: () => this.addRatio(),
+      dips, addDip: () => this.addDip(),
+      principles, addPrinciple: () => this.addPrinciple(),
+      funding,
+      reinvestOpts, reinvestPct: effReinvest, keepPct: 100 - effReinvest,
+      customWrap: `margin-top:14px; padding-top:14px; border-top:2px dotted #e4ded1; ${c.reinvestMode === 'custom' ? '' : 'opacity:.4; pointer-events:none;'}`,
+      onSlide: (e) => this.setReinvestPct(parseInt(e.target.value, 10)),
+      review, reviewYear: rv.year,
+    };
+  }
+
+  stageLabel(st, i) { const names = ['第一階段', '第二階段', '第三階段', '第四階段']; return `${names[i] || '階段'} ${(st / 10000)}萬`; }
+  tabStyle(active) { return `font-size:14.5px; padding:4px 13px; border-radius:16px; cursor:pointer; border:1px solid ${active ? '#37424d' : '#e4ded1'}; background:${active ? '#37424d' : '#fff'}; color:${active ? '#fff' : '#8a939c'};`; }
+}
+</script>
+</body>
+</html>

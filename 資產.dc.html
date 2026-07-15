@@ -6,6 +6,9 @@
 <script src="./support.js"></script>
 </head>
 <body>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="18" fill="#37424d"/><text x="50" y="60" font-family="Georgia, serif" font-size="34" fill="#e3c789" text-anchor="middle">資</text></svg>
+</template>
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,23 +35,23 @@
         <svg viewBox="0 0 24 24" width="26" height="26"><path d="M4.5 12c2.4-4 6-6.1 9.4-5 2.6.8 4.4 2.8 5.1 5-.7 2.2-2.5 4.2-5.1 5-3.4 1.1-7-1-9.4-5z M4.5 12L2.5 9.4v5.2z" fill="none" stroke="#c7a05e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 10.6h.01" fill="none" stroke="#c7a05e" stroke-width="2.2" stroke-linecap="round"></path></svg>
       </span>
       <div>
-        <div class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1px;">魚家財務室</div>
-        <div class="num" style="font-size:9.5px; color:#9aa2ab; letter-spacing:3px; margin-top:1px;">HOUSEHOLD OS</div>
+        <div class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1px;">魚家財務室</div>
+        <div class="num" style="font-size:12.6px; color:#9aa2ab; letter-spacing:3px; margin-top:1px;">HOUSEHOLD OS</div>
       </div>
     </div>
 
     <!-- net worth card -->
     <div style="background:#37424d; border-radius:20px; padding:18px 17px; box-shadow:0 18px 34px -20px rgba(55,66,77,.8); color:#fff;">
-      <div class="num" style="font-size:10px; color:rgba(255,255,255,.55); letter-spacing:3px;">NET WORTH · 淨值</div>
-      <div class="num" style="font-size:34px; font-weight:500; color:#fff; line-height:1.15; margin-top:6px;">{{ nwShort }}</div>
-      <div style="margin-top:12px; padding-top:12px; border-top:2px dotted rgba(255,255,255,.16); display:flex; justify-content:space-between; font-size:11px; color:rgba(255,255,255,.6);">
+      <div class="num" style="font-size:13.2px; color:rgba(255,255,255,.55); letter-spacing:3px;">NET WORTH · 淨值</div>
+      <div class="num" style="font-size:44.9px; font-weight:500; color:#fff; line-height:1.15; margin-top:6px;">{{ nwShort }}</div>
+      <div style="margin-top:12px; padding-top:12px; border-top:2px dotted rgba(255,255,255,.16); display:flex; justify-content:space-between; font-size:14.5px; color:rgba(255,255,255,.6);">
         <span>台股報酬</span><span class="num" style="color:#e3c789; font-weight:600;">{{ nwReturn }}</span>
       </div>
     </div>
 
     <!-- nav -->
     <div>
-      <div class="num" style="font-size:10px; color:#9aa2ab; letter-spacing:3px; margin:0 4px 10px;">MENU</div>
+      <div class="num" style="font-size:13.2px; color:#9aa2ab; letter-spacing:3px; margin:0 4px 10px;">MENU</div>
       <div style="display:flex; flex-direction:column; gap:2px;">
         <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="7">
           <a href="{{ n.href }}" style="{{ n.rowStyle }}" style-hover="background:#efeae0;">
@@ -66,16 +69,16 @@
     <div style="display:flex; align-items:flex-end; justify-content:space-between;">
       <div>
         <div style="position:relative; display:inline-block;">
-          <span class="serif" style="position:absolute; top:-16px; left:2px; font-size:15px; color:#c7a05e; letter-spacing:3px;">&#65340;&#65295;</span>
-          <h1 class="serif" style="font-weight:700; font-size:30px; color:#37424d; letter-spacing:3px; border-bottom:2px dotted #cdc6b7; padding-bottom:8px;">家庭資產總覽</h1>
+          <span class="serif" style="position:absolute; top:-16px; left:2px; font-size:19.8px; color:#c7a05e; letter-spacing:3px;">&#65340;&#65295;</span>
+          <h1 class="serif" style="font-weight:700; font-size:39.6px; color:#37424d; letter-spacing:3px; border-bottom:2px dotted #cdc6b7; padding-bottom:8px;">家庭資產總覽</h1>
         </div>
-        <div class="num" style="font-size:11px; color:#9aa2ab; letter-spacing:4px; margin-top:8px;">NET WORTH · 我擁有多少，又欠多少？</div>
+        <div class="num" style="font-size:14.5px; color:#9aa2ab; letter-spacing:4px; margin-top:8px;">NET WORTH · 我擁有多少，又欠多少？</div>
       </div>
       <div style="display:flex; align-items:center; gap:9px; background:#fff; border:1px solid #ece7dd; border-radius:14px; padding:8px 14px; box-shadow:0 10px 24px -18px rgba(59,70,80,.4);">
         <span style="width:7px; height:7px; border-radius:50%; background:#6e9257; animation:livepulse 1.6s ease-in-out infinite;"></span>
-        <span class="num" style="font-size:10px; color:#a07f3a; letter-spacing:2px; font-weight:600;">手動更新</span>
+        <span class="num" style="font-size:13.2px; color:#a07f3a; letter-spacing:2px; font-weight:600;">手動更新</span>
         <span style="width:1px; height:14px; background:#ece7dd;"></span>
-        <span class="num" style="font-size:10.5px; color:#9aa2ab; letter-spacing:1px;">更新 {{ lastUpdated }}</span>
+        <span class="num" style="font-size:13.9px; color:#9aa2ab; letter-spacing:1px;">更新 {{ lastUpdated }}</span>
       </div>
     </div>
 
@@ -84,11 +87,11 @@
       <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:0;">
         <sc-for list="{{ heroStats }}" as="h" hint-placeholder-count="5">
           <div style="{{ h.cell }}">
-            <div class="num" style="font-size:10px; color:#9aa2ab; letter-spacing:2.5px;">{{ h.eng }}</div>
-            <div style="font-size:12px; color:#6a747e; margin-top:2px;">{{ h.label }}</div>
-            <div class="num" style="font-size:22px; font-weight:500; color:{{ h.valColor }}; margin-top:7px;">{{ h.val }}</div>
+            <div class="num" style="font-size:13.2px; color:#9aa2ab; letter-spacing:2.5px;">{{ h.eng }}</div>
+            <div style="font-size:15.8px; color:#6a747e; margin-top:2px;">{{ h.label }}</div>
+            <div class="num" style="font-size:29px; font-weight:500; color:{{ h.valColor }}; margin-top:7px;">{{ h.val }}</div>
             <div style="{{ h.deltaStyle }}">{{ h.delta }}</div>
-            <div style="font-size:10.5px; color:#a9b0b7; margin-top:2px;">{{ h.note }}</div>
+            <div style="font-size:13.9px; color:#a9b0b7; margin-top:2px;">{{ h.note }}</div>
           </div>
         </sc-for>
       </div>
@@ -101,24 +104,24 @@
       <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5); display:flex; flex-direction:column;">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 3.5a8.5 8.5 0 1 0 8.5 8.5" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round"></path><path d="M12 12V3.5A8.5 8.5 0 0 1 20.5 12z" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linejoin="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1.5px;">資產配置</h2>
+          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">資產配置</h2>
         </div>
-        <div style="font-size:11px; color:#a3abb2; margin:0 0 14px 30px;">錢分散在哪幾類資產？</div>
+        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 14px 30px;">錢分散在哪幾類資產？</div>
         <div style="display:flex; align-items:center; gap:20px; flex:1;">
           <div style="position:relative; width:150px; height:150px; flex-shrink:0;">
             <div style="width:150px; height:150px; border-radius:50%; background:{{ donut }};"></div>
             <div style="position:absolute; inset:30px; background:#fff; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-              <div class="num" style="font-size:9px; color:#9aa2ab; letter-spacing:2px;">TOTAL</div>
-              <div class="num" style="font-size:19px; font-weight:500; color:#37424d;">{{ totalAssetsShort }}</div>
+              <div class="num" style="font-size:11.9px; color:#9aa2ab; letter-spacing:2px;">TOTAL</div>
+              <div class="num" style="font-size:25.1px; font-weight:500; color:#37424d;">{{ totalAssetsShort }}</div>
             </div>
           </div>
           <div style="flex:1; display:flex; flex-direction:column; gap:9px;">
             <sc-for list="{{ allocation }}" as="a" hint-placeholder-count="5">
               <div style="display:flex; align-items:center; gap:9px;">
                 <span style="width:9px; height:9px; border-radius:3px; background:{{ a.color }}; flex-shrink:0;"></span>
-                <span style="flex:1; font-size:12px; color:#4b5560;">{{ a.label }}</span>
-                <span class="num" style="font-size:12px; color:#8a939c;">{{ a.valShort }}</span>
-                <span class="num" style="font-size:12px; font-weight:600; color:#37424d; width:38px; text-align:right;">{{ a.pct }}%</span>
+                <span style="flex:1; font-size:15.8px; color:#4b5560;">{{ a.label }}</span>
+                <span class="num" style="font-size:15.8px; color:#8a939c;">{{ a.valShort }}</span>
+                <span class="num" style="font-size:15.8px; font-weight:600; color:#37424d; width:38px; text-align:right;">{{ a.pct }}%</span>
               </div>
             </sc-for>
           </div>
@@ -129,10 +132,10 @@
       <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 9.5l8-5 8 5M5.5 9.5v8M18.5 9.5v8M4 19.5h16" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9 12v4M15 12v4" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1.5px;">淨值怎麼組成？</h2>
+          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">淨值怎麼組成？</h2>
           <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
         </div>
-        <div style="font-size:11px; color:#a3abb2; margin:0 0 16px 30px;">總資產 {{ totalAssetsF }}　−　總負債 {{ totalDebtF }}　＝　淨值 {{ netWorthF }}</div>
+        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 16px 30px;">總資產 {{ totalAssetsF }}　−　總負債 {{ totalDebtF }}　＝　淨值 {{ netWorthF }}</div>
 
         <div style="display:flex; align-items:center; gap:2px; height:22px; border-radius:7px; overflow:hidden; margin-bottom:6px;">
           <sc-for list="{{ nwBar }}" as="b" hint-placeholder-count="4">
@@ -141,20 +144,20 @@
         </div>
         <div style="display:flex; flex-wrap:wrap; gap:5px 16px; margin-bottom:16px;">
           <sc-for list="{{ nwBar }}" as="b" hint-placeholder-count="4">
-            <span style="display:flex; align-items:center; gap:6px; font-size:10.5px; color:#8a939c;"><span style="width:8px; height:8px; border-radius:2px; background:{{ b.color }};"></span>{{ b.label }}</span>
+            <span style="display:flex; align-items:center; gap:6px; font-size:13.9px; color:#8a939c;"><span style="width:8px; height:8px; border-radius:2px; background:{{ b.color }};"></span>{{ b.label }}</span>
           </sc-for>
         </div>
 
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:11px;">
           <div style="background:#f6f8f4; border:1px solid #e4ede0; border-radius:14px; padding:13px 15px;">
-            <div class="num" style="font-size:10px; color:#7f8a94; letter-spacing:2px;">ASSETS · 資產</div>
-            <div class="num" style="font-size:20px; font-weight:500; color:#37424d; margin-top:4px;">{{ totalAssetsF }}</div>
-            <div style="font-size:10.5px; color:#6e9257; margin-top:2px;">投資 · 現金 · 不動產 · 車</div>
+            <div class="num" style="font-size:13.2px; color:#7f8a94; letter-spacing:2px;">ASSETS · 資產</div>
+            <div class="num" style="font-size:26.4px; font-weight:500; color:#37424d; margin-top:4px;">{{ totalAssetsF }}</div>
+            <div style="font-size:13.9px; color:#6e9257; margin-top:2px;">投資 · 現金 · 不動產 · 車</div>
           </div>
           <div style="background:#fbf1ee; border:1px solid #f0ddd6; border-radius:14px; padding:13px 15px;">
-            <div class="num" style="font-size:10px; color:#b07a68; letter-spacing:2px;">LIABILITIES · 負債</div>
-            <div class="num" style="font-size:20px; font-weight:500; color:#c05a44; margin-top:4px;">{{ totalDebtF }}</div>
-            <div style="font-size:10.5px; color:#c08574; margin-top:2px;">房貸餘額 · 車貸餘額</div>
+            <div class="num" style="font-size:13.2px; color:#b07a68; letter-spacing:2px;">LIABILITIES · 負債</div>
+            <div class="num" style="font-size:26.4px; font-weight:500; color:#c05a44; margin-top:4px;">{{ totalDebtF }}</div>
+            <div style="font-size:13.9px; color:#c08574; margin-top:2px;">房貸餘額 · 車貸餘額</div>
           </div>
         </div>
       </section>
@@ -164,60 +167,60 @@
     <section id="stocks" style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
       <div onClick="{{ toggleStocks }}" style="display:flex; align-items:center; gap:10px; margin-bottom:4px; cursor:pointer; user-select:none;">
         <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3.5 18.5L9.5 12l3.5 3.5 7-8" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16 7.5h4v4" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-        <h2 class="serif" style="font-weight:700; font-size:17px; color:#37424d; letter-spacing:1.5px;">台股投資組合</h2>
-        <span style="display:inline-flex; align-items:center; gap:5px; font-size:10px; color:#6e9257; background:#e6efd8; padding:3px 10px; border-radius:20px; letter-spacing:1px;"><span style="width:6px; height:6px; border-radius:50%; background:#6e9257; animation:livepulse 1.6s ease-in-out infinite;"></span>即時</span>
+        <h2 class="serif" style="font-weight:700; font-size:22.4px; color:#37424d; letter-spacing:1.5px;">台股投資組合</h2>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:13.2px; color:#6e9257; background:#e6efd8; padding:3px 10px; border-radius:20px; letter-spacing:1px;"><span style="width:6px; height:6px; border-radius:50%; background:#6e9257; animation:livepulse 1.6s ease-in-out infinite;"></span>即時</span>
         <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
-        <span class="num" style="font-size:11px; color:#9aa2ab; letter-spacing:1px;">{{ stockCount }} 檔持股</span>
+        <span class="num" style="font-size:14.5px; color:#9aa2ab; letter-spacing:1px;">{{ stockCount }} 檔持股</span>
         <span style="{{ chevronStyle }}"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
       </div>
       <sc-if value="{{ stocksOpen }}" hint-placeholder-val="{{ true }}">
-      <div style="font-size:11px; color:#a3abb2; margin:0 0 14px 30px;">點現價旁的鉛筆可手動更新收盤價，市值與損益自動重算 · 未實現損益 = 市值 − 成本 · 帶 <span style="color:#a07f3a;">定額</span> 標記者為定期定額標的</div>
+      <div style="font-size:14.5px; color:#a3abb2; margin:0 0 14px 30px;">點現價旁的鉛筆可手動更新收盤價，市值與損益自動重算 · 未實現損益 = 市值 − 成本 · 帶 <span style="color:#a07f3a;">定額</span> 標記者為定期定額標的</div>
 
       <!-- summary strip -->
       <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:0; margin-bottom:16px; padding:14px 4px; background:#fdfcf9; border:1px solid #ece7dd; border-radius:16px;">
         <sc-for list="{{ stockKpis }}" as="k" hint-placeholder-count="5">
           <div style="{{ k.cell }}">
-            <div class="num" style="font-size:9.5px; color:#9aa2ab; letter-spacing:2px;">{{ k.eng }}</div>
-            <div class="num" style="font-size:18px; font-weight:500; color:{{ k.color }}; margin-top:4px;">{{ k.val }}</div>
-            <div style="font-size:10.5px; color:#8a939c; margin-top:2px;">{{ k.label }}</div>
+            <div class="num" style="font-size:12.6px; color:#9aa2ab; letter-spacing:2px;">{{ k.eng }}</div>
+            <div class="num" style="font-size:23.8px; font-weight:500; color:{{ k.color }}; margin-top:4px;">{{ k.val }}</div>
+            <div style="font-size:13.9px; color:#8a939c; margin-top:2px;">{{ k.label }}</div>
           </div>
         </sc-for>
       </div>
 
       <!-- table header -->
       <div style="display:grid; grid-template-columns:22px 1.55fr 0.72fr 0.9fr 1fr 1.25fr 0.92fr; gap:8px; align-items:center; padding:0 10px 9px; border-bottom:2px dotted #e4ded1;">
-        <div class="num" style="font-size:10px; color:#a3abb2;">#</div>
-        <div style="font-size:11px; color:#8a939c;">商品</div>
-        <div class="num" style="font-size:11px; color:#8a939c; text-align:right;">股數</div>
-        <div class="num" style="font-size:11px; color:#8a939c; text-align:right;">市價</div>
-        <div class="num" style="font-size:11px; color:#8a939c; text-align:right;">市值</div>
-        <div class="num" style="font-size:11px; color:#8a939c; text-align:right;">未實現損益</div>
-        <div class="num" style="font-size:11px; color:#8a939c; text-align:right;">佔比</div>
+        <div class="num" style="font-size:13.2px; color:#a3abb2;">#</div>
+        <div style="font-size:14.5px; color:#8a939c;">商品</div>
+        <div class="num" style="font-size:14.5px; color:#8a939c; text-align:right;">股數</div>
+        <div class="num" style="font-size:14.5px; color:#8a939c; text-align:right;">市價</div>
+        <div class="num" style="font-size:14.5px; color:#8a939c; text-align:right;">市值</div>
+        <div class="num" style="font-size:14.5px; color:#8a939c; text-align:right;">未實現損益</div>
+        <div class="num" style="font-size:14.5px; color:#8a939c; text-align:right;">佔比</div>
       </div>
 
       <!-- rows -->
       <div>
         <sc-for list="{{ holdings }}" as="s" hint-placeholder-count="17">
           <div style="display:grid; grid-template-columns:22px 1.55fr 0.72fr 0.9fr 1fr 1.25fr 0.92fr; gap:8px; align-items:center; padding:10px; border-bottom:1px solid #f1ece1; transition:background .2s ease;" style-hover="background:#faf7f0;">
-            <div class="num" style="font-size:11px; color:#b3bcc3;">{{ s.rank }}</div>
+            <div class="num" style="font-size:14.5px; color:#b3bcc3;">{{ s.rank }}</div>
             <div style="display:flex; align-items:center; gap:8px; min-width:0;">
-              <span style="font-size:13px; font-weight:500; color:#3b4650; white-space:nowrap;">{{ s.name }}</span>
-              <span class="num" style="font-size:10px; color:#a3abb2;">{{ s.code }}</span>
+              <span style="font-size:17.2px; font-weight:500; color:#3b4650; white-space:nowrap;">{{ s.name }}</span>
+              <span class="num" style="font-size:13.2px; color:#a3abb2;">{{ s.code }}</span>
               <span style="{{ s.dcaStyle }}">定額</span>
             </div>
-            <div class="num" style="font-size:12.5px; color:#5b6670; text-align:right;">{{ s.shares }}</div>
+            <div class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ s.sharesFkey }}" data-raw="{{ s.sharesRaw }}" data-fmt="int" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKeyG }}" style="font-size:16.6px; color:#5b6670; text-align:right; cursor:text; border-radius:4px;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ s.shares }}</div>
             <div style="display:flex; align-items:center; justify-content:flex-end; gap:5px;">
               <span class="num" style="{{ s.priceStyle }}" contentEditable="{{ s.priceEditable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-pcode="{{ s.priceFkey }}" onBlur="{{ s.onBlurPrice }}" onKeyDown="{{ s.onKeyField }}">{{ s.price }}</span>
               <span style="{{ s.pxPencilStyle }}" onClick="{{ s.onEditPrice }}" style-hover="color:#8b7a63;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M14.5 4.5l5 5L8.5 20.5h-5v-5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
             </div>
-            <div class="num" style="{{ s.mktStyle }}">{{ s.mkt }}</div>
+            <div class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ s.mktFkey }}" data-raw="{{ s.mktRaw }}" data-fmt="int" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKeyG }}" style="{{ s.mktStyle }} cursor:text; border-radius:4px;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ s.mkt }}</div>
             <div style="text-align:right;">
-              <div class="num" style="font-size:12.5px; font-weight:600; color:{{ s.plColor }};">{{ s.pl }}</div>
-              <div class="num" style="font-size:10px; color:{{ s.plColor }};">{{ s.plPct }}</div>
+              <div class="num" style="font-size:16.6px; font-weight:600; color:{{ s.plColor }};">{{ s.pl }}</div>
+              <div class="num" style="font-size:13.2px; color:{{ s.plColor }};">{{ s.plPct }}</div>
             </div>
             <div style="display:flex; align-items:center; gap:7px; justify-content:flex-end;">
               <div style="width:40px; height:6px; background:#eee9de; border-radius:4px; overflow:hidden;"><div style="{{ s.barStyle }}"></div></div>
-              <span class="num" style="font-size:11.5px; color:#6a747e; width:30px; text-align:right;">{{ s.weight }}%</span>
+              <span class="num" style="font-size:15.2px; color:#6a747e; width:30px; text-align:right;">{{ s.weight }}%</span>
             </div>
           </div>
         </sc-for>
@@ -232,25 +235,30 @@
       <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3.5 12a8.5 8.5 0 1 0 17 0a8.5 8.5 0 1 0-17 0M3.5 12h17" fill="none" stroke="#3f4a54" stroke-width="1.6" stroke-linecap="round"></path><path d="M12 3.5c2.6 2.4 2.6 14.6 0 17M12 3.5c-2.6 2.4-2.6 14.6 0 17" fill="none" stroke="#c7a05e" stroke-width="1.6" stroke-linecap="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1.5px;">美股 / 海外投資</h2>
+          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">美股 / 海外投資</h2>
           <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
-          <span class="num" style="font-size:15px; font-weight:500; color:#37424d;">{{ usTotalF }}</span>
+          <span class="num" style="font-size:19.8px; font-weight:500; color:#37424d;">{{ usTotalF }}</span>
         </div>
-        <div style="font-size:11px; color:#a3abb2; margin:0 0 12px 30px;">以匯率 {{ rateLabel }} 換算台幣</div>
+        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 12px 30px;">以匯率 {{ rateLabel }} 換算台幣</div>
         <div style="display:flex; flex-direction:column;">
           <sc-for list="{{ usAccounts }}" as="u" hint-placeholder-count="2">
             <div style="display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid #f1ece1;">
               <span style="width:36px; height:36px; border-radius:11px; background:#f2f6f0; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M3.5 18.5L9.5 12l3.5 3.5 7-8" fill="none" stroke="#5f7d55" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16 7.5h4v4" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round"></path></svg></span>
               <div style="flex:1; min-width:0;">
-                <div style="font-size:13px; font-weight:500; color:#3b4650;">{{ u.name }}</div>
-                <div class="num" style="font-size:10.5px; color:#a3abb2; margin-top:1px;">{{ u.sub }}</div>
+                <div style="{{ u.nameStyle }}" contentEditable="{{ u.editable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ u.nameFkey }}" onBlur="{{ u.onBlurField }}" onKeyDown="{{ u.onKeyField }}">{{ u.name }}</div>
+                <div class="num" style="{{ u.subStyle }}" contentEditable="{{ u.editable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ u.subFkey }}" onBlur="{{ u.onBlurField }}" onKeyDown="{{ u.onKeyField }}">{{ u.sub }}</div>
               </div>
               <div style="text-align:right;">
-                <div class="num" style="font-size:13px; font-weight:600; color:#37424d;">{{ u.usd }}</div>
-                <div class="num" style="font-size:10.5px; color:{{ u.plColor }}; margin-top:1px;">{{ u.pl }}</div>
+                <div class="num" style="{{ u.usdStyle }}" contentEditable="{{ u.editable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ u.usdFkey }}" onBlur="{{ u.onBlurField }}" onKeyDown="{{ u.onKeyField }}">{{ u.usd }}</div>
+                <div class="num" style="{{ u.plStyle }}; color:{{ u.plColor }};" contentEditable="{{ u.editable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ u.plFkey }}" onBlur="{{ u.onBlurField }}" onKeyDown="{{ u.onKeyField }}">{{ u.pl }}</div>
               </div>
+              <span style="{{ u.pencilStyle }}" onClick="{{ u.onEdit }}" style-hover="color:#8b7a63;"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M14.5 4.5l5 5L8.5 20.5h-5v-5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+              <span style="{{ u.trashStyle }}" onClick="{{ u.onDelete }}" style-hover="color:#c0533f;"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
             </div>
           </sc-for>
+          <div style="display:flex; align-items:center; justify-content:center; gap:7px; padding:13px 0 3px; font-size:15.2px; color:#a3907a; cursor:pointer;" style-hover="color:#8b7a63;" onClick="{{ onAddUs }}">
+            <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 5v14M5 12h14" fill="none" stroke="#b3a48a" stroke-width="1.8" stroke-linecap="round"></path></svg>新增海外帳戶
+          </div>
         </div>
       </section>
 
@@ -258,11 +266,11 @@
       <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3.5 7.5h17v11h-17z" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linejoin="round"></path><path d="M3.5 11h17" fill="none" stroke="#3f4a54" stroke-width="1.7"></path><path d="M15.5 15h2" fill="none" stroke="#c7a05e" stroke-width="2" stroke-linecap="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1.5px;">現金與帳戶</h2>
+          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">現金與帳戶</h2>
           <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
-          <span class="num" style="font-size:15px; font-weight:500; color:#37424d;">{{ cashTotalF }}</span>
+          <span class="num" style="font-size:19.8px; font-weight:500; color:#37424d;">{{ cashTotalF }}</span>
         </div>
-        <div style="font-size:11px; color:#a3abb2; margin:0 0 12px 30px;">隨時可動用的資金 · 點鉛筆可編輯</div>
+        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 12px 30px;">隨時可動用的資金 · 點鉛筆可編輯</div>
         <div style="display:flex; flex-direction:column;">
           <sc-for list="{{ cashAccounts }}" as="c" hint-placeholder-count="4">
             <div style="display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid #f1ece1;">
@@ -279,13 +287,13 @@
           <div style="display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid #f1ece1;">
             <span style="width:8px; height:8px; border-radius:50%; background:{{ fxAccount.dot }}; flex-shrink:0;"></span>
             <div style="flex:1; min-width:0;">
-              <div style="font-size:13px; color:#3b4650;">{{ fxAccount.name }}</div>
+              <div style="font-size:17.2px; color:#3b4650;">{{ fxAccount.name }}</div>
               <div class="num" style="{{ fxAccount.subStyle }}" contentEditable="{{ fxAccount.editable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="fx:sub" onBlur="{{ fxAccount.onBlurFx }}" onKeyDown="{{ fxAccount.onKeyField }}">{{ fxAccount.sub }}</div>
             </div>
-            <span class="num" style="font-size:13px; font-weight:600; color:#37424d;">{{ fxAccount.val }}</span>
+            <span class="num" style="font-size:17.2px; font-weight:600; color:#37424d;">{{ fxAccount.val }}</span>
             <span style="{{ fxAccount.pencilStyle }}" onClick="{{ fxAccount.onEdit }}" style-hover="color:#8b7a63;"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M14.5 4.5l5 5L8.5 20.5h-5v-5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
           </div>
-          <div style="display:flex; align-items:center; justify-content:center; gap:7px; padding:13px 0 3px; font-size:11.5px; color:#a3907a; cursor:pointer;" style-hover="color:#8b7a63;" onClick="{{ onAddCash }}">
+          <div style="display:flex; align-items:center; justify-content:center; gap:7px; padding:13px 0 3px; font-size:15.2px; color:#a3907a; cursor:pointer;" style-hover="color:#8b7a63;" onClick="{{ onAddCash }}">
             <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 5v14M5 12h14" fill="none" stroke="#b3a48a" stroke-width="1.8" stroke-linecap="round"></path></svg>新增帳戶
           </div>
         </div>
@@ -299,22 +307,46 @@
       <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4.5 8.5h13l-3-3M19.5 15.5h-13l3 3" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 12h.01" fill="none" stroke="#c7a05e" stroke-width="2.2" stroke-linecap="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1.5px;">股票進出紀錄</h2>
+          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">股票進出紀錄</h2>
           <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
-          <span class="num" style="font-size:11px; color:#c7a05e; background:#faf3e4; padding:5px 13px; border-radius:20px; letter-spacing:1px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" style-hover="background:#f4ecd6;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 5v14M5 12h14" fill="none" stroke="#c7a05e" stroke-width="2" stroke-linecap="round"></path></svg>記錄交易</span>
+          <span class="num" onClick="{{ openTradeForm }}" style="font-size:14.5px; color:#c7a05e; background:#faf3e4; padding:5px 13px; border-radius:20px; letter-spacing:1px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" style-hover="background:#f4ecd6;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 5v14M5 12h14" fill="none" stroke="#c7a05e" stroke-width="2" stroke-linecap="round"></path></svg>記錄交易</span>
         </div>
-        <div style="font-size:11px; color:#a3abb2; margin:0 0 14px 30px;">近期買進 · 賣出 · 定期定額扣款</div>
+        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 14px 30px;">近期買進 · 賣出 · 定期定額扣款</div>
+        <sc-if value="{{ tfOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#faf7ef; border:1px solid #ece2c9; border-radius:16px; padding:16px; margin-bottom:16px;">
+            <div style="display:flex; gap:8px; margin-bottom:12px;">
+              <div onClick="{{ tfBuy }}" style="{{ tfSegBuy }}">買進</div>
+              <div onClick="{{ tfSell }}" style="{{ tfSegSell }}">賣出</div>
+              <div onClick="{{ tfDca }}" style="{{ tfSegDca }}">定額</div>
+            </div>
+            <input value="{{ tfName }}" onInput="{{ onTfName }}" placeholder="標的名稱，例：台積電 2330 · 現買" style="width:100%; box-sizing:border-box; border:1px solid #ece2c9; background:#fff; border-radius:10px; padding:10px 12px; font-size:16.2px; color:#3b4650; margin-bottom:9px; outline:none;">
+            <input value="{{ tfDetail }}" onInput="{{ onTfDetail }}" placeholder="明細，例：20 股 @ 2,385" style="width:100%; box-sizing:border-box; border:1px solid #ece2c9; background:#fff; border-radius:10px; padding:10px 12px; font-size:16.2px; color:#3b4650; margin-bottom:9px; outline:none;">
+            <div style="display:flex; gap:9px; margin-bottom:14px;">
+              <input value="{{ tfAmt }}" onInput="{{ onTfAmt }}" inputMode="numeric" placeholder="金額 (NT$)" style="flex:2; min-width:0; box-sizing:border-box; border:1px solid #ece2c9; background:#fff; border-radius:10px; padding:10px 12px; font-size:16.2px; color:#3b4650; outline:none;">
+              <input value="{{ tfDate }}" onInput="{{ onTfDate }}" placeholder="MM/DD" style="flex:1; min-width:0; box-sizing:border-box; border:1px solid #ece2c9; background:#fff; border-radius:10px; padding:10px 12px; font-size:16.2px; color:#3b4650; outline:none;">
+            </div>
+            <div style="display:flex; gap:9px; justify-content:flex-end;">
+              <div onClick="{{ closeTradeForm }}" style="padding:8px 18px; font-size:15px; color:#8a939c; cursor:pointer; border-radius:9px; border:1px solid #ece2c9;" style-hover="background:#f3efe6;">取消</div>
+              <div onClick="{{ saveTrade }}" style="padding:8px 20px; font-size:15px; font-weight:600; letter-spacing:1px; color:#fff; background:#37424d; cursor:pointer; border-radius:9px;" style-hover="background:#2b343d;">儲存紀錄</div>
+            </div>
+          </div>
+        </sc-if>
         <div style="display:flex; flex-direction:column;">
           <sc-for list="{{ trades }}" as="t" hint-placeholder-count="6">
             <div style="display:flex; align-items:center; gap:13px; padding:11px 0; border-bottom:1px solid #f1ece1;">
               <span style="{{ t.tagStyle }}">{{ t.tag }}</span>
               <div style="flex:1; min-width:0;">
-                <div style="font-size:13px; color:#3b4650; font-weight:500;">{{ t.name }}</div>
-                <div class="num" style="font-size:10.5px; color:#a3abb2; margin-top:1px;">{{ t.detail }}</div>
+                <div style="font-size:17.2px; color:#3b4650; font-weight:500;">{{ t.name }}</div>
+                <div class="num" style="font-size:13.9px; color:#a3abb2; margin-top:1px;">{{ t.detail }}</div>
               </div>
-              <div style="text-align:right;">
-                <div class="num" style="font-size:13px; font-weight:600; color:{{ t.amtColor }};">{{ t.amt }}</div>
-                <div class="num" style="font-size:10px; color:#a3abb2; margin-top:1px;">{{ t.date }}</div>
+              <div style="text-align:right; display:flex; align-items:center; gap:10px;">
+                <div>
+                  <div class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ t.amtFkey }}" data-raw="{{ t.amtRaw }}" data-fmt="trade" data-sign="{{ t.amtSign }}" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKeyG }}" style="font-size:17.2px; font-weight:600; color:{{ t.amtColor }}; cursor:text; border-radius:4px;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ t.amt }}</div>
+                  <div class="num" style="font-size:13.2px; color:#a3abb2; margin-top:1px;">{{ t.date }}</div>
+                </div>
+                <sc-if value="{{ t.removable }}" hint-placeholder-val="{{ false }}">
+                  <div onClick="{{ t.onRemove }}" title="刪除" style="width:24px; height:24px; flex-shrink:0; display:flex; align-items:center; justify-content:center; border-radius:8px; cursor:pointer; color:#c0c6cc;" style-hover="background:#fbf1ee; color:#c05a44;"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></div>
+                </sc-if>
               </div>
             </div>
           </sc-for>
@@ -325,30 +357,30 @@
       <section style="background:#37424d; border-radius:22px; padding:20px 22px; box-shadow:0 26px 46px -30px rgba(55,66,77,.8); color:#fff;">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M20.5 12a8.5 8.5 0 1 1-2.5-6" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round"></path><path d="M18 2.5V6h-3.5M12 8.5V12l2.5 1.5" fill="none" stroke="#e3c789" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:16px; letter-spacing:1.5px;">定期定額計畫</h2>
+          <h2 class="serif" style="font-weight:700; font-size:21.1px; letter-spacing:1.5px;">定期定額計畫</h2>
         </div>
-        <div style="font-size:11px; color:rgba(255,255,255,.55); margin:0 0 14px 30px;">每月自動扣款 · 平均成本</div>
+        <div style="font-size:14.5px; color:rgba(255,255,255,.55); margin:0 0 14px 30px;">每月自動扣款 · 平均成本</div>
         <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:3px; flex-wrap:wrap;">
-          <span class="num" style="font-size:23px; font-weight:500; color:#e3c789;">{{ dcaMonthlyF }}</span>
-          <span style="font-size:12px; color:rgba(255,255,255,.6);">/ 月</span>
+          <span class="num" style="font-size:30.4px; font-weight:500; color:#e3c789;">{{ dcaMonthlyF }}</span>
+          <span style="font-size:15.8px; color:rgba(255,255,255,.6);">/ 月</span>
         </div>
-        <div style="font-size:11px; color:rgba(255,255,255,.55); margin-bottom:14px;">扣款日 {{ dcaNextDate }}</div>
+        <div style="font-size:14.5px; color:rgba(255,255,255,.55); margin-bottom:14px;">扣款日 {{ dcaNextDate }}</div>
         <div style="margin-bottom:13px; padding:12px 14px; background:rgba(227,199,137,.14); border:1px solid rgba(227,199,137,.28); border-radius:13px;">
-          <div style="font-size:11px; color:rgba(255,255,255,.7);">台積電定額庫存 · 新莊 0099677</div>
+          <div style="font-size:14.5px; color:rgba(255,255,255,.7);">台積電定額庫存 · 新莊 0099677</div>
           <div style="display:flex; align-items:baseline; gap:9px; margin-top:4px;">
-            <span class="num" style="font-size:19px; font-weight:600; color:#fff;">{{ dcaTsmc.value }}</span>
-            <span class="num" style="font-size:12px; color:#e3c789; font-weight:600;">{{ dcaTsmc.pl }}</span>
+            <span class="num" style="font-size:25.1px; font-weight:600; color:#fff;" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="dca:value" data-raw="{{ dcaTsmc.valueRaw }}" data-fmt="ntd" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKeyG }}" style-focus="background:rgba(255,255,255,.14); box-shadow:inset 0 -1.5px 0 #e3c789; outline:none; border-radius:4px;">{{ dcaTsmc.value }}</span>
+            <span class="num" style="font-size:15.8px; color:#e3c789; font-weight:600;">{{ dcaTsmc.pl }}</span>
           </div>
-          <div class="num" style="font-size:10.5px; color:rgba(255,255,255,.55); margin-top:3px;">{{ dcaTsmc.shares }} 股 · 成本 {{ dcaTsmc.cost }}</div>
+          <div class="num" style="font-size:13.9px; color:rgba(255,255,255,.55); margin-top:3px;"><span contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="dca:shares" data-raw="{{ dcaTsmc.sharesRaw }}" data-fmt="plain" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKeyG }}" style="cursor:text; border-radius:4px; color:#fff;" style-focus="background:rgba(255,255,255,.14); box-shadow:inset 0 -1.5px 0 #e3c789; outline:none;">{{ dcaTsmc.shares }}</span> 股 · 成本 <span contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="dca:cost" data-raw="{{ dcaTsmc.costRaw }}" data-fmt="ntd" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKeyG }}" style="cursor:text; border-radius:4px; color:#fff;" style-focus="background:rgba(255,255,255,.14); box-shadow:inset 0 -1.5px 0 #e3c789; outline:none;">{{ dcaTsmc.cost }}</span></div>
         </div>
         <div style="display:flex; flex-direction:column; gap:9px;">
           <sc-for list="{{ dcaPlans }}" as="p" hint-placeholder-count="4">
             <div style="display:flex; align-items:center; gap:10px; padding:9px 12px; background:rgba(255,255,255,.08); border-radius:12px;">
               <div style="flex:1; min-width:0;">
-                <div style="font-size:12.5px; color:#fff;">{{ p.name }}</div>
-                <div class="num" style="font-size:10px; color:rgba(255,255,255,.5); margin-top:1px;">{{ p.day }}</div>
+                <div style="font-size:16.6px; color:#fff;">{{ p.name }}</div>
+                <div class="num" style="font-size:13.2px; color:rgba(255,255,255,.5); margin-top:1px;">{{ p.day }}</div>
               </div>
-              <span class="num" style="font-size:12.5px; font-weight:600; color:#e3c789;">{{ p.amt }}</span>
+              <span class="num" style="font-size:16.6px; font-weight:600; color:#e3c789;" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ p.amtFkey }}" onFocus="{{ edFocus }}" onBlur="{{ edText }}" onKeyDown="{{ edKeyG }}" style-focus="background:rgba(255,255,255,.14); box-shadow:inset 0 -1.5px 0 #e3c789; outline:none; border-radius:4px;">{{ p.amt }}</span>
             </div>
           </sc-for>
         </div>
@@ -363,23 +395,23 @@
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
           <span style="width:36px; height:36px; border-radius:11px; background:#faf3e4; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 3.5l7 2.5v5c0 4-3 7.2-7 9-4-1.8-7-5-7-9v-5z" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linejoin="round"></path><path d="M9 12l2 2 4-4.5" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
           <div>
-            <div class="serif" style="font-size:16px; font-weight:700; color:#37424d;">投資型保單</div>
-            <div class="num" style="font-size:10px; color:#a3abb2; letter-spacing:1px;">月月泰利外幣年金 · USD</div>
+            <div class="serif" style="font-size:21.1px; font-weight:700; color:#37424d;">投資型保單</div>
+            <div class="num" style="font-size:13.2px; color:#a3abb2; letter-spacing:1px;">月月泰利外幣年金 · USD</div>
           </div>
         </div>
         <div style="border-top:2px dotted #e4ded1; padding-top:13px;">
           <div style="display:flex; justify-content:space-between; align-items:baseline;">
-            <span style="font-size:11px; color:#8a939c;">保單帳戶價值</span>
-            <span class="num" style="font-size:11px; color:#6e9257; font-weight:600;">總投報 {{ ins.returnPct }}</span>
+            <span style="font-size:14.5px; color:#8a939c;">保單帳戶價值</span>
+            <span class="num" style="font-size:14.5px; color:#6e9257; font-weight:600;">總投報 <span contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="ins:return" data-raw="{{ ins.returnRaw }}" data-fmt="pct" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKeyG }}" style="cursor:text; border-radius:4px;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ ins.returnPct }}</span></span>
           </div>
-          <div class="num" style="font-size:24px; font-weight:500; color:#37424d; margin-top:3px;">{{ ins.value }}</div>
-          <div class="num" style="font-size:11px; color:#8a939c; margin-top:2px;">≈ {{ ins.valueTwd }}</div>
+          <div class="num" style="font-size:31.7px; font-weight:500; color:#37424d; margin-top:3px;" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="ins:value" data-raw="{{ ins.valueRaw }}" data-fmt="usd2" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKeyG }}" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none; border-radius:4px;">{{ ins.value }}</div>
+          <div class="num" style="font-size:14.5px; color:#8a939c; margin-top:2px;">≈ {{ ins.valueTwd }}</div>
           <div style="margin-top:14px; padding:13px 14px; background:#faf8f2; border-radius:13px;">
             <div style="display:flex; justify-content:space-between; align-items:baseline;">
-              <span style="font-size:11.5px; color:#6a747e;">每月配息進帳</span>
-              <span class="num" style="font-size:18px; font-weight:600; color:#c7a05e;">{{ ins.dividend }}</span>
+              <span style="font-size:15.2px; color:#6a747e;">每月配息進帳</span>
+              <span class="num" style="font-size:23.8px; font-weight:600; color:#c7a05e;" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="ins:dividend" data-raw="{{ ins.dividendRaw }}" data-fmt="usdInt" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKeyG }}" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none; border-radius:4px;">{{ ins.dividend }}</span>
             </div>
-            <div style="display:flex; justify-content:space-between; margin-top:8px; font-size:11px; color:#8a939c;">
+            <div style="display:flex; justify-content:space-between; margin-top:8px; font-size:14.5px; color:#8a939c;">
               <span>約當台幣 / 月</span><span class="num" style="color:#37424d; font-weight:600;">{{ ins.dividendTwd }}</span>
             </div>
           </div>
@@ -391,22 +423,22 @@
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
           <span style="width:36px; height:36px; border-radius:11px; background:#eef2f7; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M5 11.5l7-6.5 7 6.5M6.5 10v9.5h11V10" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10.5 19.5V16h3v3.5" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
           <div>
-            <div class="serif" style="font-size:16px; font-weight:700; color:#37424d;">自住房產</div>
-            <div class="num" style="font-size:10px; color:#a3abb2; letter-spacing:1.5px;">MORTGAGE 貸款中</div>
+            <div class="serif" style="font-size:21.1px; font-weight:700; color:#37424d;">自住房產</div>
+            <div class="num" style="font-size:13.2px; color:#a3abb2; letter-spacing:1.5px;">MORTGAGE 貸款中</div>
           </div>
         </div>
         <div style="border-top:2px dotted #e4ded1; padding-top:13px;">
           <div style="display:flex; justify-content:space-between; align-items:baseline;">
-            <span style="font-size:11px; color:#8a939c;">我的權益 (淨值)</span>
-            <span class="num" style="font-size:11px; color:#8a939c;">總價 {{ home.value }}</span>
+            <span style="font-size:14.5px; color:#8a939c;">我的權益 (淨值)</span>
+            <span class="num" style="font-size:14.5px; color:#8a939c;">總價 <span contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="home:value" data-raw="{{ home.valueRaw }}" data-fmt="kf" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKeyG }}" style="cursor:text; border-radius:4px; border-bottom:1px dotted #cdd3d8;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ home.value }}</span></span>
           </div>
-          <div class="num" title="{{ home.equityTip }}" style="font-size:24px; font-weight:500; color:#37424d; margin-top:3px; cursor:help; display:inline-block; border-bottom:1px dotted #cdd3d8;">{{ home.equity }}</div>
-          <div style="margin:14px 0 6px; display:flex; justify-content:space-between; font-size:11px; color:#8a939c;"><span>已繳 <span class="num" style="color:#5a7ba6; font-weight:600;">{{ home.periods }}</span></span><span title="{{ home.remainTip }}" style="cursor:help; border-bottom:1px dotted #cdd3d8;">貸款餘額 {{ home.remain }}</span></div>
+          <div class="num" title="{{ home.equityTip }}" style="font-size:31.7px; font-weight:500; color:#37424d; margin-top:3px; cursor:help; display:inline-block; border-bottom:1px dotted #cdd3d8;">{{ home.equity }}</div>
+          <div style="margin:14px 0 6px; display:flex; justify-content:space-between; font-size:14.5px; color:#8a939c;"><span>已繳 <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="home:paidN" data-raw="{{ home.periodsPaid }}" data-fmt="plain" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKeyG }}" style="color:#5a7ba6; font-weight:600; cursor:text; border-radius:4px; border-bottom:1px dotted #cdd3d8;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ home.periodsPaid }}</span> / {{ home.totalN }} 期</span><span title="{{ home.remainTip }}" style="border-bottom:1px dotted #cdd3d8;">貸款餘額 <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="home:remain" data-raw="{{ home.remainRaw }}" data-fmt="kf" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKeyG }}" style="cursor:text; border-radius:4px;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ home.remain }}</span></span></div>
           <div style="height:9px; background:#eee9de; border-radius:6px; overflow:hidden;"><div style="{{ home.bar }}"></div></div>
-          <div style="margin-top:13px; padding-top:12px; border-top:1px solid #f1ece1; display:flex; justify-content:space-between; font-size:11.5px; color:#6a747e;">
-            <span>目前月付 (寬限期)</span><span class="num" title="{{ home.monthlyTip }}" style="color:#c05a44; font-weight:600; cursor:help; border-bottom:1px dotted #e0b3a8;">{{ home.monthly }}</span>
+          <div style="margin-top:13px; padding-top:12px; border-top:1px solid #f1ece1; display:flex; justify-content:space-between; font-size:15.2px; color:#6a747e;">
+            <span>目前月付 (寬限期)</span><span class="num" title="{{ home.monthlyTip }}" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="home:monthly" data-raw="{{ home.monthlyRaw }}" data-fmt="ntd" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKeyG }}" style="color:#c05a44; font-weight:600; cursor:text; border-radius:4px; border-bottom:1px dotted #e0b3a8;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ home.monthly }}</span>
           </div>
-          <div style="font-size:10px; color:#a3907a; margin-top:7px; line-height:1.4;">寬限期至第 36 期(本金未攤還)，之後月付約 NT$ 25,530</div>
+          <div style="font-size:13.2px; color:#a3907a; margin-top:7px; line-height:1.4;">寬限期至第 36 期(本金未攤還)，之後月付約 NT$ 25,530</div>
         </div>
       </section>
 
@@ -415,22 +447,22 @@
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
           <span style="width:36px; height:36px; border-radius:11px; background:#eef2f7; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 14.5l1.8-5.2a2 2 0 0 1 1.9-1.3h8.6a2 2 0 0 1 1.9 1.3L20 14.5M4 14.5v4h2.2M20 14.5v4h-2.2" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7 17h.5M16.5 17h.5" fill="none" stroke="#c7a05e" stroke-width="2.2" stroke-linecap="round"></path></svg></span>
           <div>
-            <div class="serif" style="font-size:16px; font-weight:700; color:#37424d;">汽車</div>
-            <div class="num" style="font-size:10px; color:#a3abb2; letter-spacing:1.5px;">CAR LOAN 貸款中</div>
+            <div class="serif" style="font-size:21.1px; font-weight:700; color:#37424d;">汽車</div>
+            <div class="num" style="font-size:13.2px; color:#a3abb2; letter-spacing:1.5px;">CAR LOAN 貸款中</div>
           </div>
         </div>
         <div style="border-top:2px dotted #e4ded1; padding-top:13px;">
           <div style="display:flex; justify-content:space-between; align-items:baseline;">
-            <span style="font-size:11px; color:#8a939c;">我的權益 (淨值)</span>
-            <span class="num" style="font-size:11px; color:#8a939c;">總價 {{ car.value }}</span>
+            <span style="font-size:14.5px; color:#8a939c;">我的權益 (淨值)</span>
+            <span class="num" style="font-size:14.5px; color:#8a939c;">總價 <span contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="car:value" data-raw="{{ car.valueRaw }}" data-fmt="kf" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKeyG }}" style="cursor:text; border-radius:4px; border-bottom:1px dotted #cdd3d8;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ car.value }}</span></span>
           </div>
-          <div class="num" title="{{ car.equityTip }}" style="font-size:24px; font-weight:500; color:#37424d; margin-top:3px; cursor:help; display:inline-block; border-bottom:1px dotted #cdd3d8;">{{ car.equity }}</div>
-          <div style="margin:14px 0 6px; display:flex; justify-content:space-between; font-size:11px; color:#8a939c;"><span>已繳 <span class="num" style="color:#5a7ba6; font-weight:600;">{{ car.periods }}</span></span><span title="{{ car.remainTip }}" style="cursor:help; border-bottom:1px dotted #cdd3d8;">貸款餘額 {{ car.remain }}</span></div>
+          <div class="num" title="{{ car.equityTip }}" style="font-size:31.7px; font-weight:500; color:#37424d; margin-top:3px; cursor:help; display:inline-block; border-bottom:1px dotted #cdd3d8;">{{ car.equity }}</div>
+          <div style="margin:14px 0 6px; display:flex; justify-content:space-between; font-size:14.5px; color:#8a939c;"><span>已繳 <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="car:paidN" data-raw="{{ car.periodsPaid }}" data-fmt="plain" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKeyG }}" style="color:#5a7ba6; font-weight:600; cursor:text; border-radius:4px; border-bottom:1px dotted #cdd3d8;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ car.periodsPaid }}</span> / {{ car.totalN }} 期</span><span title="{{ car.remainTip }}" style="border-bottom:1px dotted #cdd3d8;">貸款餘額 <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="car:remain" data-raw="{{ car.remainRaw }}" data-fmt="kf" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKeyG }}" style="cursor:text; border-radius:4px;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ car.remain }}</span></span></div>
           <div style="height:9px; background:#eee9de; border-radius:6px; overflow:hidden;"><div style="{{ car.bar }}"></div></div>
-          <div style="margin-top:13px; padding-top:12px; border-top:1px solid #f1ece1; display:flex; justify-content:space-between; font-size:11.5px; color:#6a747e;">
-            <span>每月車貸 (72 期)</span><span class="num" title="{{ car.monthlyTip }}" style="color:#c05a44; font-weight:600; cursor:help; border-bottom:1px dotted #e0b3a8;">{{ car.monthly }}</span>
+          <div style="margin-top:13px; padding-top:12px; border-top:1px solid #f1ece1; display:flex; justify-content:space-between; font-size:15.2px; color:#6a747e;">
+            <span>每月車貸 (72 期)</span><span class="num" title="{{ car.monthlyTip }}" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="car:monthly" data-raw="{{ car.monthlyRaw }}" data-fmt="ntd" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKeyG }}" style="color:#c05a44; font-weight:600; cursor:text; border-radius:4px; border-bottom:1px dotted #e0b3a8;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ car.monthly }}</span>
           </div>
-          <div style="font-size:10px; color:#a3907a; margin-top:7px; line-height:1.4;">貸款 70 萬 · 6 年 72 期，已繳期數請確認</div>
+          <div style="font-size:13.2px; color:#a3907a; margin-top:7px; line-height:1.4;">貸款 70 萬 · 6 年 72 期，已繳期數請確認</div>
         </div>
       </section>
     </div>
@@ -439,28 +471,41 @@
     <section style="background:#3b4650; border-radius:22px; padding:20px 22px; box-shadow:0 26px 46px -30px rgba(55,66,77,.85); color:#fff;">
       <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px;">
         <svg viewBox="0 0 24 24" width="19" height="19"><path d="M12 3.5V8M12 16v4.5M3.5 12H8M16 12h4.5" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 9.5l2.5 2.5-2.5 2.5L9.5 12z" fill="none" stroke="#e3c789" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-        <h2 class="serif" style="font-weight:700; font-size:16px; letter-spacing:1.5px;">AI 資產洞察</h2>
+        <h2 class="serif" style="font-weight:700; font-size:21.1px; letter-spacing:1.5px;">AI 資產洞察</h2>
         <span style="flex:1; border-top:2px dotted rgba(255,255,255,.18);"></span>
-        <span class="num" style="font-size:9px; letter-spacing:3px; color:rgba(255,255,255,.55);">ADVISOR</span>
+        <span class="num" style="font-size:11.9px; letter-spacing:3px; color:rgba(255,255,255,.55);">ADVISOR</span>
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
         <sc-for list="{{ insights }}" as="ins" hint-placeholder-count="4">
           <div style="{{ ins.style }}">
             <svg viewBox="0 0 24 24" width="16" height="16" style="flex-shrink:0; margin-top:2px;"><path d="{{ ins.ip }}" fill="none" stroke="{{ ins.stroke }}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="{{ ins.ia }}" fill="none" stroke="#e3c789" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            <span style="font-size:12.5px; line-height:1.55;">{{ ins.text }}</span></div>
+            <span style="font-size:16.6px; line-height:1.55;">{{ ins.text }}</span></div>
         </sc-for>
       </div>
     </section>
 
-    <div class="num" style="text-align:center; font-size:10px; color:#a9a596; letter-spacing:4px; padding:6px 0 2px;">魚家財務室 · NET WORTH · 2026</div>
+    <div class="num" style="text-align:center; font-size:13.2px; color:#a9a596; letter-spacing:4px; padding:6px 0 2px;">魚家財務室 · NET WORTH · 2026</div>
   </main>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1730,&quot;height&quot;:2600}}">
 class Component extends DCLogic {
-  state = { stocksOpen: false, cash: null, cashKey: null, fx: null, px: null, pxKey: null, pxAt: '—' };
+  state = { stocksOpen: false, cash: null, cashKey: null, fx: null, px: null, pxKey: null, pxAt: '—', us: null, usKey: null, ov: null, userTrades: null, tf: null };
 
-  // ── 台股現價：手動更新（存回瀏覽器）──
+  // ── 使用者新增交易（存回瀏覽器）──
+  tradeStore() { if (this.state.userTrades) return this.state.userTrades; try { const s = localStorage.getItem('asset-trades-v1'); if (s) return JSON.parse(s); } catch (e) {} return []; }
+  persistTrades(arr) { this.setState({ userTrades: arr }); try { localStorage.setItem('asset-trades-v1', JSON.stringify(arr)); } catch (e) {} }
+  openTradeForm() { const d = new Date(); const mm = String(d.getMonth() + 1).padStart(2, '0'); const dd = String(d.getDate()).padStart(2, '0'); this.setState({ tf: { k: 'buy', name: '', detail: '', amt: '', date: mm + '/' + dd } }); }
+  closeTradeForm() { this.setState({ tf: null }); }
+  setTf(field, val) { this.setState((s) => ({ tf: { ...s.tf, [field]: val } })); }
+  saveTrade() { const t = this.state.tf; if (!t) return; const amt = parseFloat(String(t.amt).replace(/[^\d.\-]/g, '')); if (!t.name.trim() || isNaN(amt)) return; const arr = [{ k: t.k, name: t.name.trim(), detail: t.detail.trim(), amt: Math.round(amt), date: t.date.trim() }, ...this.tradeStore()]; this.persistTrades(arr); this.setState({ tf: null }); }
+  removeTrade(idx) { const arr = this.tradeStore().slice(); arr.splice(idx, 1); this.persistTrades(arr); }
+
+  segStyle(active) {
+    const base = 'flex:1; text-align:center; padding:7px 0; font-size:15px; font-weight:600; letter-spacing:1px; border-radius:9px; cursor:pointer; transition:all .18s ease;';
+    return active ? base + ' background:#37424d; color:#fff;' : base + ' background:#f3efe6; color:#8a939c;';
+  }
+
   priceMap() { if (this.state.px !== null) return this.state.px; try { const s = localStorage.getItem('asset-px-v1'); if (s) return JSON.parse(s).map || {}; } catch (e) {} return {}; }
   stamp() { const d = new Date(); const p = (n) => String(n).padStart(2, '0'); return `${d.getFullYear()}/${p(d.getMonth() + 1)}/${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`; }
   togglePx(code) { this.setState((s) => ({ pxKey: s.pxKey === code ? null : code })); }
@@ -472,8 +517,54 @@ class Component extends DCLogic {
     try { localStorage.setItem('asset-px-v1', JSON.stringify({ map, at })); } catch (e) {}
   }
 
+  // ── 通用「細項數字」可編輯覆寫（存回瀏覽器）──
+  ovStore() { if (this.state.ov) return this.state.ov; try { const s = localStorage.getItem('asset-ov-v1'); if (s) return JSON.parse(s); } catch (e) {} return {}; }
+  ovNum(key, base) { const o = this.ovStore(); return o[key] != null ? o[key] : base; }
+  ovStr(key, base) { const o = this.ovStore(); return o[key] != null ? o[key] : base; }
+  persistOv(o) { this.setState({ ov: o }); try { localStorage.setItem('asset-ov-v1', JSON.stringify(o)); } catch (e) {} }
+  commitOv(el) { const k = el.getAttribute('data-fkey'); if (!k) return; const n = parseFloat(String(el.textContent || '').replace(/[^\d.\-]/g, '')); const o = { ...this.ovStore() }; if (!isNaN(n)) o[k] = n; this.persistOv(o); const fmt = el.getAttribute('data-fmt'); if (fmt && !isNaN(n)) el.textContent = this.fmtField(fmt, n, el); }
+  fmtField(type, n, el) {
+    switch (type) {
+      case 'ntd': return this.ntd(n);
+      case 'kf': return this.kf(n);
+      case 'int': return Math.round(n).toLocaleString('en-US');
+      case 'plain': return String(Math.round(n));
+      case 'usd2': return 'US$' + n.toLocaleString('en-US', { minimumFractionDigits: 2 });
+      case 'usdInt': return 'US$' + Math.round(n).toLocaleString('en-US');
+      case 'pct': return '+' + n + '%';
+      case 'trade': return (el.getAttribute('data-sign') || '-') + Math.round(n).toLocaleString('en-US');
+      default: return String(n);
+    }
+  }
+  commitOvText(el) { const k = el.getAttribute('data-fkey'); if (!k) return; const t = (el.textContent || '').trim(); const o = { ...this.ovStore() }; o[k] = t; this.persistOv(o); }
+
   // ── 外幣（美元）帳戶餘額：可編輯 ──
   fxUSD() { if (this.state.fx !== null) return this.state.fx; try { const s = localStorage.getItem('asset-fx-v1'); if (s !== null) return JSON.parse(s); } catch (e) {} return this.accountsData().fxUSD; }
+
+  // ── 美股 / 海外投資細項：可編輯 / 增減 ──
+  usSeed() {
+    const A = this.accountsData();
+    return [
+      { name: '嘉信證券 Schwab', sub: 'VOO 7 股 + 現金', usd: A.schwabUSD, pl: `未實現 +${A.schwabPLpct}%` },
+      { name: '國泰複委託 · 定期定額', sub: 'QQQ 73.9% · NVDA 26.1%', usd: A.dcaUSD, pl: `報酬 +${A.dcaUSpct}%` },
+    ];
+  }
+  usList() { if (this.state.us) return this.state.us; try { const s = localStorage.getItem('asset-us-v1'); if (s) return JSON.parse(s); } catch (e) {} return this.usSeed(); }
+  cloneUs() { return JSON.parse(JSON.stringify(this.usList())); }
+  persistUs(arr) { this.setState({ us: arr }); try { localStorage.setItem('asset-us-v1', JSON.stringify(arr)); } catch (e) {} }
+  toggleUsKey(i) { this.setState((s) => ({ usKey: s.usKey === i ? null : i })); }
+  commitUsField(el) {
+    const fkey = el.getAttribute('data-fkey'); if (!fkey) return;
+    const p = fkey.split(':'); const i = +p[1]; const field = p[2];
+    const arr = this.cloneUs(); if (!arr[i]) return; const t = (el.textContent || '').trim();
+    if (field === 'name') arr[i].name = t || '未命名';
+    else if (field === 'sub') arr[i].sub = t;
+    else if (field === 'pl') arr[i].pl = t;
+    else if (field === 'usd') { const n = parseFloat(String(t).replace(/[^\d.]/g, '')); arr[i].usd = isNaN(n) ? 0 : n; }
+    this.persistUs(arr); this.setState({ usKey: null });
+  }
+  deleteUs(i) { const arr = this.cloneUs(); arr.splice(i, 1); this.setState({ usKey: null }); this.persistUs(arr); }
+  addUs() { const arr = this.cloneUs(); arr.push({ name: '新帳戶', sub: '券商 · 標的', usd: 0, pl: '' }); const i = arr.length - 1; this.setState({ usKey: i }); this.persistUs(arr); }
   commitFx(el) { const t = (el.textContent || '').trim(); const n = parseFloat(String(t).replace(/[^\d.]/g, '')); const v = isNaN(n) ? 0 : n; this.setState({ fx: v, cashKey: null }); try { localStorage.setItem('asset-fx-v1', JSON.stringify(v)); } catch (e) {} }
 
   // ── 現金帳戶：可編輯 / 增減 ──
@@ -490,7 +581,7 @@ class Component extends DCLogic {
     const arr = this.cloneCash(); if (!arr[i]) return; const t = (el.textContent || '').trim();
     if (field === 'name') arr[i].name = t || '未命名帳戶';
     else if (field === 'sub') arr[i].sub = t;
-    else if (field === 'v') arr[i].v = this.parseNum(t);
+    else if (field === 'v') { const v = this.parseNum(t); arr[i].v = v; el.textContent = this.fmt(v); }
     this.persistCash(arr); this.setState({ cashKey: null });
   }
   deleteCash(i) { const arr = this.cloneCash(); arr.splice(i, 1); this.setState({ cashKey: null }); this.persistCash(arr); }
@@ -506,6 +597,11 @@ class Component extends DCLogic {
     const pk = this.state.pxKey;
     if (pk && pk !== ps.pxKey && this.root) {
       const el = this.root.querySelector('[data-pcode="' + pk + '"]');
+      if (el) { el.focus(); const r = document.createRange(); r.selectNodeContents(el); r.collapse(false); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
+    }
+    const uk = this.state.usKey;
+    if (uk !== null && uk !== undefined && uk !== ps.usKey && this.root) {
+      const el = this.root.querySelector('[data-fkey="us:' + uk + ':name"]');
       if (el) { el.focus(); const r = document.createRange(); r.selectNodeContents(el); r.collapse(false); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
     }
   }
@@ -570,8 +666,10 @@ class Component extends DCLogic {
   }
 
   componentDidMount() {
-    try { const s = localStorage.getItem('asset-px-v1'); if (s) { const o = JSON.parse(s); this.setState({ px: o.map || {}, pxAt: o.at || '—' }); return; } } catch (e) {}
-    this.setState({ px: {} });
+    const st = {};
+    try { const s = localStorage.getItem('asset-px-v1'); if (s) { const o = JSON.parse(s); st.px = o.map || {}; st.pxAt = o.at || '—'; } else st.px = {}; } catch (e) { st.px = {}; }
+    try { const s = localStorage.getItem('asset-ov-v1'); if (s) st.ov = JSON.parse(s); } catch (e) {}
+    this.setState(st);
   }
 
   fmt(n) { return Math.round(n).toLocaleString('en-US'); }
@@ -589,16 +687,23 @@ class Component extends DCLogic {
     const pxKey = this.state.pxKey;
     const pdeco = ' outline:none; border-radius:4px; background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; padding:0 4px;';
     const pbf = (e) => this.commitPrice(e.currentTarget);
-    const pkey = (e) => { if (e.key === 'Enter') { e.preventDefault(); e.currentTarget.blur(); } };
+    const pkey = (e) => { if (e.key === 'Enter' && !e.isComposing && e.keyCode !== 229) { e.preventDefault(); e.currentTarget.blur(); } };
+
+    // ── 通用可編輯數字：focus 顯示原始值、blur 存回 ──
+    const edFocus = (e) => { const el = e.currentTarget; const raw = el.getAttribute('data-raw'); if (raw != null) el.textContent = raw; const r = document.createRange(); r.selectNodeContents(el); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); };
+    const edNum = (e) => this.commitOv(e.currentTarget);
+    const edText = (e) => this.commitOvText(e.currentTarget);
+    const edKeyG = (e) => { if (e.key === 'Enter' && !e.isComposing && e.keyCode !== 229) { e.preventDefault(); e.currentTarget.blur(); } };
 
     // ── 台股：現價手動更新 ──
     const rows = HD.map((h) => {
       const price = OV[h.code] != null ? OV[h.code] : h.price;
-      const mkt = price * h.shares;
+      const shares = this.ovNum('stk:' + h.code + ':shares', h.shares);
+      const mkt = this.ovNum('stk:' + h.code + ':mkt', price * shares);
       const pl = mkt - h.cost;
       const plPct = pl / h.cost * 100;
       const edited = OV[h.code] != null;
-      return { ...h, price, mkt, pl, plPct, edited };
+      return { ...h, shares, price, mkt, pl, plPct, edited };
     });
     const stockMkt = rows.reduce((s, r) => s + r.mkt, 0);
     const stockCost = rows.reduce((s, r) => s + r.cost, 0);
@@ -616,16 +721,16 @@ class Component extends DCLogic {
       const on = pxKey === r.code;
       return {
         rank: i + 1, name: r.name, code: r.code,
-        dcaStyle: r.dca ? 'font-size:9px; font-weight:600; letter-spacing:.5px; padding:1px 7px; border-radius:20px; background:#f3ede0; color:#a07f3a; flex-shrink:0;' : 'display:none;',
-        shares: r.shares.toLocaleString('en-US'),
+        dcaStyle: r.dca ? 'font-size:11.9px; font-weight:600; letter-spacing:.5px; padding:1px 7px; border-radius:20px; background:#f3ede0; color:#a07f3a; flex-shrink:0;' : 'display:none;',
+        shares: r.shares.toLocaleString('en-US'), sharesRaw: r.shares, sharesFkey: 'stk:' + r.code + ':shares',
         priceEditable: on,
         price: on ? String(r.price) : (r.price >= 100 ? this.fmt(r.price) : r.price.toFixed(2)),
-        priceStyle: `font-size:12.5px; font-weight:600; text-align:right; color:#37424d;${on ? pdeco : ''}`,
+        priceStyle: `font-size:16.6px; font-weight:600; text-align:right; color:#37424d;${on ? pdeco : ''}`,
         priceFkey: r.code, onBlurPrice: pbf, onKeyField: pkey,
         pxPencilStyle: `width:22px; height:22px; border-radius:7px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:color .2s ease; color:${on ? '#c7a05e' : '#d0d6db'};`,
         onEditPrice: () => this.togglePx(r.code),
-        mkt: this.fmt(r.mkt),
-        mktStyle: 'font-size:12.5px; font-weight:500; color:#37424d; text-align:right;',
+        mkt: this.fmt(r.mkt), mktRaw: r.mkt, mktFkey: 'stk:' + r.code + ':mkt',
+        mktStyle: 'font-size:16.6px; font-weight:500; color:#37424d; text-align:right;',
         pl: `${gain ? '+' : '-'}${this.fmt(Math.abs(r.pl))}`,
         plPct: this.signPct(r.plPct),
         plColor: gain ? '#6e9257' : '#c05a44',
@@ -646,11 +751,31 @@ class Component extends DCLogic {
     ];
 
     // ── 美股 / 海外 ──
-    const usAccounts = [
-      { name: '嘉信證券 Schwab', sub: 'VOO 7 股 + 現金', usd: this.usd(A.schwabUSD), pl: `未實現 +${A.schwabPLpct}%`, plColor: '#6e9257' },
-      { name: '國泰複委託 · 定期定額', sub: 'QQQ 73.9% · NVDA 26.1%', usd: this.usd(A.dcaUSD), pl: `報酬 +${A.dcaUSpct}%`, plColor: '#6e9257' },
-    ];
-    const usTotalUSD = A.schwabUSD + A.dcaUSD;
+    const US = this.usList();
+    const usKey = this.state.usKey;
+    const udeco = ' outline:none; border-radius:4px; background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; padding:0 4px;';
+    const ubf = (e) => this.commitUsField(e.currentTarget);
+    const ukey = (e) => { if (e.key === 'Enter' && !e.isComposing && e.keyCode !== 229) { e.preventDefault(); e.currentTarget.blur(); } };
+    const usAccounts = US.map((u, i) => {
+      const on = usKey === i;
+      const plGain = !/-/.test(u.pl || '');
+      return {
+        name: u.name, sub: u.sub, editable: on,
+        usd: on ? String(u.usd) : this.usd(u.usd),
+        pl: u.pl, plColor: plGain ? '#6e9257' : '#c05a44',
+        nameStyle: `font-size:17.2px; font-weight:500; color:#3b4650;${on ? udeco : ''}`,
+        subStyle: `font-size:13.9px; color:#a3abb2; margin-top:1px;${on ? udeco : ''}`,
+        usdStyle: `font-size:17.2px; font-weight:600; color:#37424d; text-align:right;${on ? udeco : ''}`,
+        plStyle: `font-size:13.9px; margin-top:1px; text-align:right;${on ? udeco : ''}`,
+        nameFkey: `us:${i}:name`, subFkey: `us:${i}:sub`, usdFkey: `us:${i}:usd`, plFkey: `us:${i}:pl`,
+        onBlurField: ubf, onKeyField: ukey,
+        pencilStyle: `width:24px; height:24px; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:color .2s ease; color:${on ? '#c7a05e' : '#c9d0d6'};`,
+        trashStyle: on ? 'width:24px; height:24px; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; color:#d69a8a;' : 'display:none;',
+        onEdit: () => this.toggleUsKey(i), onDelete: () => this.deleteUs(i),
+      };
+    });
+    const onAddUs = () => this.addUs();
+    const usTotalUSD = US.reduce((s, u) => s + (u.usd || 0), 0);
     const usTotalTwd = usTotalUSD * rate;
 
     // ── 現金 / 外幣（TWD 帳戶可編輯 / 增減）──
@@ -660,15 +785,15 @@ class Component extends DCLogic {
     const cashKey = this.state.cashKey;
     const cdeco = ' outline:none; border-radius:4px; background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; padding:0 4px;';
     const cbf = (e) => this.commitCashField(e.currentTarget);
-    const ckey = (e) => { if (e.key === 'Enter') { e.preventDefault(); e.currentTarget.blur(); } };
+    const ckey = (e) => { if (e.key === 'Enter' && !e.isComposing && e.keyCode !== 229) { e.preventDefault(); e.currentTarget.blur(); } };
     const cashAccounts = CASH.map((c, i) => {
       const on = cashKey === i;
       return {
         name: c.name, sub: c.sub, dot: c.dot, editable: on,
         val: on ? String(c.v) : this.ntd(c.v),
-        nameStyle: `font-size:13px; color:#3b4650;${on ? cdeco : ''}`,
-        subStyle: `font-size:10.5px; color:#a3abb2; margin-top:1px;${on ? cdeco : ''}`,
-        valStyle: `font-size:13px; font-weight:600; color:#37424d; text-align:right;${on ? cdeco : ''}`,
+        nameStyle: `font-size:17.2px; color:#3b4650;${on ? cdeco : ''}`,
+        subStyle: `font-size:13.9px; color:#a3abb2; margin-top:1px;${on ? cdeco : ''}`,
+        valStyle: `font-size:17.2px; font-weight:600; color:#37424d; text-align:right;${on ? cdeco : ''}`,
         nameFkey: `cash:${i}:name`, subFkey: `cash:${i}:sub`, valFkey: `cash:${i}:v`,
         onBlurField: cbf, onKeyField: ckey,
         pencilStyle: `width:24px; height:24px; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:color .2s ease; color:${on ? '#c7a05e' : '#c9d0d6'};`,
@@ -681,7 +806,7 @@ class Component extends DCLogic {
     const fxAccount = {
       name: '外幣帳戶', dot: '#c7a05e', editable: fxOn,
       sub: fxOn ? String(fxUSD) : `US$${fxUSD.toLocaleString('en-US', { maximumFractionDigits: 2 })}`,
-      subStyle: `font-size:10.5px; color:#a3abb2; margin-top:1px;${fxOn ? cdeco : ''}`,
+      subStyle: `font-size:13.9px; color:#a3abb2; margin-top:1px;${fxOn ? cdeco : ''}`,
       val: this.ntd(fxTwd),
       onBlurFx: (e) => this.commitFx(e.currentTarget), onKeyField: ckey,
       pencilStyle: `width:24px; height:24px; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:color .2s ease; color:${fxOn ? '#c7a05e' : '#c9d0d6'};`,
@@ -691,16 +816,24 @@ class Component extends DCLogic {
     const cashAll = twdCashTotal + fxTwd;
 
     // ── 國泰高股息基金（台幣定期定額）併入台股投資 ──
-    const twInvest = stockMkt + A.fundValue + A.dcaTsmc.value;
+    const dcaVal = this.ovNum('dca:value', A.dcaTsmc.value);
+    const dcaCost = this.ovNum('dca:cost', A.dcaTsmc.cost);
+    const dcaShares = this.ovNum('dca:shares', A.dcaTsmc.shares);
+    const dcaPL = dcaVal - dcaCost;
+    const dcaPLPct = dcaCost ? (dcaPL / dcaCost * 100) : 0;
+    const twInvest = stockMkt + A.fundValue + dcaVal;
     const investAll = twInvest + usTotalTwd;
 
     // ── 不動產 / 車 ──
-    const home = { value: 7850000, remain: 6270000, monthly: 9274, paidN: 34, totalN: 360 };
-    const car = { value: 1430000, remain: 559000, monthly: 12600, paidN: 18, totalN: 72 };
+    const home = { value: this.ovNum('home:value', 7850000), remain: this.ovNum('home:remain', 6270000), monthly: this.ovNum('home:monthly', 9274), paidN: this.ovNum('home:paidN', 34), totalN: 360 };
+    const car = { value: this.ovNum('car:value', 1430000), remain: this.ovNum('car:remain', 559000), monthly: this.ovNum('car:monthly', 12600), paidN: this.ovNum('car:paidN', 18), totalN: 72 };
     home.paid = home.paidN / home.totalN * 100; home.equity = home.value - home.remain;
     car.paid = car.paidN / car.totalN * 100; car.equity = car.value - car.remain;
 
-    const insValueTwd = A.insValueUSD * rate;
+    const insValueUSD = this.ovNum('ins:value', A.insValueUSD);
+    const insReturnPct = this.ovNum('ins:return', A.insReturnPct);
+    const insMonthlyUSD = this.ovNum('ins:dividend', A.insMonthlyUSD);
+    const insValueTwd = insValueUSD * rate;
     const totalAssets = twInvest + usTotalTwd + cashAll + insValueTwd + home.value + car.value;
     const totalDebt = home.remain + car.remain;
     const netWorth = totalAssets - totalDebt;
@@ -731,10 +864,10 @@ class Component extends DCLogic {
     }));
 
     // ── hero KPIs ──
-    const monthlyPassive = Math.round(A.insMonthlyUSD * rate) + 3000; // 保單月配 + 台股月均股利估
-    const up = 'font-size:11px; font-weight:700; color:#6e9257; margin-top:6px;';
-    const flat = 'font-size:11px; font-weight:700; color:#5a7ba6; margin-top:6px;';
-    const down = 'font-size:11px; font-weight:700; color:#c05a44; margin-top:6px;';
+    const monthlyPassive = Math.round(insMonthlyUSD * rate) + 3000; // 保單月配 + 台股月均股利估
+    const up = 'font-size:14.5px; font-weight:700; color:#6e9257; margin-top:6px;';
+    const flat = 'font-size:14.5px; font-weight:700; color:#5a7ba6; margin-top:6px;';
+    const down = 'font-size:14.5px; font-weight:700; color:#c05a44; margin-top:6px;';
     const hCell = 'padding:2px 18px;';
     const hDiv = hCell + ' border-left:2px dotted #e4ded1;';
     const heroStats = [
@@ -746,22 +879,37 @@ class Component extends DCLogic {
     ];
 
     // ── trades ──
-    const buyTag = 'font-size:10px; font-weight:700; letter-spacing:1px; padding:4px 10px; border-radius:9px; background:#e9f0f7; color:#4a6a94; flex-shrink:0;';
-    const sellTag = 'font-size:10px; font-weight:700; letter-spacing:1px; padding:4px 10px; border-radius:9px; background:#fbf1ee; color:#c05a44; flex-shrink:0;';
-    const dcaTag = 'font-size:10px; font-weight:700; letter-spacing:1px; padding:4px 10px; border-radius:9px; background:#f3ede0; color:#a07f3a; flex-shrink:0;';
-    const trades = [
+    const buyTag = 'font-size:13.2px; font-weight:700; letter-spacing:1px; padding:4px 10px; border-radius:9px; background:#e9f0f7; color:#4a6a94; flex-shrink:0;';
+    const sellTag = 'font-size:13.2px; font-weight:700; letter-spacing:1px; padding:4px 10px; border-radius:9px; background:#fbf1ee; color:#c05a44; flex-shrink:0;';
+    const dcaTag = 'font-size:13.2px; font-weight:700; letter-spacing:1px; padding:4px 10px; border-radius:9px; background:#f3ede0; color:#a07f3a; flex-shrink:0;';
+    const tagFor = (k) => k === 'buy' ? buyTag : k === 'sell' ? sellTag : dcaTag;
+    const labelFor = (k) => k === 'buy' ? '買進' : k === 'sell' ? '賣出' : '定額';
+    const baseTrades = [
       { k: 'buy', name: '奇鋐 3017 · 現買', detail: '20 股 @ 2,385', amt: 47700, date: '06/24' },
       { k: 'sell', name: '榮田 7709 · 現賣', detail: '100 股 @ 103 · 已實現 +1,431', amt: 10300, date: '06/18' },
       { k: 'buy', name: '八貫 1342 · 現買', detail: '200 股 @ 117.5', amt: 23500, date: '06/15' },
       { k: 'buy', name: '竹陞科技 6739 · 現買', detail: '20 股 @ 1,130', amt: 22600, date: '06/11' },
       { k: 'buy', name: '主動統一全球創新 00988A · 現買', detail: '1,000 股 @ 20.62', amt: 20620, date: '06/09' },
-    ].map((t) => ({
-      tag: t.k === 'buy' ? '買進' : t.k === 'sell' ? '賣出' : '定額',
-      tagStyle: t.k === 'buy' ? buyTag : t.k === 'sell' ? sellTag : dcaTag,
-      name: t.name, detail: t.detail, date: t.date,
-      amt: `${t.k === 'sell' ? '+' : '-'}${this.fmt(t.amt)}`,
-      amtColor: t.k === 'sell' ? '#6e9257' : '#4b5560',
-    }));
+    ].map((t, i) => {
+      const amtV = this.ovNum('trade:' + i + ':amt', t.amt);
+      return {
+        tag: labelFor(t.k), tagStyle: tagFor(t.k),
+        name: t.name, detail: t.detail, date: t.date, removable: false,
+        amt: `${t.k === 'sell' ? '+' : '-'}${this.fmt(amtV)}`, amtRaw: amtV, amtFkey: 'trade:' + i + ':amt', amtSign: t.k === 'sell' ? '+' : '-',
+        amtColor: t.k === 'sell' ? '#6e9257' : '#4b5560',
+      };
+    });
+    const uTrades = this.tradeStore().map((t, i) => {
+      const amtV = this.ovNum('utrade:' + i + ':amt', t.amt);
+      return {
+        tag: labelFor(t.k), tagStyle: tagFor(t.k),
+        name: t.name, detail: t.detail, date: t.date, removable: true, removeIdx: i,
+        onRemove: () => this.removeTrade(i),
+        amt: `${t.k === 'sell' ? '+' : '-'}${this.fmt(amtV)}`, amtRaw: amtV, amtFkey: 'utrade:' + i + ':amt', amtSign: t.k === 'sell' ? '+' : '-',
+        amtColor: t.k === 'sell' ? '#6e9257' : '#4b5560',
+      };
+    });
+    const trades = [...uTrades, ...baseTrades];
 
     // ── DCA plan ──
     const dcaPlans = [
@@ -769,7 +917,7 @@ class Component extends DCLogic {
       { name: '國泰台灣高股息基金', day: '每月 6 號', amt: 'NT$5,000' },
       { name: '美股 NVDA', day: '每月 5 · 15 號', amt: 'US$50' },
       { name: '美股 QQQ', day: '每月 15 · 25 號', amt: 'US$50' },
-    ];
+    ].map((p, i) => ({ name: p.name, day: p.day, amt: this.ovStr('dcaplan:' + i, p.amt), amtFkey: 'dcaplan:' + i }));
 
     // ── AI insights ──
     const insBase = 'display:flex; gap:9px; background:rgba(255,255,255,.1); border-radius:12px; padding:10px 12px;';
@@ -780,7 +928,7 @@ class Component extends DCLogic {
       { ic: I.grow, stroke: '#fff', style: insBase, text: `台股總市值 ${this.ntd(stockMkt)}，單一持股「${top.name}」就占 ${topPct}%，集中度偏高可留意。` },
       { ic: I.globe, stroke: '#fff', style: insBase, text: `美股嘉信帳戶未實現報酬 +${A.schwabPLpct}%，VOO 長期部位表現亮眼。` },
       { ic: I.warn, stroke: '#f4c9be', style: warnBase, text: `不動產占總資產 ${homePct}%；房貸寬限期於第 36 期結束後月付升至約 25,530，需預留現金。` },
-      { ic: I.coin, stroke: '#fff', style: insBase, text: `保單月配 US$${A.insMonthlyUSD} 加股利，被動現金流約 ${this.fmt(monthlyPassive)}/月，可覆蓋部分貸款。` },
+      { ic: I.coin, stroke: '#fff', style: insBase, text: `保單月配 US$${insMonthlyUSD} 加股利，被動現金流約 ${this.fmt(monthlyPassive)}/月，可覆蓋部分貸款。` },
     ].map((x) => ({ ip: x.ic.p, ia: x.ic.a, stroke: x.stroke, style: x.style, text: x.text }));
 
     // ── sidebar ──
@@ -790,34 +938,58 @@ class Component extends DCLogic {
       { label: '資金分配', ic: I.alloc, href: '資金分配.dc.html' },
       { label: '支出', ic: I.expense, href: '支出中心.dc.html' },
       { label: '資產', ic: I.asset, href: '#assets', active: true },
+      { label: '被動收入', ic: { p: 'M3.5 18.5L9.5 12l3.5 3.5 7-8', a: 'M16 7.5h4v4' }, href: '被動收入.dc.html' },
       { label: '報表', ic: I.report, href: '報表分析.dc.html' },
       { label: '設定', ic: I.settings, href: '#' },
     ].map((nv) => ({
       label: nv.label, href: nv.href, ip: nv.ic.p, ia: nv.ic.a,
       stroke: nv.active ? '#37424d' : '#3f4a54',
-      rowStyle: `display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px; font-size:13.5px; transition:background .2s ease; ${nv.active ? 'color:#37424d; font-weight:700; background:#f1ede2;' : 'color:#5b6670;'}`,
+      rowStyle: `display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px; font-size:17.9px; transition:background .2s ease; ${nv.active ? 'color:#37424d; font-weight:700; background:#f1ede2;' : 'color:#5b6670;'}`,
     }));
 
     return {
       rootRef: (el) => { this.root = el; },
       stocksOpen: this.state.stocksOpen,
+      edFocus, edNum, edText, edKeyG,
       toggleStocks: () => this.setState((s) => ({ stocksOpen: !s.stocksOpen })),
       chevronStyle: `width:22px; height:22px; display:flex; align-items:center; justify-content:center; border:1px solid #ece7dd; border-radius:8px; color:#8a939c; transition:transform .2s ease; transform:rotate(${this.state.stocksOpen ? 0 : -90}deg);`,
       navItems, heroStats, holdings, stockKpis, trades, dcaPlans,
+      tf: this.state.tf,
+      tfOpen: !!this.state.tf,
+      openTradeForm: () => this.openTradeForm(),
+      closeTradeForm: () => this.closeTradeForm(),
+      saveTrade: () => this.saveTrade(),
+      onTfName: (e) => this.setTf('name', e.target.value),
+      onTfDetail: (e) => this.setTf('detail', e.target.value),
+      onTfAmt: (e) => this.setTf('amt', e.target.value),
+      onTfDate: (e) => this.setTf('date', e.target.value),
+      tfBuy: () => this.setTf('k', 'buy'),
+      tfSell: () => this.setTf('k', 'sell'),
+      tfDca: () => this.setTf('k', 'dca'),
+      tfName: this.state.tf ? this.state.tf.name : '',
+      tfDetail: this.state.tf ? this.state.tf.detail : '',
+      tfAmt: this.state.tf ? this.state.tf.amt : '',
+      tfDate: this.state.tf ? this.state.tf.date : '',
+      tfKBuy: this.state.tf && this.state.tf.k === 'buy',
+      tfKSell: this.state.tf && this.state.tf.k === 'sell',
+      tfKDca: this.state.tf && this.state.tf.k === 'dca',
+      tfSegBuy: this.segStyle(this.state.tf && this.state.tf.k === 'buy'),
+      tfSegSell: this.segStyle(this.state.tf && this.state.tf.k === 'sell'),
+      tfSegDca: this.segStyle(this.state.tf && this.state.tf.k === 'dca'),
       stockCount: HD.length,
       lastUpdated: this.state.pxAt,
       nwShort: this.kf(netWorth), nwReturn: this.signPct(stockPLPct),
       donut, allocation, totalAssetsShort: this.kf(totalAssets),
       totalAssetsF: this.ntd(totalAssets), totalDebtF: this.ntd(totalDebt), netWorthF: this.ntd(netWorth),
       nwBar,
-      usAccounts, usTotalF: this.ntd(usTotalTwd), rateLabel: `1 USD ≈ ${rate} TWD`,
+      usAccounts, onAddUs, usTotalF: this.ntd(usTotalTwd), rateLabel: `1 USD ≈ ${rate} TWD`,
       cashAccounts, cashTotalF: this.ntd(cashAll), fxAccount, onAddCash,
       dcaMonthlyF: 'NT$13,000 ＋ US$100', dcaNextDate: '每月 6 · 5 · 15 · 25 號',
-      dcaTsmc: { value: this.ntd(A.dcaTsmc.value), cost: this.ntd(A.dcaTsmc.cost), shares: `${A.dcaTsmc.shares}`, pl: `+${this.fmt(A.dcaTsmc.value - A.dcaTsmc.cost)}（+${A.dcaTsmc.plPct}%）` },
-      ins: { value: `US$${A.insValueUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, valueTwd: this.ntd(insValueTwd), returnPct: `+${A.insReturnPct}%`, dividend: `US$${A.insMonthlyUSD}`, dividendTwd: this.ntd(A.insMonthlyUSD * rate) },
-      home: { value: this.kf(home.value), equity: this.ntd(home.equity), periods: `${home.paidN} / ${home.totalN} 期`, remain: this.kf(home.remain), monthly: this.ntd(home.monthly), bar: `width:${Math.max(home.paid, 3).toFixed(0)}%; height:100%; border-radius:6px; background:#5a7ba6;`,
+      dcaTsmc: { value: this.ntd(dcaVal), valueRaw: dcaVal, cost: this.ntd(dcaCost), costRaw: dcaCost, shares: `${dcaShares}`, sharesRaw: dcaShares, pl: `+${this.fmt(dcaPL)}（+${dcaPLPct.toFixed(2)}%）` },
+      ins: { value: `US$${insValueUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, valueRaw: insValueUSD, valueTwd: this.ntd(insValueTwd), returnPct: `+${insReturnPct}%`, returnRaw: insReturnPct, dividend: `US$${insMonthlyUSD}`, dividendRaw: insMonthlyUSD, dividendTwd: this.ntd(insMonthlyUSD * rate) },
+      home: { value: this.kf(home.value), valueRaw: home.value, equity: this.ntd(home.equity), periodsPaid: home.paidN, totalN: home.totalN, remain: this.kf(home.remain), remainRaw: home.remain, monthly: this.ntd(home.monthly), monthlyRaw: home.monthly, bar: `width:${Math.max(home.paid, 3).toFixed(0)}%; height:100%; border-radius:6px; background:#5a7ba6;`,
         equityTip: '我的權益 ＝ 房屋總價 785 萬 − 貸款餘額 627 萬 ＝ 158 萬', remainTip: '本金 6,270,000（627 萬）；目前寬限期（繳至第 34 期），本金尚未攤還，餘額＝原貸本金', monthlyTip: '寬限期月付 ＝ 本金 6,270,000 × 年利率 1.775% ÷ 12 ≈ 9,274（僅繳息）' },
-      car: { value: this.kf(car.value), equity: this.ntd(car.equity), periods: `${car.paidN} / ${car.totalN} 期`, remain: this.kf(car.remain), monthly: this.ntd(car.monthly), bar: `width:${Math.max(car.paid, 3).toFixed(0)}%; height:100%; border-radius:6px; background:#5a7ba6;`,
+      car: { value: this.kf(car.value), valueRaw: car.value, equity: this.ntd(car.equity), periodsPaid: car.paidN, totalN: car.totalN, remain: this.kf(car.remain), remainRaw: car.remain, monthly: this.ntd(car.monthly), monthlyRaw: car.monthly, bar: `width:${Math.max(car.paid, 3).toFixed(0)}%; height:100%; border-radius:6px; background:#5a7ba6;`,
         equityTip: '我的權益 ＝ 車輛總價 143 萬 − 貸款餘額 55.9 萬 ＝ 87.1 萬', remainTip: '原貸 700,000／72 期（6 年）、月付 12,600；估算已繳 18 期後本金餘額約 559,000（實際期數待確認）', monthlyTip: '每月固定扣款 12,600（本息平均攤還，6 年 72 期）' },
       insights,
     };

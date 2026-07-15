@@ -35,22 +35,22 @@
         <svg viewBox="0 0 24 24" width="26" height="26"><path d="M4.5 12c2.4-4 6-6.1 9.4-5 2.6.8 4.4 2.8 5.1 5-.7 2.2-2.5 4.2-5.1 5-3.4 1.1-7-1-9.4-5z M4.5 12L2.5 9.4v5.2z" fill="none" stroke="#c7a05e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 10.6h.01" fill="none" stroke="#c7a05e" stroke-width="2.2" stroke-linecap="round"></path></svg>
       </span>
       <div>
-        <div class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1px;">魚家財務室</div>
-        <div class="num" style="font-size:9.5px; color:#9aa2ab; letter-spacing:3px; margin-top:1px;">HOUSEHOLD OS</div>
+        <div class="serif" style="font-weight:700; font-size:19.2px; color:#37424d; letter-spacing:1px;">魚家財務室</div>
+        <div class="num" style="font-size:11.4px; color:#9aa2ab; letter-spacing:3px; margin-top:1px;">HOUSEHOLD OS</div>
       </div>
     </div>
 
     <div style="background:#fff; border:1px solid #ece7dd; border-radius:20px; padding:18px 17px; box-shadow:0 14px 30px -20px rgba(59,70,80,.35); text-align:center;">
-      <div class="num" style="font-size:10px; color:#9aa2ab; letter-spacing:3px;">HEALTH SCORE</div>
-      <div class="serif" style="font-size:48px; color:#37424d; line-height:1.1; margin-top:4px;">B+</div>
-      <div class="serif" style="font-size:12.5px; font-weight:600; color:#5b6670; letter-spacing:2px;">結構穩健</div>
-      <div style="margin-top:13px; padding-top:13px; border-top:2px dotted #e4ded1; display:flex; justify-content:space-between; font-size:11px; color:#9aa2ab;">
+      <div class="num" style="font-size:12px; color:#9aa2ab; letter-spacing:3px;">HEALTH SCORE</div>
+      <div class="serif" style="font-size:57.6px; color:#37424d; line-height:1.1; margin-top:4px;">B+</div>
+      <div class="serif" style="font-size:15px; font-weight:600; color:#5b6670; letter-spacing:2px;">結構穩健</div>
+      <div style="margin-top:13px; padding-top:13px; border-top:2px dotted #e4ded1; display:flex; justify-content:space-between; font-size:13.2px; color:#9aa2ab;">
         <span>淨資產</span><span class="num" style="color:#37424d; font-weight:600;">NT$ 2,180,000</span>
       </div>
     </div>
 
     <div>
-      <div class="num" style="font-size:10px; color:#9aa2ab; letter-spacing:3px; margin:0 4px 10px;">MENU</div>
+      <div class="num" style="font-size:12px; color:#9aa2ab; letter-spacing:3px; margin:0 4px 10px;">MENU</div>
       <div style="display:flex; flex-direction:column; gap:3px;">
         <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="7">
           <a href="{{ n.href }}" style="{{ n.rowStyle }}" style-hover="background:#efeae0;">
@@ -68,15 +68,15 @@
     <div style="display:flex; align-items:flex-end; justify-content:space-between;">
       <div>
         <div style="position:relative; display:inline-block;">
-          <span class="serif" style="position:absolute; top:-16px; left:2px; font-size:15px; color:#c7a05e; letter-spacing:3px;">&#65340;&#65295;</span>
-          <h1 class="serif" style="font-weight:700; font-size:30px; color:#37424d; letter-spacing:3px; border-bottom:2px dotted #cdc6b7; padding-bottom:8px;">支出總覽</h1>
+          <span class="serif" style="position:absolute; top:-16px; left:2px; font-size:18px; color:#c7a05e; letter-spacing:3px;">&#65340;&#65295;</span>
+          <h1 class="serif" style="font-weight:700; font-size:36px; color:#37424d; letter-spacing:3px; border-bottom:2px dotted #cdc6b7; padding-bottom:8px;">支出總覽</h1>
         </div>
-        <div class="num" style="font-size:11px; color:#9aa2ab; letter-spacing:4px; margin-top:8px;">EXPENSE CENTER · 錢花去哪？每月該預留多少？</div>
+        <div class="num" style="font-size:13.2px; color:#9aa2ab; letter-spacing:4px; margin-top:8px;">EXPENSE CENTER · 錢花去哪？每月該預留多少？</div>
       </div>
       <div style="display:flex; align-items:center; gap:4px; background:#fff; border:1px solid #ece7dd; border-radius:14px; padding:6px 8px; box-shadow:0 10px 24px -18px rgba(59,70,80,.4);">
-        <span style="width:28px; height:28px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#8a939c; font-size:15px; transition:background .2s ease;" onClick="{{ prevMonth }}" style-hover="background:#f1ede2; color:#37424d;">&#8249;</span>
-        <span class="serif" style="font-size:16px; color:#37424d; letter-spacing:1px; min-width:110px; text-align:center;">{{ ymLabel }}</span>
-        <span style="width:28px; height:28px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#8a939c; font-size:15px; transition:background .2s ease;" onClick="{{ nextMonth }}" style-hover="background:#f1ede2; color:#37424d;">&#8250;</span>
+        <span style="width:28px; height:28px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#8a939c; font-size:18px; transition:background .2s ease;" onClick="{{ prevMonth }}" style-hover="background:#f1ede2; color:#37424d;">&#8249;</span>
+        <span class="serif" style="font-size:19.2px; color:#37424d; letter-spacing:1px; min-width:110px; text-align:center;">{{ ymLabel }}</span>
+        <span style="width:28px; height:28px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#8a939c; font-size:18px; transition:background .2s ease;" onClick="{{ nextMonth }}" style-hover="background:#f1ede2; color:#37424d;">&#8250;</span>
       </div>
     </div>
 
@@ -85,10 +85,10 @@
       <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0;">
         <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
           <div style="{{ k.cell }}">
-            <div class="num" style="font-size:10px; color:#9aa2ab; letter-spacing:2.5px;">{{ k.eng }}</div>
-            <div style="font-size:12px; color:#6a747e; margin-top:2px;">{{ k.label }}</div>
-            <div class="num" style="font-size:24px; font-weight:500; color:{{ k.color }}; margin-top:7px;">{{ k.val }}</div>
-            <div style="font-size:10.5px; color:#a9b0b7; margin-top:5px;">{{ k.sub }}</div>
+            <div class="num" style="font-size:12px; color:#9aa2ab; letter-spacing:2.5px;">{{ k.eng }}</div>
+            <div style="font-size:14.4px; color:#6a747e; margin-top:2px;">{{ k.label }}</div>
+            <div class="num" style="font-size:28.8px; font-weight:500; color:{{ k.color }}; margin-top:7px;">{{ k.val }}</div>
+            <div style="font-size:12.6px; color:#a9b0b7; margin-top:5px;">{{ k.sub }}</div>
           </div>
         </sc-for>
       </div>
@@ -101,12 +101,12 @@
       <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4.5 4.5h15v15h-15zM4.5 9.5h15" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9 9.5v10" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:17px; color:#37424d; letter-spacing:1.5px;">本月錢花去哪？</h2>
+          <h2 class="serif" style="font-weight:700; font-size:20.4px; color:#37424d; letter-spacing:1.5px;">本月錢花去哪？</h2>
           <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
-          <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:#8a939c; letter-spacing:1px; margin-right:4px;"><span style="{{ syncDotStyle }}"></span>{{ syncLabel }}</span>
-          <span class="num" style="font-size:11px; color:#c7a05e; background:#faf3e4; padding:5px 12px; border-radius:20px; letter-spacing:1px; cursor:pointer;" onClick="{{ addCat }}">＋ 新增</span>
+          <span style="display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#8a939c; letter-spacing:1px; margin-right:4px;"><span style="{{ syncDotStyle }}"></span>{{ syncLabel }}</span>
+          <span class="num" style="font-size:13.2px; color:#c7a05e; background:#faf3e4; padding:5px 12px; border-radius:20px; letter-spacing:1px; cursor:pointer;" onClick="{{ addCat }}">＋ 新增</span>
         </div>
-        <div style="font-size:11px; color:#a3abb2; margin:0 0 16px 30px;">{{ catAnswer }}</div>
+        <div style="font-size:13.2px; color:#a3abb2; margin:0 0 16px 30px;">{{ catAnswer }}</div>
         <div style="display:flex; flex-direction:column; gap:12px;">
           <sc-for list="{{ categories }}" as="c" hint-placeholder-count="6">
             <div style="border:1px solid #ece7dd; border-radius:16px; overflow:hidden; background:#fdfcf9;">
@@ -120,15 +120,15 @@
                   </div>
                 </div>
                 <div style="text-align:right; flex-shrink:0;">
-                  <div class="num" style="font-size:17px; font-weight:500; color:#37424d;">{{ c.totalF }}</div>
+                  <div class="num" style="font-size:20.4px; font-weight:500; color:#37424d;">{{ c.totalF }}</div>
                   <div style="display:flex; align-items:center; gap:6px; justify-content:flex-end; margin-top:3px;"><span style="{{ c.pctStyle }}">{{ c.pct }}%</span></div>
                 </div>
                 <svg viewBox="0 0 24 24" width="18" height="18" style="{{ c.chevStyle }}"><path d="M6 9.5l6 6 6-6" fill="none" stroke="#9aa2ab" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
               </div>
               <div style="padding:0 15px 13px;">
                 <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:5px;">
-                  <span style="font-size:11px; color:#8a939c;">本月實際 <span class="num" style="color:{{ c.actualColor }}; font-weight:600;">{{ c.actualF }}</span> / 預算 <span class="num">{{ c.budgetF }}</span></span>
-                  <span class="num" style="font-size:11px; color:#a3abb2;">{{ c.cmpLabel }}</span>
+                  <span style="font-size:13.2px; color:#8a939c;">本月實際 <span class="num" style="color:{{ c.actualColor }}; font-weight:600;">{{ c.actualF }}</span> / 預算 <span class="num">{{ c.budgetF }}</span></span>
+                  <span class="num" style="font-size:13.2px; color:#a3abb2;">{{ c.cmpLabel }}</span>
                 </div>
                 <div style="height:7px; background:#eee9de; border-radius:4px; overflow:hidden;"><div style="{{ c.cmpBarStyle }}"></div></div>
               </div>
@@ -144,17 +144,17 @@
                       <span style="{{ it.trashStyle }}" onClick="{{ it.onDelete }}" style-hover="color:#c0533f;"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
                     </div>
                   </sc-for>
-                  <div style="display:flex; align-items:center; justify-content:center; gap:7px; padding:10px 0 2px; font-size:11.5px; color:#a3907a; cursor:pointer;" style-hover="color:#8b7a63;" onClick="{{ c.onAddItem }}">
+                  <div style="display:flex; align-items:center; justify-content:center; gap:7px; padding:10px 0 2px; font-size:13.8px; color:#a3907a; cursor:pointer;" style-hover="color:#8b7a63;" onClick="{{ c.onAddItem }}">
                     <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 5v14M5 12h14" fill="none" stroke="#b3a48a" stroke-width="1.8" stroke-linecap="round"></path></svg>新增細項
                   </div>
                   <div style="{{ c.actualWrapStyle }}">
-                    <div class="num" style="font-size:10px; color:#a3907a; letter-spacing:2px; margin:2px 0 6px;">本月實際記帳 · 手機同步</div>
+                    <div class="num" style="font-size:12px; color:#a3907a; letter-spacing:2px; margin:2px 0 6px;">本月實際記帳 · 手機同步</div>
                     <sc-for list="{{ c.actualItems }}" as="ai" hint-placeholder-count="2">
                       <div style="display:flex; align-items:center; gap:10px; padding:7px 0; border-bottom:1px solid #f4efe4;">
-                        <span class="num" style="font-size:11px; color:#a3abb2; width:44px; flex-shrink:0;">{{ ai.dateF }}</span>
-                        <span style="flex:1; min-width:0; font-size:12.5px; color:#3b4650;">{{ ai.label }}</span>
-                        <span style="font-size:10.5px; color:#9aa2ab;">{{ ai.account }}</span>
-                        <span class="num" style="font-size:12.5px; font-weight:600; color:#c05a44;">- {{ ai.amtText }}</span>
+                        <span class="num" style="font-size:13.2px; color:#a3abb2; width:44px; flex-shrink:0;">{{ ai.dateF }}</span>
+                        <span style="flex:1; min-width:0; font-size:15px; color:#3b4650;">{{ ai.label }}</span>
+                        <span style="font-size:12.6px; color:#9aa2ab;">{{ ai.account }}</span>
+                        <span class="num" style="font-size:15px; font-weight:600; color:#c05a44;">- {{ ai.amtText }}</span>
                       </div>
                     </sc-for>
                   </div>
@@ -169,25 +169,25 @@
       <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4.5 6.5h15v13h-15zM4.5 10.5h15" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8 14h3M8 16.5h6" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:17px; color:#37424d; letter-spacing:1.5px;">年度固定支出規劃</h2>
+          <h2 class="serif" style="font-weight:700; font-size:20.4px; color:#37424d; letter-spacing:1.5px;">年度固定支出規劃</h2>
         </div>
 
         <!-- 摘要 -->
         <div style="background:#37424d; border-radius:18px; padding:16px 18px; color:#fff; display:grid; grid-template-columns:1fr 1fr 1fr; gap:0; margin-bottom:8px;">
           <div style="padding-right:16px;">
-            <div style="font-size:10.5px; color:rgba(255,255,255,.6);">年度固定支出總額</div>
-            <div class="num" style="font-size:20px; font-weight:600; margin-top:4px;">{{ planTotalF }}</div>
+            <div style="font-size:12.6px; color:rgba(255,255,255,.6);">年度固定支出總額</div>
+            <div class="num" style="font-size:24px; font-weight:600; margin-top:4px;">{{ planTotalF }}</div>
           </div>
           <div style="padding:0 16px; border-left:1px solid rgba(255,255,255,.16);">
-            <div style="font-size:10.5px; color:rgba(255,255,255,.6);">平均每月建議預留</div>
-            <div class="num" style="font-size:20px; font-weight:600; margin-top:4px; color:#e3c789;">{{ planAvgF }}</div>
+            <div style="font-size:12.6px; color:rgba(255,255,255,.6);">平均每月建議預留</div>
+            <div class="num" style="font-size:24px; font-weight:600; margin-top:4px; color:#e3c789;">{{ planAvgF }}</div>
           </div>
           <div style="padding-left:16px; border-left:1px solid rgba(255,255,255,.16);">
-            <div style="font-size:10.5px; color:rgba(255,255,255,.6);">本月(7月)需預留</div>
-            <div class="num" style="font-size:20px; font-weight:600; margin-top:4px;">{{ planThisMonthF }}</div>
+            <div style="font-size:12.6px; color:rgba(255,255,255,.6);">本月(7月)需預留</div>
+            <div class="num" style="font-size:24px; font-weight:600; margin-top:4px;">{{ planThisMonthF }}</div>
           </div>
         </div>
-        <div style="display:flex; align-items:center; gap:8px; font-size:10.5px; color:#a3907a; background:#f3ede1; border:1px dashed #d8ceba; border-radius:11px; padding:8px 12px; margin-bottom:16px;">
+        <div style="display:flex; align-items:center; gap:8px; font-size:12.6px; color:#a3907a; background:#f3ede1; border:1px dashed #d8ceba; border-radius:11px; padding:8px 12px; margin-bottom:16px;">
           <svg viewBox="0 0 24 24" width="14" height="14" style="flex-shrink:0;"><path d="M20.5 3.5L4 10.5l5.5 2L11 18.5l3.5-5" fill="none" stroke="#a3907a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           {{ prepNote }}
         </div>
@@ -195,7 +195,7 @@
         <!-- 類別圖例 -->
         <div style="display:flex; flex-wrap:wrap; gap:12px; padding:0 2px 12px;">
           <sc-for list="{{ legend }}" as="l" hint-placeholder-count="5">
-            <span style="display:inline-flex; align-items:center; gap:6px; font-size:11px; color:#8e97a0;"><span style="width:9px; height:9px; border-radius:3px; background:{{ l.color }};"></span>{{ l.name }}</span>
+            <span style="display:inline-flex; align-items:center; gap:6px; font-size:13.2px; color:#8e97a0;"><span style="width:9px; height:9px; border-radius:3px; background:{{ l.color }};"></span>{{ l.name }}</span>
           </sc-for>
         </div>
 
@@ -205,8 +205,8 @@
             <div style="{{ m.blockStyle }}">
               <!-- month header band -->
               <div style="display:flex; align-items:center; gap:10px; padding:8px 13px; {{ m.headBg }}">
-                <span class="serif" style="font-size:15px; font-weight:600; color:{{ m.monColor }};">{{ m.mon }}</span>
-                <span class="num" style="font-size:9px; color:#b3ab98; letter-spacing:1px;">{{ m.eng }}</span>
+                <span class="serif" style="font-size:18px; font-weight:600; color:{{ m.monColor }};">{{ m.mon }}</span>
+                <span class="num" style="font-size:10.8px; color:#b3ab98; letter-spacing:1px;">{{ m.eng }}</span>
                 <span style="{{ m.peakStyle }}">最高月</span>
                 <span style="flex:1;"></span>
                 <span class="num" style="{{ m.totalStyle }}">{{ m.totalF }}</span>
@@ -233,7 +233,7 @@
       </section>
     </div>
 
-    <div class="num" style="text-align:center; font-size:10px; color:#a9a596; letter-spacing:4px; padding:8px 0 2px;">魚家財務室 · EXPENSE CENTER · 2026</div>
+    <div class="num" style="text-align:center; font-size:12px; color:#a9a596; letter-spacing:4px; padding:8px 0 2px;">魚家財務室 · EXPENSE CENTER · 2026</div>
   </main>
 </div>
 </x-dc>
@@ -402,8 +402,8 @@ class Component extends DCLogic {
     const d = JSON.parse(JSON.stringify(this.state.d || this.seed()));
     const t = (el.textContent || '').trim();
     if (kind === 'cat') d.cats[+p[1]].name = t;
-    else if (kind === 'item') { if (p[3] === 'name') d.cats[+p[1]].items[+p[2]].name = t; else d.cats[+p[1]].items[+p[2]].amt = this.parseNum(t); }
-    else if (kind === 'plan') { if (p[3] === 'name') d.plan[+p[1]].items[+p[2]].name = t; else d.plan[+p[1]].items[+p[2]].amt = this.parseNum(t); }
+    else if (kind === 'item') { if (p[3] === 'name') d.cats[+p[1]].items[+p[2]].name = t; else { const v = this.parseNum(t); d.cats[+p[1]].items[+p[2]].amt = v; el.textContent = this.fmt(v); } }
+    else if (kind === 'plan') { if (p[3] === 'name') d.plan[+p[1]].items[+p[2]].name = t; else { const v = this.parseNum(t); d.plan[+p[1]].items[+p[2]].amt = v; el.textContent = this.fmt(v); } }
     this.setState({ d, editKey: null });
     try { localStorage.setItem('expense-plan-v1', JSON.stringify(d)); } catch (e) {}
   }
@@ -423,7 +423,7 @@ class Component extends DCLogic {
     const editKey = this.state.editKey;
     const pencil = (on) => `width:24px; height:24px; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:color .2s ease; color:${on ? '#c7a05e' : '#c9d0d6'};`;
     const blurField = (e) => this.commitField(e.currentTarget);
-    const keyField = (e) => { if (e.key === 'Enter') { e.preventDefault(); e.currentTarget.blur(); } };
+    const keyField = (e) => { if (e.key === 'Enter' && !e.isComposing && e.keyCode !== 229) { e.preventDefault(); e.currentTarget.blur(); } };
     const stopClick = (e) => e.stopPropagation();
     const trashBase = 'width:24px; height:24px; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:color .2s ease; color:#d69a8a;';
     const D = this.state.d || this.seed();
@@ -459,9 +459,9 @@ class Component extends DCLogic {
     const topCat = CATS[topIdx] ? CATS[topIdx].name : '—';
 
     const tagMap = {
-      '固定': 'font-size:9.5px; font-weight:600; padding:2px 8px; border-radius:20px; flex-shrink:0; background:#e9f0f7; color:#5a7ba6;',
-      '變動': 'font-size:9.5px; font-weight:600; padding:2px 8px; border-radius:20px; flex-shrink:0; background:#f3ede0; color:#a07f3a;',
-      '超支': 'font-size:9.5px; font-weight:600; padding:2px 8px; border-radius:20px; flex-shrink:0; background:#f8e3dc; color:#c0533f;',
+      '固定': 'font-size:11.4px; font-weight:600; padding:2px 8px; border-radius:20px; flex-shrink:0; background:#e9f0f7; color:#5a7ba6;',
+      '變動': 'font-size:11.4px; font-weight:600; padding:2px 8px; border-radius:20px; flex-shrink:0; background:#f3ede0; color:#a07f3a;',
+      '超支': 'font-size:11.4px; font-weight:600; padding:2px 8px; border-radius:20px; flex-shrink:0; background:#f8e3dc; color:#c0533f;',
     };
 
     const categories = CATS.map((c, i) => {
@@ -475,14 +475,14 @@ class Component extends DCLogic {
       const catOn = editKey === catKey;
       return {
         idx: i, name: c.name, ip: c.ic.p, ia: c.ic.a, dot: c.color,
-        nameStyle: `font-size:15px; font-weight:600; color:#37424d; letter-spacing:.5px;${catOn ? deco : ''}`,
+        nameStyle: `font-size:18px; font-weight:600; color:#37424d; letter-spacing:.5px;${catOn ? deco : ''}`,
         nameEditable: catOn, nameFkey: catKey, catPencilStyle: pencil(catOn),
         onEditCat: (e) => { e.stopPropagation(); this.toggleKey(catKey); },
         onAddItem: () => this.addItemToCat(i),
         catTrashStyle: catOn ? 'width:22px; height:22px; border-radius:7px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; color:#d69a8a;' : 'display:none;',
         onDeleteCat: (e) => { e.stopPropagation(); this.deleteItem('cat', i); },
         totalF: this.ntd(total), pct: total > 0 ? Math.round(actual / total * 100) : 0,
-        pctStyle: `font-size:10px; font-weight:600; color:${over ? '#c0533f' : '#6a747e'}; background:${over ? '#f8e3dc' : '#f1ece1'}; padding:1px 8px; border-radius:20px;`,
+        pctStyle: `font-size:12px; font-weight:600; color:${over ? '#c0533f' : '#6a747e'}; background:${over ? '#f8e3dc' : '#f1ece1'}; padding:1px 8px; border-radius:20px;`,
         tag: c.tag, tagStyle: tagMap[c.tag] || tagMap['變動'],
         barStyle: `width:${(total / maxCat * 100).toFixed(1)}%; height:100%; border-radius:4px; background:${c.color};`,
         actualF: this.ntd(actual), budgetF: this.ntd(total),
@@ -510,8 +510,8 @@ class Component extends DCLogic {
             onEdit: () => this.toggleKey(rowKey),
             onDelete: () => this.deleteItem('item', i, j),
             trashStyle: on ? trashBase : 'display:none;',
-            nameStyle: `flex:1; font-size:13px; color:#3b4650;${on ? deco : ''}`,
-            amtStyle: `font-size:13px; font-weight:600; color:#37424d; width:78px; text-align:right; flex-shrink:0;${on ? deco : ''}`,
+            nameStyle: `flex:1; font-size:15.6px; color:#3b4650;${on ? deco : ''}`,
+            amtStyle: `font-size:15.6px; font-weight:600; color:#37424d; width:78px; text-align:right; flex-shrink:0;${on ? deco : ''}`,
           };
         }),
       };
@@ -554,11 +554,11 @@ class Component extends DCLogic {
         monColor: empty ? '#c3ccd2' : '#37424d',
         blockStyle: `border:1px solid ${high ? '#ecdcb4' : '#ece7dd'}; border-radius:14px; overflow:hidden; background:#fff;`,
         headBg: high ? 'background:#f9f3e6;' : 'background:#faf8f2;',
-        peakStyle: isPeak ? 'font-size:9px; font-weight:700; letter-spacing:1px; color:#8a6d2f; background:#efdcae; padding:2px 8px; border-radius:20px;' : 'display:none;',
+        peakStyle: isPeak ? 'font-size:10.8px; font-weight:700; letter-spacing:1px; color:#8a6d2f; background:#efdcae; padding:2px 8px; border-radius:20px;' : 'display:none;',
         totalF: empty ? '無' : `NT$ ${this.fmt(total)}`,
-        totalStyle: `font-size:14px; font-weight:600; flex-shrink:0; color:${empty ? '#c3ccd2' : high ? '#a07f3a' : '#37424d'};`,
+        totalStyle: `font-size:16.8px; font-weight:600; flex-shrink:0; color:${empty ? '#c3ccd2' : high ? '#a07f3a' : '#37424d'};`,
         itemsWrap: empty ? 'display:none;' : '',
-        emptyStyle: empty ? 'font-size:11.5px; color:#c3ccd2; padding:9px 13px; border-top:1px solid #f4efe4;' : 'display:none;',
+        emptyStyle: empty ? 'font-size:13.8px; color:#c3ccd2; padding:9px 13px; border-top:1px solid #f4efe4;' : 'display:none;',
         chips: m.items.map((it, j) => {
           const cs = CS[it.cat] || CS['其他'];
           const rowKey = `plan:${i}:${j}`;
@@ -569,9 +569,9 @@ class Component extends DCLogic {
             onEdit: () => this.toggleKey(rowKey),
             onDelete: () => this.deleteItem('plan', i, j),
             trashStyle: on ? trashBase : 'display:none;',
-            nameStyle: `font-size:12.5px; color:#3b4650;${on ? deco : ''}`,
-            amtStyle: `font-size:12.5px; font-weight:600; color:#4b5560;${on ? deco : ''}`,
-            prepStyle: it.prep ? 'font-size:9.5px; font-weight:600; color:#8a6d2f; background:#f5eeda; padding:1px 7px; border-radius:20px;' : 'display:none;',
+            nameStyle: `font-size:15px; color:#3b4650;${on ? deco : ''}`,
+            amtStyle: `font-size:15px; font-weight:600; color:#4b5560;${on ? deco : ''}`,
+            prepStyle: it.prep ? 'font-size:11.4px; font-weight:600; color:#8a6d2f; background:#f5eeda; padding:1px 7px; border-radius:20px;' : 'display:none;',
           };
         }),
       };
@@ -586,12 +586,13 @@ class Component extends DCLogic {
       { label: '資金分配', ic: I.alloc, href: '資金分配.dc.html' },
       { label: '支出', ic: I.expense, href: '#', active: true },
       { label: '資產', ic: I.asset, href: '資產.dc.html' },
+      { label: '被動收入', ic: { p: 'M3.5 18.5L9.5 12l3.5 3.5 7-8', a: 'M16 7.5h4v4' }, href: '被動收入.dc.html' },
       { label: '報表', ic: I.report, href: '報表分析.dc.html' },
       { label: '設定', ic: I.settings, href: '#' },
     ].map((nv) => ({
       label: nv.label, href: nv.href, ip: nv.ic.p, ia: nv.ic.a,
       stroke: nv.active ? '#37424d' : '#3f4a54',
-      rowStyle: `display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px; font-size:13.5px; transition:background .2s ease; ${nv.active ? 'color:#37424d; font-weight:700; background:#f1ede2;' : 'color:#5b6670;'}`,
+      rowStyle: `display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px; font-size:16.2px; transition:background .2s ease; ${nv.active ? 'color:#37424d; font-weight:700; background:#f1ede2;' : 'color:#5b6670;'}`,
     }));
 
     const ym = this.state.ym;
