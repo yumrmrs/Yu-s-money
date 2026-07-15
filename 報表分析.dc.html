@@ -31,23 +31,23 @@
         <svg viewBox="0 0 24 24" width="26" height="26"><path d="M4.5 12c2.4-4 6-6.1 9.4-5 2.6.8 4.4 2.8 5.1 5-.7 2.2-2.5 4.2-5.1 5-3.4 1.1-7-1-9.4-5z M4.5 12L2.5 9.4v5.2z" fill="none" stroke="#c7a05e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 10.6h.01" fill="none" stroke="#c7a05e" stroke-width="2.2" stroke-linecap="round"></path></svg>
       </span>
       <div>
-        <div class="serif" style="font-weight:700; font-size:19.2px; color:#37424d; letter-spacing:1px;">魚家財務室</div>
-        <div class="num" style="font-size:11.4px; color:#9aa2ab; letter-spacing:3px; margin-top:1px;">HOUSEHOLD OS</div>
+        <div class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1px;">魚家財務室</div>
+        <div class="num" style="font-size:9.5px; color:#9aa2ab; letter-spacing:3px; margin-top:1px;">HOUSEHOLD OS</div>
       </div>
     </div>
 
     <!-- savings card -->
     <div style="background:#37424d; border-radius:20px; padding:18px 17px; box-shadow:0 18px 34px -20px rgba(55,66,77,.8); color:#fff;">
-      <div class="num" style="font-size:12px; color:rgba(255,255,255,.55); letter-spacing:3px;">SAVINGS RATE · 儲蓄率</div>
-      <div class="num" style="font-size:40.8px; font-weight:500; color:#e3c789; line-height:1.15; margin-top:6px;">{{ savingsRate }}</div>
-      <div style="margin-top:12px; padding-top:12px; border-top:2px dotted rgba(255,255,255,.16); display:flex; justify-content:space-between; font-size:13.2px; color:rgba(255,255,255,.6);">
+      <div class="num" style="font-size:10px; color:rgba(255,255,255,.55); letter-spacing:3px;">SAVINGS RATE · 儲蓄率</div>
+      <div class="num" style="font-size:34px; font-weight:500; color:#e3c789; line-height:1.15; margin-top:6px;">{{ savingsRate }}</div>
+      <div style="margin-top:12px; padding-top:12px; border-top:2px dotted rgba(255,255,255,.16); display:flex; justify-content:space-between; font-size:11px; color:rgba(255,255,255,.6);">
         <span>年度結餘</span><span class="num" style="color:#fff; font-weight:600;">{{ surplusShort }}</span>
       </div>
     </div>
 
     <!-- nav -->
     <div>
-      <div class="num" style="font-size:12px; color:#9aa2ab; letter-spacing:3px; margin:0 4px 10px;">MENU</div>
+      <div class="num" style="font-size:10px; color:#9aa2ab; letter-spacing:3px; margin:0 4px 10px;">MENU</div>
       <div style="display:flex; flex-direction:column; gap:2px;">
         <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="7">
           <a href="{{ n.href }}" style="{{ n.rowStyle }}" style-hover="background:#efeae0;">
@@ -65,15 +65,15 @@
     <div style="display:flex; align-items:flex-end; justify-content:space-between;">
       <div>
         <div style="position:relative; display:inline-block;">
-          <span class="serif" style="position:absolute; top:-16px; left:2px; font-size:18px; color:#c7a05e; letter-spacing:3px;">&#65340;&#65295;</span>
-          <h1 class="serif" style="font-weight:700; font-size:36px; color:#37424d; letter-spacing:3px; border-bottom:2px dotted #cdc6b7; padding-bottom:8px;">年度報表分析</h1>
+          <span class="serif" style="position:absolute; top:-16px; left:2px; font-size:15px; color:#c7a05e; letter-spacing:3px;">&#65340;&#65295;</span>
+          <h1 class="serif" style="font-weight:700; font-size:30px; color:#37424d; letter-spacing:3px; border-bottom:2px dotted #cdc6b7; padding-bottom:8px;">年度報表分析</h1>
         </div>
-        <div class="num" style="font-size:13.2px; color:#9aa2ab; letter-spacing:4px; margin-top:8px;">ANNUAL REVIEW · 這一年，錢怎麼流動？</div>
+        <div class="num" style="font-size:11px; color:#9aa2ab; letter-spacing:4px; margin-top:8px;">ANNUAL REVIEW · 這一年，錢怎麼流動？</div>
       </div>
       <div style="display:flex; align-items:center; gap:4px; background:#fff; border:1px solid #ece7dd; border-radius:14px; padding:6px 8px; box-shadow:0 10px 24px -18px rgba(59,70,80,.4);">
-        <span style="width:28px; height:28px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#8a939c; font-size:18px;" style-hover="background:#f1ede2; color:#37424d;">&#8249;</span>
-        <span class="serif" style="font-size:19.2px; color:#37424d; letter-spacing:1px; min-width:90px; text-align:center;">{{ yearLabel }}</span>
-        <span style="width:28px; height:28px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#8a939c; font-size:18px;" style-hover="background:#f1ede2; color:#37424d;">&#8250;</span>
+        <span style="width:28px; height:28px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#8a939c; font-size:15px;" style-hover="background:#f1ede2; color:#37424d;">&#8249;</span>
+        <span class="serif" style="font-size:16px; color:#37424d; letter-spacing:1px; min-width:90px; text-align:center;">{{ yearLabel }}</span>
+        <span style="width:28px; height:28px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#8a939c; font-size:15px;" style-hover="background:#f1ede2; color:#37424d;">&#8250;</span>
       </div>
     </div>
 
@@ -82,9 +82,9 @@
       <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:0;">
         <sc-for list="{{ kpis }}" as="h" hint-placeholder-count="5">
           <div style="{{ h.cell }}">
-            <div class="num" style="font-size:12px; color:#9aa2ab; letter-spacing:2.5px;">{{ h.eng }}</div>
-            <div style="font-size:14.4px; color:#6a747e; margin-top:2px;">{{ h.label }}</div>
-            <div class="num" style="font-size:26.4px; font-weight:500; color:{{ h.valColor }}; margin-top:7px;">{{ h.val }}</div>
+            <div class="num" style="font-size:10px; color:#9aa2ab; letter-spacing:2.5px;">{{ h.eng }}</div>
+            <div style="font-size:12px; color:#6a747e; margin-top:2px;">{{ h.label }}</div>
+            <div class="num" style="font-size:22px; font-weight:500; color:{{ h.valColor }}; margin-top:7px;">{{ h.val }}</div>
             <div style="{{ h.deltaStyle }}">{{ h.delta }}</div>
           </div>
         </sc-for>
@@ -95,15 +95,15 @@
     <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
       <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
         <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3.5 19.5h17M6 16v-4M10.5 16V8M15 16v-6M19.5 16v-9" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-        <h2 class="serif" style="font-weight:700; font-size:20.4px; color:#37424d; letter-spacing:1.5px;">收支趨勢 · 錢流進又流出，結餘多少？</h2>
+        <h2 class="serif" style="font-weight:700; font-size:17px; color:#37424d; letter-spacing:1.5px;">收支趨勢 · 錢流進又流出，結餘多少？</h2>
         <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
         <div style="display:flex; gap:14px;">
-          <span style="display:flex; align-items:center; gap:6px; font-size:13.2px; color:#6a747e;"><span style="width:10px; height:10px; border-radius:3px; background:#5a7ba6;"></span>收入</span>
-          <span style="display:flex; align-items:center; gap:6px; font-size:13.2px; color:#6a747e;"><span style="width:10px; height:10px; border-radius:3px; background:#cf8b6f;"></span>支出</span>
-          <span style="display:flex; align-items:center; gap:6px; font-size:13.2px; color:#6a747e;"><span style="width:14px; height:3px; border-radius:2px; background:#c7a05e;"></span>結餘</span>
+          <span style="display:flex; align-items:center; gap:6px; font-size:11px; color:#6a747e;"><span style="width:10px; height:10px; border-radius:3px; background:#5a7ba6;"></span>收入</span>
+          <span style="display:flex; align-items:center; gap:6px; font-size:11px; color:#6a747e;"><span style="width:10px; height:10px; border-radius:3px; background:#cf8b6f;"></span>支出</span>
+          <span style="display:flex; align-items:center; gap:6px; font-size:11px; color:#6a747e;"><span style="width:14px; height:3px; border-radius:2px; background:#c7a05e;"></span>結餘</span>
         </div>
       </div>
-      <div style="font-size:13.2px; color:#a3abb2; margin:0 0 12px 30px;">每月收入、支出與結餘 · 自 2026 年 7 月起累積</div>
+      <div style="font-size:11px; color:#a3abb2; margin:0 0 12px 30px;">每月收入、支出與結餘 · 自 2026 年 7 月起累積</div>
       <svg viewBox="0 0 1000 260" style="width:100%; height:auto; display:block;">
         <sc-for list="{{ trendGrid }}" as="g" hint-placeholder-count="5">
           <line x1="54" y1="{{ g.y }}" x2="980" y2="{{ g.y }}" stroke="#eee9de" stroke-width="1"></line>
@@ -124,7 +124,7 @@
       </svg>
       <div style="display:flex; justify-content:space-around; padding:6px 2% 0 5.4%;">
         <sc-for list="{{ monthLabels }}" as="m" hint-placeholder-count="1">
-          <div class="num" style="font-size:14.4px; font-weight:500; color:#6a747e; text-align:center;">{{ m }}</div>
+          <div class="num" style="font-size:12px; font-weight:500; color:#6a747e; text-align:center;">{{ m }}</div>
         </sc-for>
       </div>
     </section>
@@ -136,12 +136,12 @@
       <section style="background:#37424d; border-radius:22px; padding:20px 22px; box-shadow:0 26px 46px -30px rgba(55,66,77,.8); color:#fff;">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3.5 18.5L9.5 12l3.5 3.5 7-8" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16 7.5h4v4" fill="none" stroke="#e3c789" stroke-width="1.7" stroke-linecap="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:19.2px; letter-spacing:1.5px;">資產成長 · 淨值變多了嗎？</h2>
+          <h2 class="serif" style="font-weight:700; font-size:16px; letter-spacing:1.5px;">資產成長 · 淨值變多了嗎？</h2>
           <span style="margin-left:auto; text-align:right;">
-            <span class="num" style="font-size:24px; font-weight:500; color:#fff;">{{ nwNow }}</span>
+            <span class="num" style="font-size:20px; font-weight:500; color:#fff;">{{ nwNow }}</span>
           </span>
         </div>
-        <div style="font-size:13.2px; color:rgba(255,255,255,.55); margin:0 0 10px 30px;">家庭淨值走勢 · {{ nwDelta }}</div>
+        <div style="font-size:11px; color:rgba(255,255,255,.55); margin:0 0 10px 30px;">家庭淨值走勢 · {{ nwDelta }}</div>
         <svg viewBox="0 0 620 222" style="width:100%; height:auto; display:block;">
           <sc-for list="{{ assetGrid }}" as="g" hint-placeholder-count="4">
             <line x1="52" y1="{{ g.y }}" x2="600" y2="{{ g.y }}" stroke="rgba(255,255,255,.12)" stroke-width="1"></line>
@@ -157,7 +157,7 @@
         </svg>
         <div style="display:flex; justify-content:space-around; padding:6px 3.2% 0 8.4%;">
           <sc-for list="{{ monthLabels }}" as="m" hint-placeholder-count="1">
-            <div class="num" style="font-size:14.4px; font-weight:500; color:rgba(255,255,255,.7); text-align:center;">{{ m }}</div>
+            <div class="num" style="font-size:12px; font-weight:500; color:rgba(255,255,255,.7); text-align:center;">{{ m }}</div>
           </sc-for>
         </div>
       </section>
@@ -166,24 +166,24 @@
       <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 4a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z" fill="none" stroke="#3f4a54" stroke-width="1.7"></path><path d="M5.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:19.2px; color:#37424d; letter-spacing:1.5px;">收入來源</h2>
+          <h2 class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1.5px;">收入來源</h2>
         </div>
-        <div style="font-size:13.2px; color:#a3abb2; margin:0 0 14px 30px;">錢主要從哪裡來？</div>
+        <div style="font-size:11px; color:#a3abb2; margin:0 0 14px 30px;">錢主要從哪裡來？</div>
         <div style="display:flex; align-items:center; gap:18px;">
           <div style="position:relative; width:120px; height:120px; flex-shrink:0;">
             <div style="width:120px; height:120px; border-radius:50%; background:{{ incomeDonut }};"></div>
             <div style="position:absolute; inset:26px; background:#fff; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-              <div class="num" style="font-size:10.2px; color:#9aa2ab; letter-spacing:2px;">被動</div>
-              <div class="num" style="font-size:20.4px; font-weight:500; color:#37424d;">{{ passivePct }}%</div>
+              <div class="num" style="font-size:8.5px; color:#9aa2ab; letter-spacing:2px;">被動</div>
+              <div class="num" style="font-size:17px; font-weight:500; color:#37424d;">{{ passivePct }}%</div>
             </div>
           </div>
           <div style="flex:1; display:flex; flex-direction:column; gap:10px;">
             <sc-for list="{{ incomeSources }}" as="s" hint-placeholder-count="4">
               <div style="display:flex; align-items:center; gap:9px;">
                 <span style="width:9px; height:9px; border-radius:3px; background:{{ s.color }}; flex-shrink:0;"></span>
-                <span style="flex:1; font-size:14.4px; color:#4b5560;">{{ s.label }}</span>
-                <span class="num" style="font-size:13.8px; color:#8a939c;">{{ s.valShort }}</span>
-                <span class="num" style="font-size:14.4px; font-weight:600; color:#37424d; width:36px; text-align:right;">{{ s.pct }}%</span>
+                <span style="flex:1; font-size:12px; color:#4b5560;">{{ s.label }}</span>
+                <span class="num" style="font-size:11.5px; color:#8a939c;">{{ s.valShort }}</span>
+                <span class="num" style="font-size:12px; font-weight:600; color:#37424d; width:36px; text-align:right;">{{ s.pct }}%</span>
               </div>
             </sc-for>
           </div>
@@ -198,24 +198,24 @@
       <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 3.5a8.5 8.5 0 1 0 8.5 8.5" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round"></path><path d="M12 12V3.5A8.5 8.5 0 0 1 20.5 12z" fill="none" stroke="#cf8b6f" stroke-width="1.7" stroke-linejoin="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:19.2px; color:#37424d; letter-spacing:1.5px;">支出分析</h2>
+          <h2 class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1.5px;">支出分析</h2>
         </div>
-        <div style="font-size:13.2px; color:#a3abb2; margin:0 0 14px 30px;">錢花去哪了？年度累計</div>
+        <div style="font-size:11px; color:#a3abb2; margin:0 0 14px 30px;">錢花去哪了？年度累計</div>
         <div style="display:flex; align-items:center; gap:18px;">
           <div style="position:relative; width:120px; height:120px; flex-shrink:0;">
             <div style="width:120px; height:120px; border-radius:50%; background:{{ expenseDonut }};"></div>
             <div style="position:absolute; inset:26px; background:#fff; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-              <div class="num" style="font-size:10.2px; color:#9aa2ab; letter-spacing:2px;">總支出</div>
-              <div class="num" style="font-size:18px; font-weight:500; color:#37424d;">{{ expenseShort }}</div>
+              <div class="num" style="font-size:8.5px; color:#9aa2ab; letter-spacing:2px;">總支出</div>
+              <div class="num" style="font-size:15px; font-weight:500; color:#37424d;">{{ expenseShort }}</div>
             </div>
           </div>
           <div style="flex:1; display:flex; flex-direction:column; gap:9px;">
             <sc-for list="{{ expenseCats }}" as="e" hint-placeholder-count="5">
               <div style="display:flex; align-items:center; gap:9px;">
                 <span style="width:9px; height:9px; border-radius:3px; background:{{ e.color }}; flex-shrink:0;"></span>
-                <span style="flex:1; font-size:14.4px; color:#4b5560;">{{ e.label }}</span>
-                <span class="num" style="font-size:13.8px; color:#8a939c;">{{ e.valShort }}</span>
-                <span class="num" style="font-size:14.4px; font-weight:600; color:#37424d; width:36px; text-align:right;">{{ e.pct }}%</span>
+                <span style="flex:1; font-size:12px; color:#4b5560;">{{ e.label }}</span>
+                <span class="num" style="font-size:11.5px; color:#8a939c;">{{ e.valShort }}</span>
+                <span class="num" style="font-size:12px; font-weight:600; color:#37424d; width:36px; text-align:right;">{{ e.pct }}%</span>
               </div>
             </sc-for>
           </div>
@@ -226,17 +226,17 @@
       <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3.5 12a8.5 8.5 0 1 0 17 0a8.5 8.5 0 1 0-17 0" fill="none" stroke="#3f4a54" stroke-width="1.7"></path><path d="M12 12V4M12 12l6 3" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:19.2px; color:#37424d; letter-spacing:1.5px;">預算達成率</h2>
+          <h2 class="serif" style="font-weight:700; font-size:16px; color:#37424d; letter-spacing:1.5px;">預算達成率</h2>
           <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
-          <span class="num" style="font-size:13.2px; color:#6a747e;">本月 實際 / 預算</span>
+          <span class="num" style="font-size:11px; color:#6a747e;">本月 實際 / 預算</span>
         </div>
-        <div style="font-size:13.2px; color:#a3abb2; margin:0 0 14px 30px;">花得比計畫多還是少？超支以紅色標示</div>
+        <div style="font-size:11px; color:#a3abb2; margin:0 0 14px 30px;">花得比計畫多還是少？超支以紅色標示</div>
         <div style="display:flex; flex-direction:column; gap:13px;">
           <sc-for list="{{ budgets }}" as="b" hint-placeholder-count="6">
             <div>
               <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:5px;">
-                <span style="font-size:15px; color:#4b5560; flex:1;">{{ b.label }}</span>
-                <span class="num" style="font-size:14.4px; color:#8a939c;">{{ b.actualF }} / {{ b.budgetF }}</span>
+                <span style="font-size:12.5px; color:#4b5560; flex:1;">{{ b.label }}</span>
+                <span class="num" style="font-size:12px; color:#8a939c;">{{ b.actualF }} / {{ b.budgetF }}</span>
                 <span class="num" style="{{ b.pctStyle }}">{{ b.pct }}%</span>
               </div>
               <div style="height:9px; background:#eee9de; border-radius:6px; overflow:hidden;"><div style="{{ b.barStyle }}"></div></div>
@@ -250,20 +250,20 @@
     <section style="background:#3b4650; border-radius:22px; padding:20px 22px; box-shadow:0 26px 46px -30px rgba(55,66,77,.85); color:#fff;">
       <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px;">
         <svg viewBox="0 0 24 24" width="19" height="19"><path d="M12 3.5V8M12 16v4.5M3.5 12H8M16 12h4.5" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 9.5l2.5 2.5-2.5 2.5L9.5 12z" fill="none" stroke="#e3c789" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-        <h2 class="serif" style="font-weight:700; font-size:19.2px; letter-spacing:1.5px;">AI 年度洞察</h2>
+        <h2 class="serif" style="font-weight:700; font-size:16px; letter-spacing:1.5px;">AI 年度洞察</h2>
         <span style="flex:1; border-top:2px dotted rgba(255,255,255,.18);"></span>
-        <span class="num" style="font-size:10.8px; letter-spacing:3px; color:rgba(255,255,255,.55);">ADVISOR</span>
+        <span class="num" style="font-size:9px; letter-spacing:3px; color:rgba(255,255,255,.55);">ADVISOR</span>
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
         <sc-for list="{{ insights }}" as="ins" hint-placeholder-count="4">
           <div style="{{ ins.style }}">
             <svg viewBox="0 0 24 24" width="16" height="16" style="flex-shrink:0; margin-top:2px;"><path d="{{ ins.ip }}" fill="none" stroke="{{ ins.stroke }}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="{{ ins.ia }}" fill="none" stroke="#e3c789" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            <span style="font-size:15px; line-height:1.55;">{{ ins.text }}</span></div>
+            <span style="font-size:12.5px; line-height:1.55;">{{ ins.text }}</span></div>
         </sc-for>
       </div>
     </section>
 
-    <div class="num" style="text-align:center; font-size:12px; color:#a9a596; letter-spacing:4px; padding:6px 0 2px;">魚家財務室 · ANNUAL REVIEW · 2026</div>
+    <div class="num" style="text-align:center; font-size:10px; color:#a9a596; letter-spacing:4px; padding:6px 0 2px;">魚家財務室 · ANNUAL REVIEW · 2026</div>
   </main>
 </div>
 </x-dc>
@@ -396,7 +396,7 @@ class Component extends DCLogic {
       const txtColor = over ? '#c05a44' : near ? '#a07f3a' : '#6e9257';
       return {
         label: b.label, actualF: this.fmt(b.actual), budgetF: this.fmt(b.budget), pct,
-        pctStyle: `font-size:14.4px; font-weight:700; color:${txtColor}; width:44px; text-align:right;`,
+        pctStyle: `font-size:12px; font-weight:700; color:${txtColor}; width:44px; text-align:right;`,
         barStyle: `width:${Math.min(pct, 100)}%; height:100%; border-radius:6px; background:${barColor};`,
       };
     });
@@ -406,9 +406,9 @@ class Component extends DCLogic {
     const totalExpense = expenseTotal === 1 && expenseRaw.length === 0 ? 0 : expenseTotal;
     const surplus = totalIncome - totalExpense;
     const savingsRate = totalIncome > 0 ? (surplus / totalIncome * 100).toFixed(1) + '%' : '—';
-    const up = 'font-size:13.2px; font-weight:700; color:#6e9257; margin-top:6px;';
-    const flat = 'font-size:13.2px; font-weight:700; color:#5a7ba6; margin-top:6px;';
-    const down = 'font-size:13.2px; font-weight:700; color:#c05a44; margin-top:6px;';
+    const up = 'font-size:11px; font-weight:700; color:#6e9257; margin-top:6px;';
+    const flat = 'font-size:11px; font-weight:700; color:#5a7ba6; margin-top:6px;';
+    const down = 'font-size:11px; font-weight:700; color:#c05a44; margin-top:6px;';
     const cellBase = 'padding:2px 18px;';
     const cellDiv = cellBase + ' border-left:2px dotted #e4ded1;';
     const kpis = [
@@ -446,7 +446,7 @@ class Component extends DCLogic {
     ].map((nv) => ({
       label: nv.label, href: nv.href, ip: nv.ic.p, ia: nv.ic.a,
       stroke: nv.active ? '#37424d' : '#3f4a54',
-      rowStyle: `display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px; font-size:16.2px; transition:background .2s ease; ${nv.active ? 'color:#37424d; font-weight:700; background:#f1ede2;' : 'color:#5b6670;'}`,
+      rowStyle: `display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px; font-size:13.5px; transition:background .2s ease; ${nv.active ? 'color:#37424d; font-weight:700; background:#f1ede2;' : 'color:#5b6670;'}`,
     }));
 
     return {

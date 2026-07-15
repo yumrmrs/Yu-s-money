@@ -35,21 +35,21 @@
         <svg viewBox="0 0 24 24" width="26" height="26"><path d="M4.5 12c2.4-4 6-6.1 9.4-5 2.6.8 4.4 2.8 5.1 5-.7 2.2-2.5 4.2-5.1 5-3.4 1.1-7-1-9.4-5z M4.5 12L2.5 9.4v5.2z" fill="none" stroke="#c7a05e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 10.6h.01" fill="none" stroke="#c7a05e" stroke-width="2.2" stroke-linecap="round"></path></svg>
       </span>
       <div>
-        <div class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1px;">魚家財務室</div>
-        <div class="num" style="font-size:12.6px; color:#9aa2ab; letter-spacing:3px; margin-top:1px;">HOUSEHOLD OS</div>
+        <div class="serif" style="font-weight:700; font-size:17.6px; color:#37424d; letter-spacing:1px;">魚家財務室</div>
+        <div class="num" style="font-size:10.5px; color:#9aa2ab; letter-spacing:3px; margin-top:1px;">HOUSEHOLD OS</div>
       </div>
     </div>
 
     <div style="background:#37424d; border-radius:20px; padding:18px 17px; box-shadow:0 18px 34px -20px rgba(55,66,77,.8); color:#fff;">
-      <div class="num" style="font-size:11.5px; color:rgba(255,255,255,.55); letter-spacing:2px;">每月被動收入 · PASSIVE</div>
-      <div class="num" style="font-size:33px; font-weight:500; color:#fff; line-height:1.15; margin-top:6px; white-space:nowrap;">{{ monthlyShort }}</div>
-      <div style="margin-top:12px; padding-top:12px; border-top:2px dotted rgba(255,255,255,.16); display:flex; justify-content:space-between; font-size:14.5px; color:rgba(255,255,255,.6);">
+      <div class="num" style="font-size:9.6px; color:rgba(255,255,255,.55); letter-spacing:2px;">每月被動收入 · PASSIVE</div>
+      <div class="num" style="font-size:27.5px; font-weight:500; color:#fff; line-height:1.15; margin-top:6px; white-space:nowrap;">{{ monthlyShort }}</div>
+      <div style="margin-top:12px; padding-top:12px; border-top:2px dotted rgba(255,255,255,.16); display:flex; justify-content:space-between; font-size:12.1px; color:rgba(255,255,255,.6);">
         <span>覆蓋目標</span><span class="num" style="color:#e3c789; font-weight:600;">{{ coverPct }}%</span>
       </div>
     </div>
 
     <div>
-      <div class="num" style="font-size:13.2px; color:#9aa2ab; letter-spacing:3px; margin:0 4px 10px;">MENU</div>
+      <div class="num" style="font-size:11px; color:#9aa2ab; letter-spacing:3px; margin:0 4px 10px;">MENU</div>
       <div style="display:flex; flex-direction:column; gap:2px;">
         <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="9">
           <a href="{{ n.href }}" style="{{ n.rowStyle }}" style-hover="background:#efeae0;">
@@ -66,14 +66,14 @@
     <div style="display:flex; align-items:flex-end; justify-content:space-between;">
       <div>
         <div style="position:relative; display:inline-block;">
-          <span class="serif" style="position:absolute; top:-16px; left:2px; font-size:19.8px; color:#c7a05e; letter-spacing:3px;">＼／</span>
-          <h1 class="serif" style="font-weight:700; font-size:39.6px; color:#37424d; letter-spacing:3px; border-bottom:2px dotted #cdc6b7; padding-bottom:8px;">被動收入儀表板</h1>
+          <span class="serif" style="position:absolute; top:-16px; left:2px; font-size:16.5px; color:#c7a05e; letter-spacing:3px;">＼／</span>
+          <h1 class="serif" style="font-weight:700; font-size:33px; color:#37424d; letter-spacing:3px; border-bottom:2px dotted #cdc6b7; padding-bottom:8px;">被動收入儀表板</h1>
         </div>
-        <div class="num" style="font-size:14.5px; color:#9aa2ab; letter-spacing:4px; margin-top:8px;">PASSIVE INCOME · 我離財務自由還有多遠？</div>
+        <div class="num" style="font-size:12.1px; color:#9aa2ab; letter-spacing:4px; margin-top:8px;">PASSIVE INCOME · 我離財務自由還有多遠？</div>
       </div>
       <div style="display:flex; align-items:center; gap:9px; background:#fff; border:1px solid #ece7dd; border-radius:14px; padding:8px 14px; box-shadow:0 10px 24px -18px rgba(59,70,80,.4);">
         <span style="width:7px; height:7px; border-radius:50%; background:#6e9257; animation:livepulse 1.6s ease-in-out infinite;"></span>
-        <span class="num" style="font-size:13.2px; color:#a07f3a; letter-spacing:2px; font-weight:600;">人生規劃視角</span>
+        <span class="num" style="font-size:11px; color:#a07f3a; letter-spacing:2px; font-weight:600;">人生規劃視角</span>
       </div>
     </div>
 
@@ -81,31 +81,31 @@
     <section style="background:#fff; border:1px solid #ece7dd; border-radius:24px; padding:24px 26px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
       <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
         <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3.5 18.5L9.5 12l3.5 3.5 7-8" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16 7.5h4v4" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-        <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">我目前每月有多少被動收入？</h2>
+        <h2 class="serif" style="font-weight:700; font-size:17.6px; color:#37424d; letter-spacing:1.5px;">我目前每月有多少被動收入？</h2>
       </div>
       <div style="display:flex; align-items:flex-end; gap:22px; margin:18px 0 6px 30px; flex-wrap:wrap;">
         <div>
-          <div class="num" style="font-size:13.2px; color:#9aa2ab; letter-spacing:2.5px;">CURRENT / MONTH</div>
-          <div class="num" style="font-size:63.4px; font-weight:500; color:#37424d; line-height:1;">{{ monthly }}</div>
+          <div class="num" style="font-size:11px; color:#9aa2ab; letter-spacing:2.5px;">CURRENT / MONTH</div>
+          <div class="num" style="font-size:52.8px; font-weight:500; color:#37424d; line-height:1;">{{ monthly }}</div>
         </div>
         <div style="padding-bottom:8px; display:flex; align-items:center; gap:7px;">
-          <span style="display:inline-flex; align-items:center; gap:4px; background:#eef3ec; color:#6e9257; font-weight:600; font-size:15.8px; padding:5px 11px; border-radius:20px;" class="num">↑ 比去年 +<span contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="yoyPct" data-fmt="plain" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="cursor:text; border-radius:4px; outline:none;" style-focus="background:#dfead9; box-shadow:inset 0 -1.5px 0 #9dbb8c;">{{ yoyPct }}</span>%</span>
+          <span style="display:inline-flex; align-items:center; gap:4px; background:#eef3ec; color:#6e9257; font-weight:600; font-size:13.2px; padding:5px 11px; border-radius:20px;" class="num">↑ 比去年 +<span contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="yoyPct" data-fmt="plain" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="cursor:text; border-radius:4px; outline:none;" style-focus="background:#dfead9; box-shadow:inset 0 -1.5px 0 #9dbb8c;">{{ yoyPct }}</span>%</span>
         </div>
       </div>
 
       <div style="margin:14px 0 10px 30px;">
         <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;">
-          <span class="num" style="font-size:14.5px; color:#8a939c; letter-spacing:1px;">目標：{{ targetLabel }}/月</span>
-          <span class="num" style="font-size:15.8px; color:#37424d; font-weight:600;">{{ monthly }} / {{ targetLabel }}</span>
+          <span class="num" style="font-size:12.1px; color:#8a939c; letter-spacing:1px;">目標：{{ targetLabel }}/月</span>
+          <span class="num" style="font-size:13.2px; color:#37424d; font-weight:600;">{{ monthly }} / {{ targetLabel }}</span>
         </div>
         <div style="height:11px; background:#efeae0; border-radius:7px; overflow:hidden;">
           <div style="{{ progressStyle }}"></div>
         </div>
-        <div class="num" style="font-size:13.9px; color:#a9b0b7; margin-top:7px;">已覆蓋目標 {{ coverPct }}% · 距離目標每月還差 {{ gapMonthly }}</div>
+        <div class="num" style="font-size:11.6px; color:#a9b0b7; margin-top:7px;">已覆蓋目標 {{ coverPct }}% · 距離目標每月還差 {{ gapMonthly }}</div>
       </div>
 
       <div style="margin:16px 0 0 30px; display:flex; align-items:center; gap:9px; flex-wrap:wrap;">
-        <span class="num" style="font-size:13.2px; color:#9aa2ab; letter-spacing:2px; margin-right:4px;">設定目標階段</span>
+        <span class="num" style="font-size:11px; color:#9aa2ab; letter-spacing:2px; margin-right:4px;">設定目標階段</span>
         <sc-for list="{{ stageChips }}" as="c" hint-placeholder-count="4">
           <span onClick="{{ c.onClick }}" style="{{ c.style }}" class="num">{{ c.label }}</span>
         </sc-for>
@@ -116,11 +116,11 @@
     <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
       <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
         <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3.5 12a8.5 8.5 0 1 0 17 0a8.5 8.5 0 1 0-17 0" fill="none" stroke="#3f4a54" stroke-width="1.7"></path><path d="M9.5 9l2.5 3 2.5-3M12 12v4M9.8 13.5h4.4" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-        <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">被動收入來源</h2>
+        <h2 class="serif" style="font-weight:700; font-size:17.6px; color:#37424d; letter-spacing:1.5px;">被動收入來源</h2>
         <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
-        <span class="num" onClick="{{ addSource }}" style="font-size:14.5px; color:#c7a05e; background:#faf3e4; padding:5px 13px; border-radius:20px; letter-spacing:1px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" style-hover="background:#f4ecd6;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 5v14M5 12h14" fill="none" stroke="#c7a05e" stroke-width="2" stroke-linecap="round"></path></svg>新增來源</span>
+        <span class="num" onClick="{{ addSource }}" style="font-size:12.1px; color:#c7a05e; background:#faf3e4; padding:5px 13px; border-radius:20px; letter-spacing:1px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" style-hover="background:#f4ecd6;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 5v14M5 12h14" fill="none" stroke="#c7a05e" stroke-width="2" stroke-linecap="round"></path></svg>新增來源</span>
       </div>
-      <div style="font-size:14.5px; color:#a3abb2; margin:0 0 16px 30px;">每個來源可開啟或關閉，關閉後不計入每月被動收入</div>
+      <div style="font-size:12.1px; color:#a3abb2; margin:0 0 16px 30px;">每個來源可開啟或關閉，關閉後不計入每月被動收入</div>
       <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px;">
         <sc-for list="{{ sources }}" as="s" hint-placeholder-count="3">
           <div style="{{ s.cardStyle }}">
@@ -128,19 +128,19 @@
               <div style="display:flex; align-items:center; gap:9px;">
                 <span style="{{ s.iconWrap }}"><svg viewBox="0 0 24 24" width="17" height="17"><path d="{{ s.ip }}" fill="none" stroke="{{ s.iconStroke }}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
                 <div>
-                  <div style="font-size:17.2px; color:{{ s.titleColor }}; font-weight:500;" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ s.labelPath }}" onFocus="{{ edFocusText }}" onBlur="{{ edText }}" onKeyDown="{{ edKey }}" style-focus="outline:none; box-shadow:inset 0 -1.5px 0 #d8b978; border-radius:4px;">{{ s.label }}</div>
-                  <div class="num" style="font-size:12.6px; color:{{ s.engColor }}; letter-spacing:2px;">{{ s.eng }}</div>
+                  <div style="font-size:14.3px; color:{{ s.titleColor }}; font-weight:500;" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ s.labelPath }}" onFocus="{{ edFocusText }}" onBlur="{{ edText }}" onKeyDown="{{ edKey }}" style-focus="outline:none; box-shadow:inset 0 -1.5px 0 #d8b978; border-radius:4px;">{{ s.label }}</div>
+                  <div class="num" style="font-size:10.5px; color:{{ s.engColor }}; letter-spacing:2px;">{{ s.eng }}</div>
                 </div>
               </div>
               <span onClick="{{ s.onToggle }}" style="{{ s.switchStyle }}"><span style="{{ s.knobStyle }}"></span></span>
             </div>
             <div style="margin-top:16px; display:flex; align-items:baseline; gap:4px;">
-              <span class="num" style="font-size:15.8px; color:{{ s.subColor }};">NT$</span>
-              <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ s.amtPath }}" data-fmt="int" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="font-size:31.7px; font-weight:600; color:{{ s.amtColor }}; cursor:text; border-radius:4px;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ s.amt }}</span>
-              <span class="num" style="font-size:15.8px; color:{{ s.subColor }};">/月</span>
+              <span class="num" style="font-size:13.2px; color:{{ s.subColor }};">NT$</span>
+              <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ s.amtPath }}" data-fmt="int" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="font-size:26.4px; font-weight:600; color:{{ s.amtColor }}; cursor:text; border-radius:4px;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ s.amt }}</span>
+              <span class="num" style="font-size:13.2px; color:{{ s.subColor }};">/月</span>
             </div>
             <div style="margin-top:10px; display:flex; align-items:center; justify-content:space-between;">
-              <span class="num" style="font-size:13.2px; color:{{ s.subColor }};">佔比 {{ s.pct }}%</span>
+              <span class="num" style="font-size:11px; color:{{ s.subColor }};">佔比 {{ s.pct }}%</span>
               <span onClick="{{ s.onRemove }}" style="{{ s.removeStyle }}"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span>
             </div>
           </div>
@@ -154,12 +154,12 @@
       <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5); display:flex; flex-direction:column;">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 19.5V4M4 19.5h16" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round"></path><path d="M6.5 15l4-4 3 2.5 5-6.5" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">股息成長圖</h2>
+          <h2 class="serif" style="font-weight:700; font-size:17.6px; color:#37424d; letter-spacing:1.5px;">股息成長圖</h2>
           <span style="flex:1;"></span>
           <span onClick="{{ setYear }}" style="{{ yearTabStyle }}" class="num">年</span>
           <span onClick="{{ setMonth }}" style="{{ monthTabStyle }}" class="num">月</span>
         </div>
-        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 14px 30px;">被動收入是否逐年成長？</div>
+        <div style="font-size:12.1px; color:#a3abb2; margin:0 0 14px 30px;">被動收入是否逐年成長？</div>
         <div style="flex:1; position:relative;">
           <svg viewBox="0 0 620 240" width="100%" style="display:block; overflow:visible;">
             <sc-for list="{{ gridLines }}" as="g" hint-placeholder-count="4">
@@ -181,8 +181,8 @@
         <div style="margin-top:12px; padding-top:12px; border-top:2px dotted #e4ded1; display:flex; gap:24px; flex-wrap:wrap;">
           <sc-for list="{{ dividends }}" as="d" hint-placeholder-count="4">
             <div style="display:flex; align-items:baseline; gap:6px;">
-              <span class="num" style="font-size:13.2px; color:#a9b0b7;">{{ d.year }}</span>
-              <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ d.path }}" data-fmt="int" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="font-size:15.8px; font-weight:600; color:#37424d; cursor:text; border-radius:4px;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ d.amt }}</span>
+              <span class="num" style="font-size:11px; color:#a9b0b7;">{{ d.year }}</span>
+              <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ d.path }}" data-fmt="int" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="font-size:13.2px; font-weight:600; color:#37424d; cursor:text; border-radius:4px;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ d.amt }}</span>
             </div>
           </sc-for>
         </div>
@@ -191,18 +191,18 @@
       <section style="background:#37424d; border-radius:22px; padding:22px; box-shadow:0 26px 46px -30px rgba(55,66,77,.8); color:#fff; display:flex; flex-direction:column;">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 9.5l8-5 8 5M5.5 9.5v8M18.5 9.5v8M4 19.5h16" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9 12v4M15 12v4" fill="none" stroke="#e3c789" stroke-width="1.7" stroke-linecap="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:21.1px; letter-spacing:1.5px;">累積投入</h2>
+          <h2 class="serif" style="font-weight:700; font-size:17.6px; letter-spacing:1.5px;">累積投入</h2>
         </div>
-        <div style="font-size:14.5px; color:rgba(255,255,255,.5); margin:0 0 18px 30px;">每月持續投入是否照計畫進行？</div>
+        <div style="font-size:12.1px; color:rgba(255,255,255,.5); margin:0 0 18px 30px;">每月持續投入是否照計畫進行？</div>
         <div style="display:flex; flex-direction:column; gap:16px; flex:1; justify-content:center;">
           <sc-for list="{{ invested }}" as="v" hint-placeholder-count="3">
             <div>
-              <div class="num" style="font-size:13.2px; color:rgba(255,255,255,.5); letter-spacing:2px;">{{ v.eng }}</div>
+              <div class="num" style="font-size:11px; color:rgba(255,255,255,.5); letter-spacing:2px;">{{ v.eng }}</div>
               <div style="display:flex; align-items:baseline; gap:4px; margin-top:2px;">
-                <span class="num" style="font-size:17.2px; color:rgba(255,255,255,.6);">NT$</span>
+                <span class="num" style="font-size:14.3px; color:rgba(255,255,255,.6);">NT$</span>
                 <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ v.path }}" data-fmt="int" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="font-size:{{ v.size }}; font-weight:500; color:{{ v.color }}; cursor:text; border-radius:4px;" style-focus="background:rgba(255,255,255,.14); box-shadow:inset 0 -1.5px 0 #e3c789; outline:none;">{{ v.amt }}</span>
               </div>
-              <div style="font-size:14.5px; color:rgba(255,255,255,.5); margin-top:2px;">{{ v.label }}</div>
+              <div style="font-size:12.1px; color:rgba(255,255,255,.5); margin-top:2px;">{{ v.label }}</div>
             </div>
           </sc-for>
         </div>
@@ -213,27 +213,27 @@
     <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 24px 26px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
       <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
         <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 21c4-4 6.5-7 6.5-10.5A6.5 6.5 0 0 0 5.5 10.5C5.5 14 8 17 12 21z" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linejoin="round"></path><path d="M12 12.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" fill="none" stroke="#c7a05e" stroke-width="1.7"></path></svg>
-        <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">家庭股息地圖</h2>
+        <h2 class="serif" style="font-weight:700; font-size:17.6px; color:#37424d; letter-spacing:1.5px;">家庭股息地圖</h2>
         <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
-        <span class="num" style="font-size:13.2px; color:#9aa2ab; letter-spacing:2px; margin-right:4px;">殖利率估算</span>
+        <span class="num" style="font-size:11px; color:#9aa2ab; letter-spacing:2px; margin-right:4px;">殖利率估算</span>
         <sc-for list="{{ yieldChips }}" as="y" hint-placeholder-count="3">
           <span onClick="{{ y.onClick }}" style="{{ y.style }}" class="num">{{ y.label }}</span>
         </sc-for>
       </div>
-      <div style="font-size:14.5px; color:#a3abb2; margin:0 0 20px 30px;">每上一階需要增加多少資產？（以殖利率換算所需股息資產）</div>
+      <div style="font-size:12.1px; color:#a3abb2; margin:0 0 20px 30px;">每上一階需要增加多少資產？（以殖利率換算所需股息資產）</div>
       <div style="display:flex; align-items:stretch; gap:0;">
         <sc-for list="{{ milestones }}" as="m" hint-placeholder-count="5">
           <div style="flex:1; display:flex; flex-direction:column; align-items:center; text-align:center; position:relative;">
             <div style="{{ m.nodeStyle }}">
-              <div class="num" style="font-size:11.4px; color:{{ m.tagColor }}; letter-spacing:1.5px;">{{ m.tag }}</div>
+              <div class="num" style="font-size:9.5px; color:{{ m.tagColor }}; letter-spacing:1.5px;">{{ m.tag }}</div>
               <div style="display:flex; align-items:baseline; justify-content:center; gap:3px; margin-top:2px;">
-                <span class="num" style="font-size:25.2px; font-weight:600; color:{{ m.valColor }}; line-height:1.1;">{{ m.val }}</span>
-                <span class="num" style="font-size:12.6px; color:{{ m.subColor }};">/月</span>
+                <span class="num" style="font-size:21px; font-weight:600; color:{{ m.valColor }}; line-height:1.1;">{{ m.val }}</span>
+                <span class="num" style="font-size:10.5px; color:{{ m.subColor }};">/月</span>
               </div>
             </div>
             <div style="{{ m.gapStyle }}">
-              <div style="display:flex; align-items:baseline; justify-content:center; gap:5px;"><span style="font-size:12.6px; color:#a9b0b7;">還差</span><span class="num" style="font-size:14.5px; font-weight:600; color:#c05a44;">{{ m.gapDiv }}</span></div>
-              <div style="display:flex; align-items:baseline; justify-content:center; gap:5px; margin-top:4px;"><span style="font-size:12px; color:#a9b0b7;">約需增加</span><span class="num" style="font-size:15.8px; font-weight:600; color:#5a7ba6;">{{ m.gapAsset }}</span></div>
+              <div style="display:flex; align-items:baseline; justify-content:center; gap:5px;"><span style="font-size:10.5px; color:#a9b0b7;">還差</span><span class="num" style="font-size:12.1px; font-weight:600; color:#c05a44;">{{ m.gapDiv }}</span></div>
+              <div style="display:flex; align-items:baseline; justify-content:center; gap:5px; margin-top:4px;"><span style="font-size:10px; color:#a9b0b7;">約需增加</span><span class="num" style="font-size:13.2px; font-weight:600; color:#5a7ba6;">{{ m.gapAsset }}</span></div>
             </div>
           </div>
         </sc-for>
@@ -243,20 +243,20 @@
     <!-- ================= 投資規則 ================= -->
     <div style="display:flex; align-items:center; gap:14px; margin-top:12px;">
       <div style="position:relative; display:inline-block;">
-        <span class="serif" style="position:absolute; top:-14px; left:2px; font-size:16.8px; color:#c7a05e; letter-spacing:3px;">＼／</span>
-        <h1 class="serif" style="font-weight:700; font-size:31.7px; color:#37424d; letter-spacing:2px; border-bottom:2px dotted #cdc6b7; padding-bottom:6px;">投資規則</h1>
+        <span class="serif" style="position:absolute; top:-14px; left:2px; font-size:14px; color:#c7a05e; letter-spacing:3px;">＼／</span>
+        <h1 class="serif" style="font-weight:700; font-size:26.4px; color:#37424d; letter-spacing:2px; border-bottom:2px dotted #cdc6b7; padding-bottom:6px;">投資規則</h1>
       </div>
-      <span class="num" style="font-size:13.2px; color:#9aa2ab; letter-spacing:3px; padding-bottom:6px;">INVESTMENT RULES · 依原則行動，不依情緒</span>
+      <span class="num" style="font-size:11px; color:#9aa2ab; letter-spacing:3px; padding-bottom:6px;">INVESTMENT RULES · 依原則行動，不依情緒</span>
     </div>
 
     <!-- PHILOSOPHY -->
     <section style="background:#37424d; border-radius:24px; padding:26px 28px; box-shadow:0 26px 46px -30px rgba(55,66,77,.8); color:#fff;">
       <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
         <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 3.5l7 2.5v5c0 4.5-3 7.5-7 9.5-4-2-7-5-7-9.5v-5z" fill="none" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"></path><path d="M9 11.5l2 2 4-4" fill="none" stroke="#e3c789" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-        <h2 class="serif" style="font-weight:700; font-size:21.1px; letter-spacing:1.5px;">我的投資理念</h2>
+        <h2 class="serif" style="font-weight:700; font-size:17.6px; letter-spacing:1.5px;">我的投資理念</h2>
       </div>
-      <div class="serif" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="philosophy" onBlur="{{ edText }}" style="font-size:27.6px; line-height:1.7; color:#f3ede0; letter-spacing:1px; cursor:text; border-radius:8px; padding:4px;" style-focus="outline:none; background:rgba(255,255,255,.06); box-shadow:inset 0 0 0 1px rgba(227,199,137,.4);">{{ philosophy }}</div>
-      <div class="num" style="font-size:13.2px; color:rgba(255,255,255,.4); letter-spacing:2px; margin-top:12px;">點擊文字即可自由編輯</div>
+      <div class="serif" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="philosophy" onBlur="{{ edText }}" style="font-size:23px; line-height:1.7; color:#f3ede0; letter-spacing:1px; cursor:text; border-radius:8px; padding:4px;" style-focus="outline:none; background:rgba(255,255,255,.06); box-shadow:inset 0 0 0 1px rgba(227,199,137,.4);">{{ philosophy }}</div>
+      <div class="num" style="font-size:11px; color:rgba(255,255,255,.4); letter-spacing:2px; margin-top:12px;">點擊文字即可自由編輯</div>
     </section>
 
     <!-- MONTHLY INVEST + ALLOCATION -->
@@ -264,20 +264,20 @@
       <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5); display:flex; flex-direction:column;">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 4.5h12v15H6zM9 3v3M15 3v3M6 9.5h12" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9.5 13h5M9.5 16h3" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">每月固定投入</h2>
+          <h2 class="serif" style="font-weight:700; font-size:17.6px; color:#37424d; letter-spacing:1.5px;">每月固定投入</h2>
         </div>
-        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 18px 30px;">固定日期 · 固定金額</div>
+        <div style="font-size:12.1px; color:#a3abb2; margin:0 0 18px 30px;">固定日期 · 固定金額</div>
         <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:18px;">
           <div>
-            <div class="num" style="font-size:13.2px; color:#9aa2ab; letter-spacing:2px;">AMOUNT / 每月投入</div>
+            <div class="num" style="font-size:11px; color:#9aa2ab; letter-spacing:2px;">AMOUNT / 每月投入</div>
             <div style="display:flex; align-items:baseline; gap:5px; margin-top:4px;">
-              <span class="num" style="font-size:19.8px; color:#a3abb2;">NT$</span>
-              <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="investMonthly" data-fmt="int" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="font-size:46.2px; font-weight:600; color:#37424d; cursor:text; border-radius:4px;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ investMonthly }}</span>
+              <span class="num" style="font-size:16.5px; color:#a3abb2;">NT$</span>
+              <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="investMonthly" data-fmt="int" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="font-size:38.5px; font-weight:600; color:#37424d; cursor:text; border-radius:4px;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ investMonthly }}</span>
             </div>
           </div>
           <div style="padding-top:16px; border-top:2px dotted #e4ded1; display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-size:15.8px; color:#6a747e;">固定扣款日</span>
-            <span style="font-size:17.2px; color:#37424d; font-weight:600;">每月 <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="investDay" data-fmt="plain" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="cursor:text; border-radius:4px; color:#c7a05e;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ investDay }}</span> 號</span>
+            <span style="font-size:13.2px; color:#6a747e;">固定扣款日</span>
+            <span style="font-size:14.3px; color:#37424d; font-weight:600;">每月 <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="investDay" data-fmt="plain" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="cursor:text; border-radius:4px; color:#c7a05e;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ investDay }}</span> 號</span>
           </div>
         </div>
       </section>
@@ -285,11 +285,11 @@
       <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 3.5a8.5 8.5 0 1 0 8.5 8.5" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round"></path><path d="M12 12V3.5A8.5 8.5 0 0 1 20.5 12z" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linejoin="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">投資比例</h2>
+          <h2 class="serif" style="font-weight:700; font-size:17.6px; color:#37424d; letter-spacing:1.5px;">投資比例</h2>
           <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
-          <span class="num" onClick="{{ addRatio }}" style="font-size:14.5px; color:#c7a05e; background:#faf3e4; padding:5px 13px; border-radius:20px; letter-spacing:1px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" style-hover="background:#f4ecd6;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 5v14M5 12h14" fill="none" stroke="#c7a05e" stroke-width="2" stroke-linecap="round"></path></svg>新增分類</span>
+          <span class="num" onClick="{{ addRatio }}" style="font-size:12.1px; color:#c7a05e; background:#faf3e4; padding:5px 13px; border-radius:20px; letter-spacing:1px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" style-hover="background:#f4ecd6;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 5v14M5 12h14" fill="none" stroke="#c7a05e" stroke-width="2" stroke-linecap="round"></path></svg>新增分類</span>
         </div>
-        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 14px 30px;">目前合計 {{ ratioTotal }}%{{ ratioWarn }}</div>
+        <div style="font-size:12.1px; color:#a3abb2; margin:0 0 14px 30px;">目前合計 {{ ratioTotal }}%{{ ratioWarn }}</div>
         <div style="height:11px; background:#efeae0; border-radius:7px; overflow:hidden; display:flex; margin-bottom:16px;">
           <sc-for list="{{ ratios }}" as="r" hint-placeholder-count="3">
             <div style="{{ r.barStyle }}"></div>
@@ -299,9 +299,9 @@
           <sc-for list="{{ ratios }}" as="r" hint-placeholder-count="3">
             <div style="display:flex; align-items:center; gap:11px;">
               <span style="width:11px; height:11px; border-radius:4px; background:{{ r.color }}; flex-shrink:0;"></span>
-              <span style="flex:1; font-size:17.2px; color:#4b5560;" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ r.labelPath }}" onFocus="{{ edFocusText }}" onBlur="{{ edText }}" onKeyDown="{{ edKey }}" style-focus="outline:none; box-shadow:inset 0 -1.5px 0 #d8b978; border-radius:4px;">{{ r.label }}</span>
-              <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ r.pctPath }}" data-fmt="plain" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="font-size:19.8px; font-weight:600; color:#37424d; cursor:text; border-radius:4px; min-width:34px; text-align:right;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ r.pct }}</span>
-              <span class="num" style="font-size:15.8px; color:#8a939c;">%</span>
+              <span style="flex:1; font-size:14.3px; color:#4b5560;" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ r.labelPath }}" onFocus="{{ edFocusText }}" onBlur="{{ edText }}" onKeyDown="{{ edKey }}" style-focus="outline:none; box-shadow:inset 0 -1.5px 0 #d8b978; border-radius:4px;">{{ r.label }}</span>
+              <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ r.pctPath }}" data-fmt="plain" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="font-size:16.5px; font-weight:600; color:#37424d; cursor:text; border-radius:4px; min-width:34px; text-align:right;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ r.pct }}</span>
+              <span class="num" style="font-size:13.2px; color:#8a939c;">%</span>
               <span onClick="{{ r.onRemove }}" style="width:22px; height:22px; display:flex; align-items:center; justify-content:center; border-radius:7px; cursor:pointer; color:#c8cdd2;" style-hover="background:#fbf1ee; color:#c05a44;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span>
             </div>
           </sc-for>
@@ -314,18 +314,18 @@
       <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 6h16M4 12h16M4 18h10" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round"></path><path d="M18 15.5v5M15.5 18h5" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">加碼規則</h2>
+          <h2 class="serif" style="font-weight:700; font-size:17.6px; color:#37424d; letter-spacing:1.5px;">加碼規則</h2>
           <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
-          <span class="num" onClick="{{ addDip }}" style="font-size:14.5px; color:#c7a05e; background:#faf3e4; padding:5px 13px; border-radius:20px; letter-spacing:1px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" style-hover="background:#f4ecd6;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 5v14M5 12h14" fill="none" stroke="#c7a05e" stroke-width="2" stroke-linecap="round"></path></svg>新增</span>
+          <span class="num" onClick="{{ addDip }}" style="font-size:12.1px; color:#c7a05e; background:#faf3e4; padding:5px 13px; border-radius:20px; letter-spacing:1px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" style-hover="background:#f4ecd6;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 5v14M5 12h14" fill="none" stroke="#c7a05e" stroke-width="2" stroke-linecap="round"></path></svg>新增</span>
         </div>
-        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 16px 30px;">預先寫下規則，避免情緒化操作</div>
+        <div style="font-size:12.1px; color:#a3abb2; margin:0 0 16px 30px;">預先寫下規則，避免情緒化操作</div>
         <div style="display:flex; flex-direction:column; gap:10px;">
           <sc-for list="{{ dips }}" as="d" hint-placeholder-count="3">
             <div style="display:flex; align-items:center; gap:12px; padding:13px 15px; background:#faf7ef; border:1px solid #ece2c9; border-radius:14px;">
               <span style="width:38px; height:38px; border-radius:11px; background:#f4ecd6; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M6 8l6 8 6-8" fill="none" stroke="#c7a05e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
               <div style="flex:1;">
-                <div style="font-size:17.2px; color:#3b4650; font-weight:500;">大盤下跌 <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ d.pctPath }}" data-fmt="plain" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="cursor:text; border-radius:4px; color:#c05a44; font-weight:600;" style-focus="background:#fff; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ d.pct }}</span>%</div>
-                <div style="font-size:14.5px; color:#8a939c; margin-top:1px;" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ d.actPath }}" onFocus="{{ edFocusText }}" onBlur="{{ edText }}" onKeyDown="{{ edKey }}" style-focus="outline:none; box-shadow:inset 0 -1.5px 0 #d8b978; border-radius:4px;">{{ d.action }}</div>
+                <div style="font-size:14.3px; color:#3b4650; font-weight:500;">大盤下跌 <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ d.pctPath }}" data-fmt="plain" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="cursor:text; border-radius:4px; color:#c05a44; font-weight:600;" style-focus="background:#fff; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ d.pct }}</span>%</div>
+                <div style="font-size:12.1px; color:#8a939c; margin-top:1px;" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ d.actPath }}" onFocus="{{ edFocusText }}" onBlur="{{ edText }}" onKeyDown="{{ edKey }}" style-focus="outline:none; box-shadow:inset 0 -1.5px 0 #d8b978; border-radius:4px;">{{ d.action }}</div>
               </div>
               <span onClick="{{ d.onRemove }}" style="width:22px; height:22px; display:flex; align-items:center; justify-content:center; border-radius:7px; cursor:pointer; color:#c8cdd2;" style-hover="background:#fbf1ee; color:#c05a44;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span>
             </div>
@@ -336,16 +336,16 @@
       <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 3.5l7 2.5v5c0 4.5-3 7.5-7 9.5-4-2-7-5-7-9.5v-5z" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linejoin="round"></path><path d="M9 11.5l2 2 4-4" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">不賣出原則</h2>
+          <h2 class="serif" style="font-weight:700; font-size:17.6px; color:#37424d; letter-spacing:1.5px;">不賣出原則</h2>
           <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
-          <span class="num" onClick="{{ addPrinciple }}" style="font-size:14.5px; color:#c7a05e; background:#faf3e4; padding:5px 13px; border-radius:20px; letter-spacing:1px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" style-hover="background:#f4ecd6;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 5v14M5 12h14" fill="none" stroke="#c7a05e" stroke-width="2" stroke-linecap="round"></path></svg>新增</span>
+          <span class="num" onClick="{{ addPrinciple }}" style="font-size:12.1px; color:#c7a05e; background:#faf3e4; padding:5px 13px; border-radius:20px; letter-spacing:1px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" style-hover="background:#f4ecd6;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 5v14M5 12h14" fill="none" stroke="#c7a05e" stroke-width="2" stroke-linecap="round"></path></svg>新增</span>
         </div>
-        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 16px 30px;">勾選並持續遵守的紀律</div>
+        <div style="font-size:12.1px; color:#a3abb2; margin:0 0 16px 30px;">勾選並持續遵守的紀律</div>
         <div style="display:flex; flex-direction:column; gap:4px;">
           <sc-for list="{{ principles }}" as="p" hint-placeholder-count="4">
             <div style="display:flex; align-items:center; gap:12px; padding:11px 6px; border-bottom:1px solid #f1ece1;">
               <span onClick="{{ p.onToggle }}" style="{{ p.boxStyle }}"><svg viewBox="0 0 24 24" width="13" height="13" style="{{ p.checkStyle }}"><path d="M5 12.5l4 4 10-10" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
-              <span style="flex:1; font-size:17.2px; color:{{ p.textColor }};" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ p.textPath }}" onFocus="{{ edFocusText }}" onBlur="{{ edText }}" onKeyDown="{{ edKey }}" style-focus="outline:none; box-shadow:inset 0 -1.5px 0 #d8b978; border-radius:4px;">{{ p.text }}</span>
+              <span style="flex:1; font-size:14.3px; color:{{ p.textColor }};" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ p.textPath }}" onFocus="{{ edFocusText }}" onBlur="{{ edText }}" onKeyDown="{{ edKey }}" style-focus="outline:none; box-shadow:inset 0 -1.5px 0 #d8b978; border-radius:4px;">{{ p.text }}</span>
               <span onClick="{{ p.onRemove }}" style="width:22px; height:22px; display:flex; align-items:center; justify-content:center; border-radius:7px; cursor:pointer; color:#c8cdd2;" style-hover="background:#fbf1ee; color:#c05a44;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span>
             </div>
           </sc-for>
@@ -358,9 +358,9 @@
       <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3.5 12a8.5 8.5 0 1 0 17 0a8.5 8.5 0 1 0-17 0" fill="none" stroke="#3f4a54" stroke-width="1.7"></path><path d="M9.5 9l2.5 3 2.5-3M12 12v4" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">資金來源</h2>
+          <h2 class="serif" style="font-weight:700; font-size:17.6px; color:#37424d; letter-spacing:1.5px;">資金來源</h2>
         </div>
-        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 16px 30px;">每月新增資金可勾選來源，方便檢視資產累積來源</div>
+        <div style="font-size:12.1px; color:#a3abb2; margin:0 0 16px 30px;">每月新增資金可勾選來源，方便檢視資產累積來源</div>
         <div style="display:flex; flex-wrap:wrap; gap:10px;">
           <sc-for list="{{ funding }}" as="f" hint-placeholder-count="5">
             <span onClick="{{ f.onToggle }}" style="{{ f.chipStyle }}">
@@ -374,19 +374,19 @@
       <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 22px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M20.5 12a8.5 8.5 0 1 1-2.5-6" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linecap="round"></path><path d="M18 2.5V6h-3.5" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">股利再投入</h2>
+          <h2 class="serif" style="font-weight:700; font-size:17.6px; color:#37424d; letter-spacing:1.5px;">股利再投入</h2>
         </div>
-        <div style="font-size:14.5px; color:#a3abb2; margin:0 0 14px 30px;">股息要滾入複利，還是保留現金？</div>
+        <div style="font-size:12.1px; color:#a3abb2; margin:0 0 14px 30px;">股息要滾入複利，還是保留現金？</div>
         <div style="display:flex; flex-direction:column; gap:9px;">
           <sc-for list="{{ reinvestOpts }}" as="o" hint-placeholder-count="3">
             <div onClick="{{ o.onClick }}" style="{{ o.rowStyle }}">
               <span style="{{ o.radioStyle }}"><span style="{{ o.dotStyle }}"></span></span>
-              <span style="flex:1; font-size:17.2px; color:{{ o.textColor }}; font-weight:{{ o.weight }};">{{ o.label }}</span>
+              <span style="flex:1; font-size:14.3px; color:{{ o.textColor }}; font-weight:{{ o.weight }};">{{ o.label }}</span>
             </div>
           </sc-for>
         </div>
         <div style="{{ customWrap }}">
-          <div style="display:flex; justify-content:space-between; margin-bottom:7px; font-size:14.5px; color:#8a939c;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:7px; font-size:12.1px; color:#8a939c;">
             <span>再投入 <span class="num" style="color:#6e9257; font-weight:600;">{{ reinvestPct }}%</span></span>
             <span>保留現金 <span class="num" style="color:#c7a05e; font-weight:600;">{{ keepPct }}%</span></span>
           </div>
@@ -399,21 +399,21 @@
     <section style="background:#fff; border:1px solid #ece7dd; border-radius:22px; padding:20px 24px 24px; box-shadow:0 22px 44px -34px rgba(59,70,80,.5);">
       <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
         <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6.5 3.5h8l4 4v13h-12zM14 3.5v4h4" fill="none" stroke="#3f4a54" stroke-width="1.7" stroke-linejoin="round"></path><path d="M9 12.5h6M9 16h4" fill="none" stroke="#c7a05e" stroke-width="1.7" stroke-linecap="round"></path></svg>
-        <h2 class="serif" style="font-weight:700; font-size:21.1px; color:#37424d; letter-spacing:1.5px;">年度檢視</h2>
+        <h2 class="serif" style="font-weight:700; font-size:17.6px; color:#37424d; letter-spacing:1.5px;">年度檢視</h2>
         <span style="flex:1; border-top:2px dotted #e4ded1;"></span>
-        <span class="num" style="font-size:19.8px; font-weight:600; color:#c7a05e;">{{ reviewYear }}</span>
+        <span class="num" style="font-size:16.5px; font-weight:600; color:#c7a05e;">{{ reviewYear }}</span>
       </div>
-      <div style="font-size:14.5px; color:#a3abb2; margin:0 0 18px 30px;">每年底檢視一次配置與成果</div>
+      <div style="font-size:12.1px; color:#a3abb2; margin:0 0 18px 30px;">每年底檢視一次配置與成果</div>
       <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:0;">
         <sc-for list="{{ review }}" as="r" hint-placeholder-count="5">
           <div style="{{ r.cell }}">
-            <div class="num" style="font-size:13.2px; color:#9aa2ab; letter-spacing:2px;">{{ r.eng }}</div>
-            <div style="font-size:15.8px; color:#6a747e; margin-top:2px;">{{ r.label }}</div>
+            <div class="num" style="font-size:11px; color:#9aa2ab; letter-spacing:2px;">{{ r.eng }}</div>
+            <div style="font-size:13.2px; color:#6a747e; margin-top:2px;">{{ r.label }}</div>
             <div style="display:flex; align-items:baseline; gap:3px; margin-top:7px;">
-              <span class="num" style="font-size:15.8px; color:#a3abb2;">{{ r.prefix }}</span>
-              <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ r.path }}" data-fmt="int" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="font-size:27.6px; font-weight:500; color:{{ r.color }}; cursor:text; border-radius:4px;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ r.amt }}</span>
+              <span class="num" style="font-size:13.2px; color:#a3abb2;">{{ r.prefix }}</span>
+              <span class="num" contentEditable="true" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-path="{{ r.path }}" data-fmt="int" onFocus="{{ edFocus }}" onBlur="{{ edNum }}" onKeyDown="{{ edKey }}" style="font-size:23px; font-weight:500; color:{{ r.color }}; cursor:text; border-radius:4px;" style-focus="background:#faf7ef; box-shadow:inset 0 -1.5px 0 #d8b978; outline:none;">{{ r.amt }}</span>
             </div>
-            <div style="font-size:13.9px; color:#a9b0b7; margin-top:3px;">{{ r.note }}</div>
+            <div style="font-size:11.6px; color:#a9b0b7; margin-top:3px;">{{ r.note }}</div>
           </div>
         </sc-for>
       </div>
@@ -579,7 +579,7 @@ class Component extends DCLogic {
     const stageChips = c.stages.map((st, i) => ({
       label: this.stageLabel(st, i),
       onClick: () => this.setPath('target', st),
-      style: `font-size:14.5px; padding:6px 14px; border-radius:20px; cursor:pointer; letter-spacing:.5px; border:1px solid ${target === st ? '#37424d' : '#e4ded1'}; background:${target === st ? '#37424d' : '#fff'}; color:${target === st ? '#fff' : '#8a939c'}; transition:all .18s ease;`,
+      style: `font-size:12.1px; padding:6px 14px; border-radius:20px; cursor:pointer; letter-spacing:.5px; border:1px solid ${target === st ? '#37424d' : '#e4ded1'}; background:${target === st ? '#37424d' : '#fff'}; color:${target === st ? '#fff' : '#8a939c'}; transition:all .18s ease;`,
     }));
 
     // dividends chart
@@ -636,7 +636,7 @@ class Component extends DCLogic {
     const yieldChips = [4, 5, 6].map((y) => ({
       label: y + '%',
       onClick: () => this.setPath('yieldPct', y),
-      style: `font-size:14.5px; padding:5px 12px; border-radius:16px; cursor:pointer; border:1px solid ${yieldPct === y ? '#5a7ba6' : '#e4ded1'}; background:${yieldPct === y ? '#eaf0f6' : '#fff'}; color:${yieldPct === y ? '#45648d' : '#8a939c'}; font-weight:${yieldPct === y ? 600 : 400};`,
+      style: `font-size:12.1px; padding:5px 12px; border-radius:16px; cursor:pointer; border:1px solid ${yieldPct === y ? '#5a7ba6' : '#e4ded1'}; background:${yieldPct === y ? '#eaf0f6' : '#fff'}; color:${yieldPct === y ? '#45648d' : '#8a939c'}; font-weight:${yieldPct === y ? 600 : 400};`,
     }));
 
     // nav
@@ -652,7 +652,7 @@ class Component extends DCLogic {
     ].map((nv) => ({
       label: nv.label, href: nv.href, ip: nv.ic.p, ia: nv.ic.a || '',
       stroke: nv.active ? '#37424d' : '#3f4a54',
-      rowStyle: `display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px; font-size:17.9px; transition:background .2s ease; ${nv.active ? 'color:#37424d; font-weight:700; background:#efe9df;' : 'color:#5b6670;'}`,
+      rowStyle: `display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px; font-size:14.9px; transition:background .2s ease; ${nv.active ? 'color:#37424d; font-weight:700; background:#efe9df;' : 'color:#5b6670;'}`,
     }));
 
     // ── 投資規則 ──
@@ -676,7 +676,7 @@ class Component extends DCLogic {
     }));
     const funding = c.funding.map((f, i) => ({
       label: f.label, onToggle: () => this.toggleFunding(i),
-      chipStyle: `display:inline-flex; align-items:center; gap:6px; font-size:16.2px; padding:9px 15px; border-radius:22px; cursor:pointer; transition:all .18s ease; border:1px solid ${f.on ? '#c7a05e' : '#e4ded1'}; background:${f.on ? '#faf3e4' : '#fff'}; color:${f.on ? '#a07f3a' : '#8a939c'}; font-weight:${f.on ? 600 : 400};`,
+      chipStyle: `display:inline-flex; align-items:center; gap:6px; font-size:13.5px; padding:9px 15px; border-radius:22px; cursor:pointer; transition:all .18s ease; border:1px solid ${f.on ? '#c7a05e' : '#e4ded1'}; background:${f.on ? '#faf3e4' : '#fff'}; color:${f.on ? '#a07f3a' : '#8a939c'}; font-weight:${f.on ? 600 : 400};`,
       tickStyle: `color:#c7a05e; opacity:${f.on ? 1 : 0}; width:${f.on ? 14 : 0}px; transition:all .18s ease; overflow:hidden;`,
     }));
     const reinvestPctRaw = c.reinvestPct;
@@ -735,7 +735,7 @@ class Component extends DCLogic {
   }
 
   stageLabel(st, i) { const names = ['第一階段', '第二階段', '第三階段', '第四階段']; return `${names[i] || '階段'} ${(st / 10000)}萬`; }
-  tabStyle(active) { return `font-size:14.5px; padding:4px 13px; border-radius:16px; cursor:pointer; border:1px solid ${active ? '#37424d' : '#e4ded1'}; background:${active ? '#37424d' : '#fff'}; color:${active ? '#fff' : '#8a939c'};`; }
+  tabStyle(active) { return `font-size:12.1px; padding:4px 13px; border-radius:16px; cursor:pointer; border:1px solid ${active ? '#37424d' : '#e4ded1'}; background:${active ? '#37424d' : '#fff'}; color:${active ? '#fff' : '#8a939c'};`; }
 }
 </script>
 </body>
