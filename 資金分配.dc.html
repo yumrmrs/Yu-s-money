@@ -159,6 +159,7 @@
                   <div style="flex:1; min-width:0;">
                     <span style="{{ it.nameStyle }}" contentEditable="{{ it.editable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ it.nameFkey }}" onBlur="{{ blurField }}" onKeyDown="{{ keyField }}">{{ it.name }}</span>
                     <div class="num" style="{{ it.lastWrap }}">{{ it.lastText }}</div>
+                    <div class="num" style="{{ it.estWrap }}">{{ it.estText }}</div>
                   </div>
                   <span class="num" style="{{ it.amtStyle }}" contentEditable="{{ it.editable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ it.amtFkey }}" onBlur="{{ blurField }}" onKeyDown="{{ keyField }}">{{ it.amtText }}</span>
                   <span style="{{ it.pencilStyle }}" onClick="{{ it.onEdit }}" style-hover="color:#8b7a63;"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M14.5 4.5l5 5L8.5 20.5h-5v-5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
@@ -450,6 +451,13 @@ class Component extends DCLogic {
     const allocated = bucketTotals.reduce((s, x, i) => s + ((D.buckets[i].items && D.buckets[i].items.length) ? x : 0), 0);
     const remaining = income - allocated;
 
+    // 支出中心各分類細項加總（僅供參考）
+    const planSums = {};
+    try {
+      const ep = JSON.parse(localStorage.getItem('expense-plan-v1') || 'null');
+      if (ep && ep.cats) ep.cats.forEach((c) => { planSums[c.name] = (c.items || []).reduce((s, it) => s + (it.amt || 0), 0); });
+    } catch (e) {}
+
     const buckets = D.buckets.map((b, i) => {
       const m = MET[i] || MET[MET.length - 1];
       const amt = bucketTotals[i];
@@ -489,6 +497,8 @@ class Component extends DCLogic {
             amtStyle: `font-size:14px; font-weight:600; color:#37424d;${on ? deco : ''}`,
             lastText: la > 0 ? `上月(${lastLabel})實際 ${this.ntd(la)}` : '',
             lastWrap: la > 0 ? 'font-size:10.5px; color:#a3907a; margin-top:2px;' : 'display:none;',
+            estText: planSums[it.name] > 0 ? `支出頁細項預估 ${this.ntd(planSums[it.name])}` : '',
+            estWrap: planSums[it.name] > 0 ? 'font-size:10.5px; color:#8b9bb0; margin-top:2px;' : 'display:none;',
           };
         }),
       };

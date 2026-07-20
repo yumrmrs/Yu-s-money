@@ -152,9 +152,11 @@
                     <sc-for list="{{ c.actualItems }}" as="ai" hint-placeholder-count="2">
                       <div style="display:flex; align-items:center; gap:10px; padding:7px 0; border-bottom:1px solid #f4efe4;">
                         <span class="num" style="font-size:11px; color:#a3abb2; width:44px; flex-shrink:0;">{{ ai.dateF }}</span>
-                        <span style="flex:1; min-width:0; font-size:12.5px; color:#3b4650;">{{ ai.label }}</span>
+                        <span style="{{ ai.labelStyle }}" contentEditable="{{ ai.editable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ ai.noteFkey }}" onBlur="{{ blurField }}" onKeyDown="{{ keyField }}">{{ ai.label }}</span>
                         <span style="font-size:10.5px; color:#9aa2ab;">{{ ai.account }}</span>
-                        <span class="num" style="font-size:12.5px; font-weight:600; color:#c05a44;">- {{ ai.amtText }}</span>
+                        <span class="num" style="{{ ai.amtStyle }}" contentEditable="{{ ai.editable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ ai.amtFkey }}" onBlur="{{ blurField }}" onKeyDown="{{ keyField }}">{{ ai.amtText }}</span>
+                        <span style="{{ ai.pencilStyle }}" onClick="{{ ai.onEdit }}" style-hover="color:#8b7a63;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M14.5 4.5l5 5L8.5 20.5h-5v-5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+                        <span style="{{ ai.trashStyle }}" onClick="{{ ai.onDelete }}" style-hover="color:#c0533f;"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
                       </div>
                     </sc-for>
                   </div>
@@ -391,7 +393,7 @@ class Component extends DCLogic {
   componentDidUpdate(pp, ps) {
     const k = this.state.editKey;
     if (k && k !== ps.editKey && this.root) {
-      const el = this.root.querySelector('[data-fkey="' + k + ':name"]') || this.root.querySelector('[data-fkey="' + k + '"]');
+      const el = this.root.querySelector('[data-fkey="' + k + ':name"]') || this.root.querySelector('[data-fkey="' + k + ':amt"]') || this.root.querySelector('[data-fkey="' + k + '"]');
       if (el) { el.focus(); const r = document.createRange(); r.selectNodeContents(el); r.collapse(false); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
     }
   }
@@ -399,6 +401,7 @@ class Component extends DCLogic {
   commitField(el) {
     const fkey = el.getAttribute('data-fkey'); if (!fkey) return;
     const p = fkey.split(':'); const kind = p[0];
+    if (kind === 'entry') { this.commitEntryField(p[1], p[p.length - 1], (el.textContent || '').trim(), el); return; }
     const d = JSON.parse(JSON.stringify(this.state.d || this.seed()));
     const t = (el.textContent || '').trim();
     if (kind === 'cat') d.cats[+p[1]].name = t;
@@ -406,6 +409,32 @@ class Component extends DCLogic {
     else if (kind === 'plan') { if (p[3] === 'name') d.plan[+p[1]].items[+p[2]].name = t; else { const v = this.parseNum(t); d.plan[+p[1]].items[+p[2]].amt = v; el.textContent = this.fmt(v); } }
     this.setState({ d, editKey: null });
     try { localStorage.setItem('expense-plan-v1', JSON.stringify(d)); } catch (e) {}
+  }
+
+  commitEntryField(id, field, text, el) {
+    const entries = (this.state.entries || []).map((e) => ({ ...e }));
+    const ent = entries.find((e) => String(e.id) === String(id));
+    if (!ent) { this.setState({ editKey: null }); return; }
+    const patch = {};
+    if (field === 'amt') {
+      const v = parseFloat(String(text).replace(/[^\d.]/g, ''));
+      if (!isNaN(v) && v > 0) { ent.amount = v; patch.amount = v; }
+      el.textContent = '- ' + this.fmt(ent.amount);
+    } else {
+      if (text) { ent.note = text; patch.note = text; }
+    }
+    this.setState({ entries, editKey: null });
+    try { localStorage.setItem('mob-entries-cache', JSON.stringify(entries)); } catch (e) {}
+    if (this.sb && Object.keys(patch).length) {
+      this.sb.from('entries').update(patch).eq('id', id).then(() => this.sbLoad());
+    }
+  }
+
+  deleteEntry(id) {
+    const entries = (this.state.entries || []).filter((e) => String(e.id) !== String(id));
+    this.setState({ entries, editKey: null });
+    try { localStorage.setItem('mob-entries-cache', JSON.stringify(entries)); } catch (e) {}
+    if (this.sb) this.sb.from('entries').delete().eq('id', id).then(() => this.sbLoad());
   }
 
   clone() { return JSON.parse(JSON.stringify(this.state.d || this.seed())); }
@@ -489,11 +518,29 @@ class Component extends DCLogic {
         cmpLabel: total > 0 ? `${Math.round(actual / total * 100)}%` : (actual > 0 ? '未編列預算' : '—'),
         actualColor: over ? '#c0533f' : '#37424d',
         cmpBarStyle: `width:${Math.min(100, cmpPct).toFixed(1)}%; height:100%; border-radius:4px; background:${over ? '#c05a44' : cmpPct > 85 ? '#c7a05e' : '#7ba38c'};`,
-        actualItems: c.items.filter((it) => it.tag === '固定').map((it) => ({ dateF: '固定', label: it.name, account: '自動帶入', amtText: this.fmt(it.amt) })).concat((actualItemsByCat[c.name] || []).map((e) => ({
-          dateF: (e.occurred_on || '').slice(5).replace('-', '/'),
-          label: (e.note && e.note.trim()) ? e.note : e.category,
-          account: e.account || '現金', amtText: this.fmt(e.amount),
-        }))),
+        actualItems: c.items.filter((it) => it.tag === '固定').map((it) => ({
+          dateF: '固定', label: it.name, account: '自動帶入', amtText: '- ' + this.fmt(it.amt),
+          editable: false, noteFkey: '', amtFkey: '', pencilStyle: 'display:none;', trashStyle: 'display:none;',
+          labelStyle: 'flex:1; min-width:0; font-size:12.5px; color:#3b4650;',
+          amtStyle: 'font-size:12.5px; font-weight:600; color:#c05a44;',
+          onEdit: () => {}, onDelete: () => {},
+        })).concat((actualItemsByCat[c.name] || []).map((e) => {
+          const ek = `entry:${e.id}`;
+          const eon = editKey === ek;
+          return {
+            dateF: (e.occurred_on || '').slice(5).replace('-', '/'),
+            label: (e.note && e.note.trim()) ? e.note : e.category,
+            account: e.account || '現金',
+            amtText: eon ? String(e.amount) : '- ' + this.fmt(e.amount),
+            editable: eon, noteFkey: `${ek}:note`, amtFkey: `${ek}:amt`,
+            labelStyle: `flex:1; min-width:0; font-size:12.5px; color:#3b4650;${eon ? deco : ''}`,
+            amtStyle: `font-size:12.5px; font-weight:600; color:#c05a44;${eon ? deco : ''}`,
+            pencilStyle: pencil(eon).replace('width:24px; height:24px;', 'width:22px; height:22px;'),
+            trashStyle: eon ? trashBase.replace('width:24px; height:24px;', 'width:22px; height:22px;') : 'display:none;',
+            onEdit: () => this.toggleKey(ek),
+            onDelete: () => this.deleteEntry(e.id),
+          };
+        })),
         hasActualItems: true,
         actualWrapStyle: (c.items.some((it) => it.tag === '固定') || (actualItemsByCat[c.name] || []).length > 0) ? 'margin-top:10px; padding-top:8px; border-top:2px dotted #e4ded1;' : 'display:none;',
         toggle: () => this.setState((st) => ({ open: { ...st.open, [c.key]: !st.open[c.key] } })),
