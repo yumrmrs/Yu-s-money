@@ -473,7 +473,9 @@ class Component extends DCLogic {
     (S.entries || []).forEach((e) => {
       if (e.type !== 'expense') return;
       if ((e.occurred_on || '').slice(0, 7) !== ymStr) return;
-      const bc = catNames.includes(e.category) ? e.category : (CAT_MAP[e.category] && catNames.includes(CAT_MAP[e.category]) ? CAT_MAP[e.category] : '其他');
+      const mapped = CAT_MAP[e.category] || e.category;
+      const fuzzy = catNames.find((n) => n === e.category || n === mapped || n.includes(e.category) || n.includes(mapped) || e.category.includes(n));
+      const bc = fuzzy || (catNames.includes('其他') ? '其他' : catNames[catNames.length - 1]);
       actualByCat[bc] = (actualByCat[bc] || 0) + Number(e.amount);
       (actualItemsByCat[bc] = actualItemsByCat[bc] || []).push(e);
     });
