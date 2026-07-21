@@ -221,6 +221,11 @@
                     <span style="width:8px; height:8px; border-radius:3px; background:{{ ch.dot }}; flex-shrink:0;"></span>
                     <span style="{{ ch.nameStyle }}" contentEditable="{{ ch.editable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ ch.nameFkey }}" onBlur="{{ blurField }}" onKeyDown="{{ keyField }}">{{ ch.name }}</span>
                     <span style="{{ ch.prepStyle }}">⟡ 提前換匯</span>
+                    <span style="{{ ch.catPickWrap }}">
+                      <sc-for list="{{ ch.catOpts }}" as="co" hint-placeholder-count="0">
+                        <span style="{{ co.style }}" onClick="{{ co.onPick }}" style-hover="filter:brightness(0.96);">{{ co.name }}</span>
+                      </sc-for>
+                    </span>
                     <span style="flex:1;"></span>
                     <span class="num" style="{{ ch.amtStyle }}" contentEditable="{{ ch.editable }}" suppressContentEditableWarning="{{ true }}" spellCheck="{{ false }}" data-fkey="{{ ch.amtFkey }}" onBlur="{{ blurField }}" onKeyDown="{{ keyField }}">{{ ch.amtText }}</span>
                     <span style="{{ ch.pencilStyle }}" onClick="{{ ch.onEdit }}" style-hover="color:#8b7a63;"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M14.5 4.5l5 5L8.5 20.5h-5v-5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
@@ -443,6 +448,7 @@ class Component extends DCLogic {
   addItemToCat(ci) { const d = this.clone(); d.cats[ci].items.push({ name: '新項目', amt: 0, tag: '變動' }); const j = d.cats[ci].items.length - 1; this.setState({ editKey: `item:${ci}:${j}`, open: { ...this.state.open, [d.cats[ci].key]: true } }); this.persist(d); }
   addCat() { const d = this.clone(); const key = 'cat' + Date.now(); d.cats.push({ key, name: '新分類', tag: '變動', items: [] }); const i = d.cats.length - 1; this.setState({ editKey: `cat:${i}`, open: { ...this.state.open, [key]: true } }); this.persist(d); }
   addPlanItem(mi) { const d = this.clone(); d.plan[mi].items.push({ name: '新項目', amt: 0, cat: '其他' }); const j = d.plan[mi].items.length - 1; this.setState({ editKey: `plan:${mi}:${j}` }); this.persist(d); }
+  setPlanCat(mi, j, cat) { const d = this.clone(); d.plan[mi].items[j].cat = cat; this.persist(d); }
   cycleItemTag(ci, ii) { const d = this.clone(); const it = d.cats[ci].items[ii]; it.tag = it.tag === '固定' ? '變動' : '固定'; this.persist(d); }
 
   renderVals() {
@@ -523,8 +529,8 @@ class Component extends DCLogic {
         actualItems: c.items.filter((it) => it.tag === '固定').map((it) => ({
           dateF: '固定', label: it.name, account: '自動帶入', amtText: '- ' + this.fmt(it.amt),
           editable: false, noteFkey: '', amtFkey: '', pencilStyle: 'display:none;', trashStyle: 'display:none;',
-          labelStyle: 'flex:1; min-width:0; font-size:12.5px; color:#3b4650;',
-          amtStyle: 'font-size:12.5px; font-weight:600; color:#c05a44;',
+          labelStyle: 'flex:1; min-width:0; font-size:13.5px; color:#3b4650;',
+          amtStyle: 'font-size:13.5px; font-weight:600; color:#c05a44;',
           onEdit: () => {}, onDelete: () => {},
         })).concat((actualItemsByCat[c.name] || []).map((e) => {
           const ek = `entry:${e.id}`;
@@ -535,8 +541,8 @@ class Component extends DCLogic {
             account: e.account || '現金',
             amtText: eon ? String(e.amount) : '- ' + this.fmt(e.amount),
             editable: eon, noteFkey: `${ek}:note`, amtFkey: `${ek}:amt`,
-            labelStyle: `flex:1; min-width:0; font-size:12.5px; color:#3b4650;${eon ? deco : ''}`,
-            amtStyle: `font-size:12.5px; font-weight:600; color:#c05a44;${eon ? deco : ''}`,
+            labelStyle: `flex:1; min-width:0; font-size:13.5px; color:#3b4650;${eon ? deco : ''}`,
+            amtStyle: `font-size:13.5px; font-weight:600; color:#c05a44;${eon ? deco : ''}`,
             pencilStyle: pencil(eon).replace('width:24px; height:24px;', 'width:22px; height:22px;'),
             trashStyle: eon ? trashBase.replace('width:24px; height:24px;', 'width:22px; height:22px;') : 'display:none;',
             onEdit: () => this.toggleKey(ek),
@@ -559,8 +565,8 @@ class Component extends DCLogic {
             onEdit: () => this.toggleKey(rowKey),
             onDelete: () => this.deleteItem('item', i, j),
             trashStyle: on ? trashBase : 'display:none;',
-            nameStyle: `flex:1; font-size:13px; color:#3b4650;${on ? deco : ''}`,
-            amtStyle: `font-size:13px; font-weight:600; color:#37424d; width:78px; text-align:right; flex-shrink:0;${on ? deco : ''}`,
+            nameStyle: `flex:1; font-size:14px; color:#3b4650;${on ? deco : ''}`,
+            amtStyle: `font-size:14px; font-weight:600; color:#37424d; width:84px; text-align:right; flex-shrink:0;${on ? deco : ''}`,
           };
         }),
       };
@@ -618,8 +624,14 @@ class Component extends DCLogic {
             onEdit: () => this.toggleKey(rowKey),
             onDelete: () => this.deleteItem('plan', i, j),
             trashStyle: on ? trashBase : 'display:none;',
-            nameStyle: `font-size:12.5px; color:#3b4650;${on ? deco : ''}`,
-            amtStyle: `font-size:12.5px; font-weight:600; color:#4b5560;${on ? deco : ''}`,
+            nameStyle: `font-size:13.5px; color:#3b4650;${on ? deco : ''}`,
+            amtStyle: `font-size:13.5px; font-weight:600; color:#4b5560;${on ? deco : ''}`,
+            catPickWrap: on ? 'display:flex; gap:4px; flex-wrap:wrap; margin-left:4px;' : 'display:none;',
+            catOpts: on ? Object.keys(CS).map((k) => ({
+              name: k,
+              onPick: (ev) => { ev.stopPropagation(); this.setPlanCat(i, j, k); },
+              style: `font-size:10px; font-weight:600; padding:2px 8px; border-radius:20px; cursor:pointer; ${it.cat === k ? `background:${CS[k].dot}; color:#fff; border:1px solid ${CS[k].dot};` : `background:${CS[k].bg}; color:${CS[k].fg}; border:1px solid transparent;`}`,
+            })) : [],
             prepStyle: it.prep ? 'font-size:9.5px; font-weight:600; color:#8a6d2f; background:#f5eeda; padding:1px 7px; border-radius:20px;' : 'display:none;',
           };
         }),

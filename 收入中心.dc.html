@@ -450,8 +450,8 @@ class Component extends DCLogic {
             amtText: on ? String(it.amt) : this.fmt(it.amt),
             editable: on, nameFkey: `${rowKey}:name`, amtFkey: `${rowKey}:amt`, pencilStyle: pencil(on), trashStyle: on ? trashBase : 'display:none;',
             onEdit: () => this.toggleKey(rowKey), onDelete: () => this.deleteItem('item', i, j),
-            nameStyle: `flex:1; font-size:13px; color:#3b4650;${on ? deco : ''}`,
-            amtStyle: `font-size:13px; font-weight:600; width:96px; text-align:right; flex-shrink:0; color:${pend || it.amt === 0 ? '#b3bcc3' : '#37424d'};${on ? deco : ''}`,
+            nameStyle: `flex:1; font-size:14px; color:#3b4650;${on ? deco : ''}`,
+            amtStyle: `font-size:14px; font-weight:600; width:100px; text-align:right; flex-shrink:0; color:${pend || it.amt === 0 ? '#b3bcc3' : '#37424d'};${on ? deco : ''}`,
             markStyle: pend ? 'font-size:9.5px; font-weight:600; letter-spacing:.5px; color:#8a6d2f; background:#f3dfa8; padding:2px 9px; border-radius:20px; flex-shrink:0; cursor:pointer;' : 'display:none;',
             onMark: pend ? (() => bookIt(it.id)) : (() => {}),
           };
