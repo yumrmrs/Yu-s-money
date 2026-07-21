@@ -292,10 +292,27 @@ class Component extends DCLogic {
     return d;
   }
 
+  // 讓「每月支出」細項與支出頁的大項名稱同步（改名對齊、缺的補上）
+  syncSpendItems(d) {
+    try {
+      const ep = JSON.parse(localStorage.getItem('expense-plan-v1') || 'null');
+      if (!ep || !ep.cats) return d;
+      const spend = d.buckets.find((b) => b.name === '每月支出');
+      if (!spend) return d;
+      ep.cats.forEach((c) => {
+        const hit = spend.items.find((it) => it.name === c.name || it.name.includes(c.name) || c.name.includes(it.name));
+        if (hit) { hit.name = c.name; }
+        else spend.items.push({ name: c.name, amt: (c.items || []).reduce((s, it) => s + (it.amt || 0), 0) });
+      });
+    } catch (e) {}
+    return d;
+  }
+
   componentDidMount() {
     let d = this.seed();
     try { const s = localStorage.getItem('zijin-plan-v1'); if (s) { const p = JSON.parse(s); if (p && p.buckets) d = p; } } catch (e) {}
     d = this.migrate(d);
+    d = this.syncSpendItems(d);
     try { localStorage.setItem('zijin-plan-v1', JSON.stringify(d)); } catch (e) {}
     let entries = [];
     try { const c = localStorage.getItem('mob-entries-cache'); if (c) entries = JSON.parse(c); } catch (e) {}
