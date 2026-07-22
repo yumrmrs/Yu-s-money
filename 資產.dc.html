@@ -320,7 +320,11 @@
               <div onClick="{{ tfDca }}" style="{{ tfSegDca }}">定額</div>
             </div>
             <input value="{{ tfName }}" onInput="{{ onTfName }}" placeholder="標的名稱，例：台積電 2330 · 現買" style="width:100%; box-sizing:border-box; border:1px solid #ece2c9; background:#fff; border-radius:10px; padding:10px 12px; font-size:13.5px; color:#3b4650; margin-bottom:9px; outline:none;">
-            <input value="{{ tfDetail }}" onInput="{{ onTfDetail }}" placeholder="明細，例：20 股 @ 2,385" style="width:100%; box-sizing:border-box; border:1px solid #ece2c9; background:#fff; border-radius:10px; padding:10px 12px; font-size:13.5px; color:#3b4650; margin-bottom:9px; outline:none;">
+            <div style="display:flex; gap:9px; margin-bottom:9px;">
+              <input value="{{ tfShares }}" onInput="{{ onTfShares }}" inputMode="numeric" placeholder="股數，例：20" style="flex:1; min-width:0; box-sizing:border-box; border:1px solid #ece2c9; background:#fff; border-radius:10px; padding:10px 12px; font-size:13.5px; color:#3b4650; outline:none;">
+              <input value="{{ tfPrice }}" onInput="{{ onTfPrice }}" inputMode="decimal" placeholder="單價，例：2,385" style="flex:1; min-width:0; box-sizing:border-box; border:1px solid #ece2c9; background:#fff; border-radius:10px; padding:10px 12px; font-size:13.5px; color:#3b4650; outline:none;">
+            </div>
+            <div style="{{ tfSyncHint }}">{{ tfSyncText }}</div>
             <div style="display:flex; gap:9px; margin-bottom:14px;">
               <input value="{{ tfAmt }}" onInput="{{ onTfAmt }}" inputMode="numeric" placeholder="金額 (NT$)" style="flex:2; min-width:0; box-sizing:border-box; border:1px solid #ece2c9; background:#fff; border-radius:10px; padding:10px 12px; font-size:13.5px; color:#3b4650; outline:none;">
               <input value="{{ tfDate }}" onInput="{{ onTfDate }}" placeholder="MM/DD" style="flex:1; min-width:0; box-sizing:border-box; border:1px solid #ece2c9; background:#fff; border-radius:10px; padding:10px 12px; font-size:13.5px; color:#3b4650; outline:none;">
@@ -485,6 +489,7 @@
     </section>
 
     <div class="num" style="text-align:center; font-size:11px; color:#a9a596; letter-spacing:4px; padding:6px 0 2px;">魚家財務室 · NET WORTH · 2026</div>
+    <div class="num" style="{{ undoStyle }}" onClick="{{ onUndo }}" title="回到上一步"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M8.5 5L4.5 9l4 4M4.5 9h9.5a5.5 5.5 0 0 1 0 11h-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="letter-spacing:1px;">上一步</span></div>
   </main>
 </div>
 </x-dc>
@@ -494,11 +499,82 @@ class Component extends DCLogic {
 
   // ── 使用者新增交易（存回瀏覽器）──
   tradeStore() { if (this.state.userTrades) return this.state.userTrades; try { const s = localStorage.getItem('asset-trades-v1'); if (s) return JSON.parse(s); } catch (e) {} return []; }
-  persistTrades(arr) { this.setState({ userTrades: arr }); try { localStorage.setItem('asset-trades-v1', JSON.stringify(arr)); } catch (e) {} }
-  openTradeForm() { const d = new Date(); const mm = String(d.getMonth() + 1).padStart(2, '0'); const dd = String(d.getDate()).padStart(2, '0'); this.setState({ tf: { k: 'buy', name: '', detail: '', amt: '', date: mm + '/' + dd } }); }
+  persistTrades(arr) { this.pushUndo(); this.setState({ userTrades: arr }); try { localStorage.setItem('asset-trades-v1', JSON.stringify(arr)); } catch (e) {} }
+  undoSnap() { return JSON.stringify({ ov: this.ovStore(), tr: this.tradeStore(), us: this.usList(), cash: this.cashList(), px: this.priceMap(), pxAt: this.state.pxAt || '—', fx: this.fxUSD(), uh: this.userHoldings() }); }
+  undoRestore(o) {
+    this.setState({ ov: o.ov, userTrades: o.tr, us: o.us, cash: o.cash, px: o.px, pxAt: o.pxAt, fx: o.fx, uh: o.uh || [], usKey: null, cashKey: null, pxKey: null, editKey: null });
+    try {
+      localStorage.setItem('asset-uh-v1', JSON.stringify(o.uh || []));
+      localStorage.setItem('asset-ov-v1', JSON.stringify(o.ov));
+      localStorage.setItem('asset-trades-v1', JSON.stringify(o.tr));
+      localStorage.setItem('asset-us-v1', JSON.stringify(o.us));
+      localStorage.setItem('asset-cash-v1', JSON.stringify(o.cash));
+      localStorage.setItem('asset-px-v1', JSON.stringify({ map: o.px, at: o.pxAt }));
+      localStorage.setItem('asset-fx-v1', JSON.stringify(o.fx));
+    } catch (e) {}
+  }
+  pushUndo() { const s = this.undoSnap(); const u = this._undo = this._undo || []; if (u.length && u[u.length - 1] === s) return; u.push(s); if (u.length > 30) u.shift(); }
+  undo() { const u = this._undo; if (!u || !u.length) return; this.undoRestore(JSON.parse(u.pop())); }
+  undoBtnStyle() { const un = (this._undo || []).length; return `position:fixed; right:28px; bottom:24px; z-index:60; display:flex; align-items:center; gap:7px; padding:10px 16px; border-radius:30px; font-size:12px; transition:all .2s ease; user-select:none; ${un ? 'background:#37424d; color:#fff; cursor:pointer; box-shadow:0 14px 30px -12px rgba(55,66,77,.65);' : 'background:#fff; color:#c9d0d6; border:1px solid #ece7dd; cursor:default;'}`; }
+  openTradeForm() { const d = new Date(); const mm = String(d.getMonth() + 1).padStart(2, '0'); const dd = String(d.getDate()).padStart(2, '0'); this.setState({ tf: { k: 'buy', name: '', shares: '', price: '', amt: '', date: mm + '/' + dd } }); }
   closeTradeForm() { this.setState({ tf: null }); }
-  setTf(field, val) { this.setState((s) => ({ tf: { ...s.tf, [field]: val } })); }
-  saveTrade() { const t = this.state.tf; if (!t) return; const amt = parseFloat(String(t.amt).replace(/[^\d.\-]/g, '')); if (!t.name.trim() || isNaN(amt)) return; const arr = [{ k: t.k, name: t.name.trim(), detail: t.detail.trim(), amt: Math.round(amt), date: t.date.trim() }, ...this.tradeStore()]; this.persistTrades(arr); this.setState({ tf: null }); }
+  setTf(field, val) {
+    this.setState((s) => {
+      const tf = { ...s.tf, [field]: val };
+      if (field === 'shares' || field === 'price') {
+        const q = parseFloat(String(tf.shares).replace(/[^\d.]/g, ''));
+        const px = parseFloat(String(tf.price).replace(/[^\d.]/g, ''));
+        if (!isNaN(q) && !isNaN(px)) tf.amt = String(Math.round(q * px));
+      }
+      return { tf };
+    });
+  }
+  // 標的名稱比對持股（名稱或代號包含即符合）
+  matchHolding(name) {
+    const t = String(name || '').trim(); if (!t) return null;
+    return this.holdingsData().find((h) => t.includes(h.code) || t.includes(h.name) || h.name.includes(t)) || null;
+  }
+  saveTrade() {
+    this.pushUndo();
+    const t = this.state.tf; if (!t) return;
+    const amt = parseFloat(String(t.amt).replace(/[^\d.\-]/g, ''));
+    if (!t.name.trim() || isNaN(amt)) return;
+    const q = parseFloat(String(t.shares).replace(/[^\d.]/g, ''));
+    const px = parseFloat(String(t.price).replace(/[^\d.]/g, ''));
+    const detail = !isNaN(q) && !isNaN(px) ? `${q.toLocaleString('en-US')} 股 @ ${px.toLocaleString('en-US')}` : '';
+    const arr = [{ k: t.k, name: t.name.trim(), detail, amt: Math.round(amt), date: t.date.trim() }, ...this.tradeStore()];
+    this.persistTrades(arr);
+    // 同步上方投資組合：股數增減 + 市價更新；沒對應到就新增一檔
+    let h = this.matchHolding(t.name);
+    if (!h && t.k !== 'sell' && !isNaN(q) && q > 0 && !isNaN(px) && px > 0) {
+      const codeM = t.name.trim().match(/\d{4,6}[A-Z]?/);
+      const nm = t.name.trim().replace(/\d{4,6}[A-Z]?/, '').trim() || t.name.trim();
+      const nh = { name: nm, code: codeM ? codeM[0] : nm, shares: q, price: px, cost: Math.round(q * px), chg: 0 };
+      const uh = this.userHoldings().concat([nh]);
+      this.setState({ uh });
+      try { localStorage.setItem('asset-uh-v1', JSON.stringify(uh)); } catch (e) {}
+      const map = { ...this.priceMap() }; map[nh.code] = px;
+      const at = this.stamp(); this.setState({ px: map, pxAt: at });
+      try { localStorage.setItem('asset-px-v1', JSON.stringify({ map, at })); } catch (e) {}
+      this.setState({ tf: null });
+      return;
+    }
+    if (h && !isNaN(q) && q > 0) {
+      const curShares = this.ovNum('stk:' + h.code + ':shares', h.shares);
+      const next = t.k === 'sell' ? Math.max(0, curShares - q) : curShares + q;
+      const o = { ...this.ovStore() };
+      o['stk:' + h.code + ':shares'] = next;
+      delete o['stk:' + h.code + ':mkt'];
+      this.setState({ ov: o });
+      try { localStorage.setItem('asset-ov-v1', JSON.stringify(o)); } catch (e) {}
+      if (!isNaN(px) && px > 0) {
+        const map = { ...this.priceMap() }; map[h.code] = px;
+        const at = this.stamp(); this.setState({ px: map, pxAt: at });
+        try { localStorage.setItem('asset-px-v1', JSON.stringify({ map, at })); } catch (e) {}
+      }
+    }
+    this.setState({ tf: null });
+  }
   removeTrade(idx) { const arr = this.tradeStore().slice(); arr.splice(idx, 1); this.persistTrades(arr); }
 
   segStyle(active) {
@@ -512,6 +588,7 @@ class Component extends DCLogic {
   commitPrice(el) {
     const code = el.getAttribute('data-pcode'); if (!code) return;
     const n = parseFloat(String(el.textContent || '').replace(/[^\d.]/g, ''));
+    this.pushUndo();
     const map = { ...this.priceMap() }; if (!isNaN(n) && n > 0) map[code] = n;
     const at = this.stamp(); this.setState({ px: map, pxAt: at, pxKey: null });
     try { localStorage.setItem('asset-px-v1', JSON.stringify({ map, at })); } catch (e) {}
@@ -521,7 +598,7 @@ class Component extends DCLogic {
   ovStore() { if (this.state.ov) return this.state.ov; try { const s = localStorage.getItem('asset-ov-v1'); if (s) return JSON.parse(s); } catch (e) {} return {}; }
   ovNum(key, base) { const o = this.ovStore(); return o[key] != null ? o[key] : base; }
   ovStr(key, base) { const o = this.ovStore(); return o[key] != null ? o[key] : base; }
-  persistOv(o) { this.setState({ ov: o }); try { localStorage.setItem('asset-ov-v1', JSON.stringify(o)); } catch (e) {} }
+  persistOv(o) { this.pushUndo(); this.setState({ ov: o }); try { localStorage.setItem('asset-ov-v1', JSON.stringify(o)); } catch (e) {} }
   commitOv(el) { const k = el.getAttribute('data-fkey'); if (!k) return; const n = parseFloat(String(el.textContent || '').replace(/[^\d.\-]/g, '')); const o = { ...this.ovStore() }; if (!isNaN(n)) o[k] = n; this.persistOv(o); const fmt = el.getAttribute('data-fmt'); if (fmt && !isNaN(n)) el.textContent = this.fmtField(fmt, n, el); }
   fmtField(type, n, el) {
     switch (type) {
@@ -551,7 +628,7 @@ class Component extends DCLogic {
   }
   usList() { if (this.state.us) return this.state.us; try { const s = localStorage.getItem('asset-us-v1'); if (s) return JSON.parse(s); } catch (e) {} return this.usSeed(); }
   cloneUs() { return JSON.parse(JSON.stringify(this.usList())); }
-  persistUs(arr) { this.setState({ us: arr }); try { localStorage.setItem('asset-us-v1', JSON.stringify(arr)); } catch (e) {} }
+  persistUs(arr) { this.pushUndo(); this.setState({ us: arr }); try { localStorage.setItem('asset-us-v1', JSON.stringify(arr)); } catch (e) {} }
   toggleUsKey(i) { this.setState((s) => ({ usKey: s.usKey === i ? null : i })); }
   commitUsField(el) {
     const fkey = el.getAttribute('data-fkey'); if (!fkey) return;
@@ -565,7 +642,7 @@ class Component extends DCLogic {
   }
   deleteUs(i) { const arr = this.cloneUs(); arr.splice(i, 1); this.setState({ usKey: null }); this.persistUs(arr); }
   addUs() { const arr = this.cloneUs(); arr.push({ name: '新帳戶', sub: '券商 · 標的', usd: 0, pl: '' }); const i = arr.length - 1; this.setState({ usKey: i }); this.persistUs(arr); }
-  commitFx(el) { const t = (el.textContent || '').trim(); const n = parseFloat(String(t).replace(/[^\d.]/g, '')); const v = isNaN(n) ? 0 : n; this.setState({ fx: v, cashKey: null }); try { localStorage.setItem('asset-fx-v1', JSON.stringify(v)); } catch (e) {} }
+  commitFx(el) { this.pushUndo(); const t = (el.textContent || '').trim(); const n = parseFloat(String(t).replace(/[^\d.]/g, '')); const v = isNaN(n) ? 0 : n; this.setState({ fx: v, cashKey: null }); try { localStorage.setItem('asset-fx-v1', JSON.stringify(v)); } catch (e) {} }
 
   // ── 現金帳戶：可編輯 / 增減 ──
   cashSeed() { try { const s = localStorage.getItem('asset-cash-v1'); if (s) return JSON.parse(s); } catch (e) {} return JSON.parse(JSON.stringify(this.accountsData().twdCash)); }
@@ -573,7 +650,7 @@ class Component extends DCLogic {
   cashDots() { return ['#37424d', '#5a7ba6', '#b9b0a0', '#7ba38c', '#c7a05e', '#8a9bb2']; }
   parseNum(t) { const n = parseInt(String(t).replace(/[^\d]/g, ''), 10); return isNaN(n) ? 0 : n; }
   cloneCash() { return JSON.parse(JSON.stringify(this.cashList())); }
-  persistCash(arr) { this.setState({ cash: arr }); try { localStorage.setItem('asset-cash-v1', JSON.stringify(arr)); } catch (e) {} }
+  persistCash(arr) { this.pushUndo(); this.setState({ cash: arr }); try { localStorage.setItem('asset-cash-v1', JSON.stringify(arr)); } catch (e) {} }
   toggleCashKey(i) { this.setState((s) => ({ cashKey: s.cashKey === i ? null : i })); }
   commitCashField(el) {
     const fkey = el.getAttribute('data-fkey'); if (!fkey) return;
@@ -624,7 +701,11 @@ class Component extends DCLogic {
   }
 
   // ── 台股持股：股數 / 市價 / 總成本（來自券商「庫存損益試算」）。定期定額：台積電 ──
+  userHoldings() { if (this.state.uh) return this.state.uh; try { return JSON.parse(localStorage.getItem('asset-uh-v1') || '[]'); } catch (e) { return []; } }
   holdingsData() {
+    return this.baseHoldings().concat(this.userHoldings());
+  }
+  baseHoldings() {
     return [
       { name: '台積電', code: '2330', shares: 1050, price: 2465, cost: 863985, chg: 1.2 },
       { name: '川湖', code: '2059', shares: 230, price: 7890, cost: 405986, chg: 2.1 },
@@ -949,6 +1030,7 @@ class Component extends DCLogic {
 
     return {
       rootRef: (el) => { this.root = el; },
+      onUndo: () => this.undo(), undoStyle: this.undoBtnStyle(),
       stocksOpen: this.state.stocksOpen,
       edFocus, edNum, edText, edKeyG,
       toggleStocks: () => this.setState((s) => ({ stocksOpen: !s.stocksOpen })),
@@ -960,14 +1042,18 @@ class Component extends DCLogic {
       closeTradeForm: () => this.closeTradeForm(),
       saveTrade: () => this.saveTrade(),
       onTfName: (e) => this.setTf('name', e.target.value),
-      onTfDetail: (e) => this.setTf('detail', e.target.value),
+      onTfShares: (e) => this.setTf('shares', e.target.value),
+      onTfPrice: (e) => this.setTf('price', e.target.value),
       onTfAmt: (e) => this.setTf('amt', e.target.value),
       onTfDate: (e) => this.setTf('date', e.target.value),
       tfBuy: () => this.setTf('k', 'buy'),
       tfSell: () => this.setTf('k', 'sell'),
       tfDca: () => this.setTf('k', 'dca'),
       tfName: this.state.tf ? this.state.tf.name : '',
-      tfDetail: this.state.tf ? this.state.tf.detail : '',
+      tfShares: this.state.tf ? this.state.tf.shares : '',
+      tfPrice: this.state.tf ? this.state.tf.price : '',
+      tfSyncHint: (() => { const m = this.state.tf && this.matchHolding(this.state.tf.name); return m ? 'font-size:11px; color:#7d9471; margin:-2px 2px 9px; letter-spacing:.5px;' : 'display:none;'; })(),
+      tfSyncText: (() => { const m = this.state.tf && this.matchHolding(this.state.tf.name); return m ? `✓ 已對應持股「${m.name} ${m.code}」，儲存後股數與市價將同步更新` : ''; })(),
       tfAmt: this.state.tf ? this.state.tf.amt : '',
       tfDate: this.state.tf ? this.state.tf.date : '',
       tfKBuy: this.state.tf && this.state.tf.k === 'buy',
