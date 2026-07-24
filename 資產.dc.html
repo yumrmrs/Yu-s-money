@@ -14,6 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Marcellus&family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Noto Sans TC', sans-serif; background: #e9e5dc; color: #3b4650; -webkit-font-smoothing: antialiased; }
@@ -489,6 +490,7 @@
     </section>
 
     <div class="num" style="text-align:center; font-size:11px; color:#a9a596; letter-spacing:4px; padding:6px 0 2px;">魚家財務室 · NET WORTH · 2026</div>
+    <div class="num" style="{{ syncStyle }}" onClick="{{ onSync }}" title="點擊重新連線雲端">{{ syncText }}</div>
     <div class="num" style="{{ undoStyle }}" onClick="{{ onUndo }}" title="回到上一步"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M8.5 5L4.5 9l4 4M4.5 9h9.5a5.5 5.5 0 0 1 0 11h-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="letter-spacing:1px;">上一步</span></div>
   </main>
 </div>
@@ -499,10 +501,11 @@ class Component extends DCLogic {
 
   // ── 使用者新增交易（存回瀏覽器）──
   tradeStore() { if (this.state.userTrades) return this.state.userTrades; try { const s = localStorage.getItem('asset-trades-v1'); if (s) return JSON.parse(s); } catch (e) {} return []; }
-  persistTrades(arr) { this.pushUndo(); this.setState({ userTrades: arr }); try { localStorage.setItem('asset-trades-v1', JSON.stringify(arr)); } catch (e) {} }
+  persistTrades(arr) { this.pushUndo(); this.setState({ userTrades: arr }); try { localStorage.setItem('asset-trades-v1', JSON.stringify(arr)); } catch (e) {} this.cloudPush('asset-trades-v1'); }
   undoSnap() { return JSON.stringify({ ov: this.ovStore(), tr: this.tradeStore(), us: this.usList(), cash: this.cashList(), px: this.priceMap(), pxAt: this.state.pxAt || '—', fx: this.fxUSD(), uh: this.userHoldings() }); }
   undoRestore(o) {
     this.setState({ ov: o.ov, userTrades: o.tr, us: o.us, cash: o.cash, px: o.px, pxAt: o.pxAt, fx: o.fx, uh: o.uh || [], usKey: null, cashKey: null, pxKey: null, editKey: null });
+    setTimeout(() => this.cloudKeys().forEach((k) => this.cloudPush(k)), 0);
     try {
       localStorage.setItem('asset-uh-v1', JSON.stringify(o.uh || []));
       localStorage.setItem('asset-ov-v1', JSON.stringify(o.ov));
@@ -515,6 +518,37 @@ class Component extends DCLogic {
   }
   pushUndo() { const s = this.undoSnap(); const u = this._undo = this._undo || []; if (u.length && u[u.length - 1] === s) return; u.push(s); if (u.length > 30) u.shift(); }
   undo() { const u = this._undo; if (!u || !u.length) return; this.undoRestore(JSON.parse(u.pop())); }
+  cloudKeys() { return ['asset-ov-v1', 'asset-trades-v1', 'asset-us-v1', 'asset-cash-v1', 'asset-px-v1', 'asset-fx-v1', 'asset-uh-v1']; }
+  cloudApply() { const st = { ov: null, us: null, cash: null, fx: null, userTrades: null, uh: null }; try { const s = localStorage.getItem('asset-px-v1'); if (s) { const o = JSON.parse(s); st.px = o.map || {}; st.pxAt = o.at || '—'; } else st.px = {}; } catch (e) { st.px = {}; } this.setState(st); }
+  cloudConnect(t) {
+    if (window.supabase && window.supabase.createClient) { this._cloud = this._cloud || window.supabase.createClient('https://itxilfaobczncmxgbehh.supabase.co', 'sb_publishable_unDwhwkXE3f12fefr8bSrQ_UL-li019'); this.cloudPull(); }
+    else if ((t || 0) < 300) { setTimeout(() => this.cloudConnect((t || 0) + 1), 150); }
+    else { this.setState({ sync: 'offline' }); }
+  }
+  async cloudPull() {
+    try {
+      const ks = this.cloudKeys();
+      const { data, error } = await this._cloud.from('app_state').select('key,value').in('key', ks);
+      if (error) throw error;
+      const cloud = {}; (data || []).forEach((r) => { cloud[r.key] = r.value; });
+      for (const k of ks) {
+        if (cloud[k] != null) { try { localStorage.setItem(k, JSON.stringify(cloud[k])); } catch (e) {} }
+        else { let lv = null; try { const s = localStorage.getItem(k); if (s != null) lv = JSON.parse(s); } catch (e) {} if (lv != null) { try { await this._cloud.from('app_state').upsert({ key: k, value: lv }); } catch (e) {} } }
+      }
+      this.setState({ sync: 'online' }); this.cloudApply();
+    } catch (e) { this.setState({ sync: 'offline' }); }
+  }
+  cloudPush(key) {
+    if (!this._cloud) return;
+    let v = null; try { const s = localStorage.getItem(key); if (s != null) v = JSON.parse(s); } catch (e) {}
+    this._cloud.from('app_state').upsert({ key, value: v }).then(() => {}, () => {});
+  }
+  cloudRetry() { this.setState({ sync: 'connecting' }); if (this.sb) { this._cloud = this.sb; this.cloudPull(); } else if (this._cloud) { this.cloudPull(); } else { this.cloudConnect(0); } }
+  syncBadge() {
+    const m = { online: ['☁ 已同步雲端', '#6e8763', '#eef3ea'], offline: ['☁ 離線 · 點此重連', '#a8823a', '#f6efdf'], connecting: ['☁ 連線中…', '#8a939c', '#ece9df'] };
+    const s = m[this.state.sync || 'connecting'] || m.connecting;
+    return { onSync: () => this.cloudRetry(), syncText: s[0], syncStyle: `position:fixed; left:28px; bottom:24px; z-index:60; display:flex; align-items:center; gap:6px; padding:7px 13px; border-radius:20px; font-size:11px; letter-spacing:.5px; user-select:none; cursor:pointer; color:${s[1]}; background:${s[2]}; border:1px solid ${s[1]}33;` };
+  }
   undoBtnStyle() { const un = (this._undo || []).length; return `position:fixed; right:28px; bottom:24px; z-index:60; display:flex; align-items:center; gap:7px; padding:10px 16px; border-radius:30px; font-size:12px; transition:all .2s ease; user-select:none; ${un ? 'background:#37424d; color:#fff; cursor:pointer; box-shadow:0 14px 30px -12px rgba(55,66,77,.65);' : 'background:#fff; color:#c9d0d6; border:1px solid #ece7dd; cursor:default;'}`; }
   openTradeForm() { const d = new Date(); const mm = String(d.getMonth() + 1).padStart(2, '0'); const dd = String(d.getDate()).padStart(2, '0'); this.setState({ tf: { k: 'buy', name: '', shares: '', price: '', amt: '', date: mm + '/' + dd } }); }
   closeTradeForm() { this.setState({ tf: null }); }
@@ -552,10 +586,10 @@ class Component extends DCLogic {
       const nh = { name: nm, code: codeM ? codeM[0] : nm, shares: q, price: px, cost: Math.round(q * px), chg: 0 };
       const uh = this.userHoldings().concat([nh]);
       this.setState({ uh });
-      try { localStorage.setItem('asset-uh-v1', JSON.stringify(uh)); } catch (e) {}
+      try { localStorage.setItem('asset-uh-v1', JSON.stringify(uh)); } catch (e) {} this.cloudPush('asset-uh-v1');
       const map = { ...this.priceMap() }; map[nh.code] = px;
       const at = this.stamp(); this.setState({ px: map, pxAt: at });
-      try { localStorage.setItem('asset-px-v1', JSON.stringify({ map, at })); } catch (e) {}
+      try { localStorage.setItem('asset-px-v1', JSON.stringify({ map, at })); } catch (e) {} this.cloudPush('asset-px-v1');
       this.setState({ tf: null });
       return;
     }
@@ -566,11 +600,11 @@ class Component extends DCLogic {
       o['stk:' + h.code + ':shares'] = next;
       delete o['stk:' + h.code + ':mkt'];
       this.setState({ ov: o });
-      try { localStorage.setItem('asset-ov-v1', JSON.stringify(o)); } catch (e) {}
+      try { localStorage.setItem('asset-ov-v1', JSON.stringify(o)); } catch (e) {} this.cloudPush('asset-ov-v1');
       if (!isNaN(px) && px > 0) {
         const map = { ...this.priceMap() }; map[h.code] = px;
         const at = this.stamp(); this.setState({ px: map, pxAt: at });
-        try { localStorage.setItem('asset-px-v1', JSON.stringify({ map, at })); } catch (e) {}
+        try { localStorage.setItem('asset-px-v1', JSON.stringify({ map, at })); } catch (e) {} this.cloudPush('asset-px-v1');
       }
     }
     this.setState({ tf: null });
@@ -591,14 +625,14 @@ class Component extends DCLogic {
     this.pushUndo();
     const map = { ...this.priceMap() }; if (!isNaN(n) && n > 0) map[code] = n;
     const at = this.stamp(); this.setState({ px: map, pxAt: at, pxKey: null });
-    try { localStorage.setItem('asset-px-v1', JSON.stringify({ map, at })); } catch (e) {}
+    try { localStorage.setItem('asset-px-v1', JSON.stringify({ map, at })); } catch (e) {} this.cloudPush('asset-px-v1');
   }
 
   // ── 通用「細項數字」可編輯覆寫（存回瀏覽器）──
   ovStore() { if (this.state.ov) return this.state.ov; try { const s = localStorage.getItem('asset-ov-v1'); if (s) return JSON.parse(s); } catch (e) {} return {}; }
   ovNum(key, base) { const o = this.ovStore(); return o[key] != null ? o[key] : base; }
   ovStr(key, base) { const o = this.ovStore(); return o[key] != null ? o[key] : base; }
-  persistOv(o) { this.pushUndo(); this.setState({ ov: o }); try { localStorage.setItem('asset-ov-v1', JSON.stringify(o)); } catch (e) {} }
+  persistOv(o) { this.pushUndo(); this.setState({ ov: o }); try { localStorage.setItem('asset-ov-v1', JSON.stringify(o)); } catch (e) {} this.cloudPush('asset-ov-v1'); }
   commitOv(el) { const k = el.getAttribute('data-fkey'); if (!k) return; const n = parseFloat(String(el.textContent || '').replace(/[^\d.\-]/g, '')); const o = { ...this.ovStore() }; if (!isNaN(n)) o[k] = n; this.persistOv(o); const fmt = el.getAttribute('data-fmt'); if (fmt && !isNaN(n)) el.textContent = this.fmtField(fmt, n, el); }
   fmtField(type, n, el) {
     switch (type) {
@@ -628,7 +662,7 @@ class Component extends DCLogic {
   }
   usList() { if (this.state.us) return this.state.us; try { const s = localStorage.getItem('asset-us-v1'); if (s) return JSON.parse(s); } catch (e) {} return this.usSeed(); }
   cloneUs() { return JSON.parse(JSON.stringify(this.usList())); }
-  persistUs(arr) { this.pushUndo(); this.setState({ us: arr }); try { localStorage.setItem('asset-us-v1', JSON.stringify(arr)); } catch (e) {} }
+  persistUs(arr) { this.pushUndo(); this.setState({ us: arr }); try { localStorage.setItem('asset-us-v1', JSON.stringify(arr)); } catch (e) {} this.cloudPush('asset-us-v1'); }
   toggleUsKey(i) { this.setState((s) => ({ usKey: s.usKey === i ? null : i })); }
   commitUsField(el) {
     const fkey = el.getAttribute('data-fkey'); if (!fkey) return;
@@ -642,7 +676,7 @@ class Component extends DCLogic {
   }
   deleteUs(i) { const arr = this.cloneUs(); arr.splice(i, 1); this.setState({ usKey: null }); this.persistUs(arr); }
   addUs() { const arr = this.cloneUs(); arr.push({ name: '新帳戶', sub: '券商 · 標的', usd: 0, pl: '' }); const i = arr.length - 1; this.setState({ usKey: i }); this.persistUs(arr); }
-  commitFx(el) { this.pushUndo(); const t = (el.textContent || '').trim(); const n = parseFloat(String(t).replace(/[^\d.]/g, '')); const v = isNaN(n) ? 0 : n; this.setState({ fx: v, cashKey: null }); try { localStorage.setItem('asset-fx-v1', JSON.stringify(v)); } catch (e) {} }
+  commitFx(el) { this.pushUndo(); const t = (el.textContent || '').trim(); const n = parseFloat(String(t).replace(/[^\d.]/g, '')); const v = isNaN(n) ? 0 : n; this.setState({ fx: v, cashKey: null }); try { localStorage.setItem('asset-fx-v1', JSON.stringify(v)); } catch (e) {} this.cloudPush('asset-fx-v1'); }
 
   // ── 現金帳戶：可編輯 / 增減 ──
   cashSeed() { try { const s = localStorage.getItem('asset-cash-v1'); if (s) return JSON.parse(s); } catch (e) {} return JSON.parse(JSON.stringify(this.accountsData().twdCash)); }
@@ -650,7 +684,7 @@ class Component extends DCLogic {
   cashDots() { return ['#37424d', '#5a7ba6', '#b9b0a0', '#7ba38c', '#c7a05e', '#8a9bb2']; }
   parseNum(t) { const n = parseInt(String(t).replace(/[^\d]/g, ''), 10); return isNaN(n) ? 0 : n; }
   cloneCash() { return JSON.parse(JSON.stringify(this.cashList())); }
-  persistCash(arr) { this.pushUndo(); this.setState({ cash: arr }); try { localStorage.setItem('asset-cash-v1', JSON.stringify(arr)); } catch (e) {} }
+  persistCash(arr) { this.pushUndo(); this.setState({ cash: arr }); try { localStorage.setItem('asset-cash-v1', JSON.stringify(arr)); } catch (e) {} this.cloudPush('asset-cash-v1'); }
   toggleCashKey(i) { this.setState((s) => ({ cashKey: s.cashKey === i ? null : i })); }
   commitCashField(el) {
     const fkey = el.getAttribute('data-fkey'); if (!fkey) return;
@@ -751,6 +785,7 @@ class Component extends DCLogic {
     try { const s = localStorage.getItem('asset-px-v1'); if (s) { const o = JSON.parse(s); st.px = o.map || {}; st.pxAt = o.at || '—'; } else st.px = {}; } catch (e) { st.px = {}; }
     try { const s = localStorage.getItem('asset-ov-v1'); if (s) st.ov = JSON.parse(s); } catch (e) {}
     this.setState(st);
+    this.cloudConnect(0);
   }
 
   fmt(n) { return Math.round(n).toLocaleString('en-US'); }
@@ -1030,7 +1065,7 @@ class Component extends DCLogic {
 
     return {
       rootRef: (el) => { this.root = el; },
-      onUndo: () => this.undo(), undoStyle: this.undoBtnStyle(),
+      onUndo: () => this.undo(), undoStyle: this.undoBtnStyle(), ...this.syncBadge(),
       stocksOpen: this.state.stocksOpen,
       edFocus, edNum, edText, edKeyG,
       toggleStocks: () => this.setState((s) => ({ stocksOpen: !s.stocksOpen })),

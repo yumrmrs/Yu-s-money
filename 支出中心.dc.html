@@ -241,6 +241,8 @@
     </div>
 
     <div class="num" style="text-align:center; font-size:10px; color:#a9a596; letter-spacing:4px; padding:8px 0 2px;">魚家財務室 · EXPENSE CENTER · 2026</div>
+    <div class="num" style="{{ syncStyle }}" onClick="{{ onSync }}" title="點擊重新連線雲端">{{ syncText }}</div>
+    <div class="num" style="{{ undoStyle }}" onClick="{{ onUndo }}" title="回到上一步"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M8.5 5L4.5 9l4 4M4.5 9h9.5a5.5 5.5 0 0 1 0 11h-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="letter-spacing:1px;">上一步</span></div>
   </main>
 </div>
 </x-dc>
@@ -378,8 +380,8 @@ class Component extends DCLogic {
     this.sbConnect(0);
   }
   sbConnect(t) {
-    if (window.supabase && window.supabase.createClient) { this.sb = window.supabase.createClient(this.sbUrl, this.sbKey); this.sbLoad(); }
-    else if (t < 40) { setTimeout(() => this.sbConnect(t + 1), 150); }
+    if (window.supabase && window.supabase.createClient) { this.sb = window.supabase.createClient(this.sbUrl, this.sbKey); this._cloud = this.sb; this.sbLoad(); this.cloudPull(); }
+    else if (t < 300) { setTimeout(() => this.sbConnect(t + 1), 150); }
     else { this.setState({ sbStatus: 'offline' }); }
   }
   async sbLoad() {
@@ -407,6 +409,7 @@ class Component extends DCLogic {
     const fkey = el.getAttribute('data-fkey'); if (!fkey) return;
     const p = fkey.split(':'); const kind = p[0];
     if (kind === 'entry') { this.commitEntryField(p[1], p[p.length - 1], (el.textContent || '').trim(), el); return; }
+    this.pushUndo();
     const d = JSON.parse(JSON.stringify(this.state.d || this.seed()));
     const t = (el.textContent || '').trim();
     if (kind === 'cat') d.cats[+p[1]].name = t;
@@ -417,6 +420,7 @@ class Component extends DCLogic {
   }
 
   commitEntryField(id, field, text, el) {
+    this.pushUndo();
     const entries = (this.state.entries || []).map((e) => ({ ...e }));
     const ent = entries.find((e) => String(e.id) === String(id));
     if (!ent) { this.setState({ editKey: null }); return; }
@@ -436,6 +440,7 @@ class Component extends DCLogic {
   }
 
   deleteEntry(id) {
+    this.pushUndo();
     const entries = (this.state.entries || []).filter((e) => String(e.id) !== String(id));
     this.setState({ entries, editKey: null });
     try { localStorage.setItem('mob-entries-cache', JSON.stringify(entries)); } catch (e) {}
@@ -443,7 +448,51 @@ class Component extends DCLogic {
   }
 
   clone() { return JSON.parse(JSON.stringify(this.state.d || this.seed())); }
-  persist(d) { this.setState({ d }); try { localStorage.setItem('expense-plan-v1', JSON.stringify(d)); } catch (e) {} }
+  persist(d) { this.pushUndo(); this.setState({ d }); try { localStorage.setItem('expense-plan-v1', JSON.stringify(d)); } catch (e) {} this.cloudPush('expense-plan-v1'); }
+  undoSnap() { return JSON.stringify({ d: this.state.d || this.seed(), entries: this.state.entries || [] }); }
+  undoRestore(s) {
+    const cur = this.state.entries || [];
+    this.setState({ d: s.d, entries: s.entries, editKey: null });
+    try { localStorage.setItem('expense-plan-v1', JSON.stringify(s.d)); localStorage.setItem('mob-entries-cache', JSON.stringify(s.entries)); } catch (e) {}
+    this.cloudPush('expense-plan-v1');
+    if (this.sb) {
+      const curById = {}; cur.forEach((e) => { curById[String(e.id)] = e; });
+      s.entries.forEach((e) => {
+        const c = curById[String(e.id)];
+        if (!c) this.sb.from('entries').insert(e).then(() => this.sbLoad());
+        else if (c.amount !== e.amount || c.note !== e.note) this.sb.from('entries').update({ amount: e.amount, note: e.note }).eq('id', e.id).then(() => this.sbLoad());
+      });
+    }
+  }
+  pushUndo() { const s = this.undoSnap(); const u = this._undo = this._undo || []; if (u.length && u[u.length - 1] === s) return; u.push(s); if (u.length > 30) u.shift(); }
+  undo() { const u = this._undo; if (!u || !u.length) return; this.undoRestore(JSON.parse(u.pop())); }
+  cloudKeys() { return ['expense-plan-v1']; }
+  cloudApply() { let d = this.seed(); try { const s = localStorage.getItem('expense-plan-v1'); if (s) d = JSON.parse(s); } catch (e) {} d = this.alignCatsToAllocation(d); try { localStorage.setItem('expense-plan-v1', JSON.stringify(d)); } catch (e) {} this.setState({ d }); }
+  async cloudPull() {
+    try {
+      const ks = this.cloudKeys();
+      const { data, error } = await this._cloud.from('app_state').select('key,value').in('key', ks);
+      if (error) throw error;
+      const cloud = {}; (data || []).forEach((r) => { cloud[r.key] = r.value; });
+      for (const k of ks) {
+        if (cloud[k] != null) { try { localStorage.setItem(k, JSON.stringify(cloud[k])); } catch (e) {} }
+        else { let lv = null; try { const s = localStorage.getItem(k); if (s != null) lv = JSON.parse(s); } catch (e) {} if (lv != null) { try { await this._cloud.from('app_state').upsert({ key: k, value: lv }); } catch (e) {} } }
+      }
+      this.setState({ sync: 'online' }); this.cloudApply();
+    } catch (e) { this.setState({ sync: 'offline' }); }
+  }
+  cloudPush(key) {
+    if (!this._cloud) return;
+    let v = null; try { const s = localStorage.getItem(key); if (s != null) v = JSON.parse(s); } catch (e) {}
+    this._cloud.from('app_state').upsert({ key, value: v }).then(() => {}, () => {});
+  }
+  cloudRetry() { this.setState({ sync: 'connecting' }); if (this.sb) { this._cloud = this.sb; this.cloudPull(); } else if (this._cloud) { this.cloudPull(); } else { this.cloudConnect(0); } }
+  syncBadge() {
+    const m = { online: ['☁ 已同步雲端', '#6e8763', '#eef3ea'], offline: ['☁ 離線 · 點此重連', '#a8823a', '#f6efdf'], connecting: ['☁ 連線中…', '#8a939c', '#ece9df'] };
+    const s = m[this.state.sync || 'connecting'] || m.connecting;
+    return { onSync: () => this.cloudRetry(), syncText: s[0], syncStyle: `position:fixed; left:28px; bottom:24px; z-index:60; display:flex; align-items:center; gap:6px; padding:7px 13px; border-radius:20px; font-size:11px; letter-spacing:.5px; user-select:none; cursor:pointer; color:${s[1]}; background:${s[2]}; border:1px solid ${s[1]}33;` };
+  }
+  undoBtnStyle() { const un = (this._undo || []).length; return `position:fixed; right:28px; bottom:24px; z-index:60; display:flex; align-items:center; gap:7px; padding:10px 16px; border-radius:30px; font-size:12px; transition:all .2s ease; user-select:none; ${un ? 'background:#37424d; color:#fff; cursor:pointer; box-shadow:0 14px 30px -12px rgba(55,66,77,.65);' : 'background:#fff; color:#c9d0d6; border:1px solid #ece7dd; cursor:default;'}`; }
   deleteItem(kind, a, b) { const d = this.clone(); if (kind === 'item') d.cats[a].items.splice(b, 1); else if (kind === 'cat') d.cats.splice(a, 1); else if (kind === 'plan') d.plan[a].items.splice(b, 1); this.setState({ editKey: null }); this.persist(d); }
   addItemToCat(ci) { const d = this.clone(); d.cats[ci].items.push({ name: '新項目', amt: 0, tag: '變動' }); const j = d.cats[ci].items.length - 1; this.setState({ editKey: `item:${ci}:${j}`, open: { ...this.state.open, [d.cats[ci].key]: true } }); this.persist(d); }
   addCat() { const d = this.clone(); const key = 'cat' + Date.now(); d.cats.push({ key, name: '新分類', tag: '變動', items: [] }); const i = d.cats.length - 1; this.setState({ editKey: `cat:${i}`, open: { ...this.state.open, [key]: true } }); this.persist(d); }
@@ -659,6 +708,7 @@ class Component extends DCLogic {
     const ym = this.state.ym;
     return {
       navItems, kpis, categories, catAnswer,
+      onUndo: () => this.undo(), undoStyle: this.undoBtnStyle(), ...this.syncBadge(),
       ymLabel: `${ym.y} 年 ${ym.m} 月`, prevMonth: () => this.stepMonth(-1), nextMonth: () => this.stepMonth(1),
       plan, legend, planTotalF: this.ntd(planTotal), planAvgF: this.ntd(planAvg), planThisMonthF: this.ntd(planThisMonth),
       prepNote,

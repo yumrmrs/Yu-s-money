@@ -264,6 +264,8 @@
     </div>
 
     <div class="num" style="text-align:center; font-size:10px; color:#a9a596; letter-spacing:4px; padding:8px 0 2px;">魚家財務室 · ALLOCATION PLAN · 2026</div>
+    <div class="num" style="{{ syncStyle }}" onClick="{{ onSync }}" title="點擊重新連線雲端">{{ syncText }}</div>
+    <div class="num" style="{{ undoStyle }}" onClick="{{ onUndo }}" title="回到上一步"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M8.5 5L4.5 9l4 4M4.5 9h9.5a5.5 5.5 0 0 1 0 11h-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="letter-spacing:1px;">上一步</span></div>
   </main>
 </div>
 </x-dc>
@@ -320,8 +322,8 @@ class Component extends DCLogic {
     this.sbConnect(0);
   }
   sbConnect(t) {
-    if (window.supabase && window.supabase.createClient) { this.sb = window.supabase.createClient(this.sbUrl, this.sbKey); this.sbLoad(); }
-    else if (t < 40) { setTimeout(() => this.sbConnect(t + 1), 150); }
+    if (window.supabase && window.supabase.createClient) { this.sb = window.supabase.createClient(this.sbUrl, this.sbKey); this._cloud = this.sb; this.sbLoad(); this.cloudPull(); }
+    else if (t < 300) { setTimeout(() => this.sbConnect(t + 1), 150); }
     else { this.setState({ sbStatus: 'offline' }); }
   }
   async sbLoad() {
@@ -408,7 +410,38 @@ class Component extends DCLogic {
     return (this.state.d && this.state.d.income) || 100000;
   }
   clone() { return JSON.parse(JSON.stringify(this.state.d || this.seed())); }
-  persist(d) { this.setState({ d }); try { localStorage.setItem('zijin-plan-v1', JSON.stringify(d)); } catch (e) {} }
+  persist(d) { this.pushUndo(); this.setState({ d }); try { localStorage.setItem('zijin-plan-v1', JSON.stringify(d)); } catch (e) {} this.cloudPush('zijin-plan-v1'); }
+  undoSnap() { return JSON.stringify(this.state.d || this.seed()); }
+  undoRestore(d) { this.setState({ d, editKey: null }); try { localStorage.setItem('zijin-plan-v1', JSON.stringify(d)); } catch (e) {} this.cloudPush('zijin-plan-v1'); }
+  pushUndo() { const s = this.undoSnap(); const u = this._undo = this._undo || []; if (u.length && u[u.length - 1] === s) return; u.push(s); if (u.length > 30) u.shift(); }
+  undo() { const u = this._undo; if (!u || !u.length) return; this.undoRestore(JSON.parse(u.pop())); }
+  cloudKeys() { return ['zijin-plan-v1']; }
+  cloudApply() { let d = this.seed(); try { const s = localStorage.getItem('zijin-plan-v1'); if (s) { const p = JSON.parse(s); if (p && p.buckets) d = p; } } catch (e) {} d = this.migrate(d); d = this.syncSpendItems(d); try { localStorage.setItem('zijin-plan-v1', JSON.stringify(d)); } catch (e) {} this.setState({ d }); }
+  async cloudPull() {
+    try {
+      const ks = this.cloudKeys();
+      const { data, error } = await this._cloud.from('app_state').select('key,value').in('key', ks);
+      if (error) throw error;
+      const cloud = {}; (data || []).forEach((r) => { cloud[r.key] = r.value; });
+      for (const k of ks) {
+        if (cloud[k] != null) { try { localStorage.setItem(k, JSON.stringify(cloud[k])); } catch (e) {} }
+        else { let lv = null; try { const s = localStorage.getItem(k); if (s != null) lv = JSON.parse(s); } catch (e) {} if (lv != null) { try { await this._cloud.from('app_state').upsert({ key: k, value: lv }); } catch (e) {} } }
+      }
+      this.setState({ sync: 'online' }); this.cloudApply();
+    } catch (e) { this.setState({ sync: 'offline' }); }
+  }
+  cloudPush(key) {
+    if (!this._cloud) return;
+    let v = null; try { const s = localStorage.getItem(key); if (s != null) v = JSON.parse(s); } catch (e) {}
+    this._cloud.from('app_state').upsert({ key, value: v }).then(() => {}, () => {});
+  }
+  cloudRetry() { this.setState({ sync: 'connecting' }); if (this.sb) { this._cloud = this.sb; this.cloudPull(); } else if (this._cloud) { this.cloudPull(); } else { this.cloudConnect(0); } }
+  syncBadge() {
+    const m = { online: ['☁ 已同步雲端', '#6e8763', '#eef3ea'], offline: ['☁ 離線 · 點此重連', '#a8823a', '#f6efdf'], connecting: ['☁ 連線中…', '#8a939c', '#ece9df'] };
+    const s = m[this.state.sync || 'connecting'] || m.connecting;
+    return { onSync: () => this.cloudRetry(), syncText: s[0], syncStyle: `position:fixed; left:28px; bottom:24px; z-index:60; display:flex; align-items:center; gap:6px; padding:7px 13px; border-radius:20px; font-size:11px; letter-spacing:.5px; user-select:none; cursor:pointer; color:${s[1]}; background:${s[2]}; border:1px solid ${s[1]}33;` };
+  }
+  undoBtnStyle() { const un = (this._undo || []).length; return `position:fixed; right:28px; bottom:24px; z-index:60; display:flex; align-items:center; gap:7px; padding:10px 16px; border-radius:30px; font-size:12px; transition:all .2s ease; user-select:none; ${un ? 'background:#37424d; color:#fff; cursor:pointer; box-shadow:0 14px 30px -12px rgba(55,66,77,.65);' : 'background:#fff; color:#c9d0d6; border:1px solid #ece7dd; cursor:default;'}`; }
 
   commitField(el) {
     const fkey = el.getAttribute('data-fkey'); if (!fkey) return;
@@ -550,6 +583,7 @@ class Component extends DCLogic {
 
     return {
       rootRef: (el) => { this.root = el; },
+      onUndo: () => this.undo(), undoStyle: this.undoBtnStyle(), ...this.syncBadge(),
       syncLabel: this.state.sbStatus === 'online' ? '已同步' : this.state.sbStatus === 'connecting' ? '連線中' : '離線',
       syncDotStyle: `width:7px; height:7px; border-radius:50%; background:${this.state.sbStatus === 'online' ? '#7ba38c' : this.state.sbStatus === 'connecting' ? '#c7a05e' : '#d68a76'};`,
       blurField, keyField,

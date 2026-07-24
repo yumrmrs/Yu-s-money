@@ -14,6 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Marcellus&family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Noto Sans TC', sans-serif; background: #e9e5dc; color: #3b4650; -webkit-font-smoothing: antialiased; }
@@ -419,6 +420,8 @@
       </div>
     </section>
 
+    <div class="num" style="{{ syncStyle }}" onClick="{{ onSync }}" title="點擊重新連線雲端">{{ syncText }}</div>
+    <div class="num" style="{{ undoStyle }}" onClick="{{ onUndo }}" title="回到上一步"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M8.5 5L4.5 9l4 4M4.5 9h9.5a5.5 5.5 0 0 1 0 11h-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="letter-spacing:1px;">上一步</span></div>
   </main>
 </div>
 </x-dc>
@@ -481,7 +484,43 @@ class Component extends DCLogic {
     try { const s = localStorage.getItem('passive-cfg-v2'); if (s) return { ...this.defaults(), ...JSON.parse(s) }; } catch (e) {}
     return this.defaults();
   }
-  save(c) { this.setState({ cfg: c }); try { localStorage.setItem('passive-cfg-v2', JSON.stringify(c)); } catch (e) {} }
+  save(c) { this.pushUndo(); this.setState({ cfg: c }); try { localStorage.setItem('passive-cfg-v2', JSON.stringify(c)); } catch (e) {} this.cloudPush('passive-cfg-v2'); }
+  undoSnap() { return JSON.stringify(this.cfg()); }
+  undoRestore(c) { this.setState({ cfg: c }); try { localStorage.setItem('passive-cfg-v2', JSON.stringify(c)); } catch (e) {} this.cloudPush('passive-cfg-v2'); }
+  pushUndo() { const s = this.undoSnap(); const u = this._undo = this._undo || []; if (u.length && u[u.length - 1] === s) return; u.push(s); if (u.length > 30) u.shift(); }
+  undo() { const u = this._undo; if (!u || !u.length) return; this.undoRestore(JSON.parse(u.pop())); }
+  cloudKeys() { return ['passive-cfg-v2']; }
+  cloudApply() { let c = this.defaults(); try { const s = localStorage.getItem('passive-cfg-v2'); if (s) c = { ...this.defaults(), ...JSON.parse(s) }; } catch (e) {} this.setState({ cfg: c }); }
+  cloudConnect(t) {
+    if (window.supabase && window.supabase.createClient) { this._cloud = this._cloud || window.supabase.createClient('https://itxilfaobczncmxgbehh.supabase.co', 'sb_publishable_unDwhwkXE3f12fefr8bSrQ_UL-li019'); this.cloudPull(); }
+    else if ((t || 0) < 300) { setTimeout(() => this.cloudConnect((t || 0) + 1), 150); }
+    else { this.setState({ sync: 'offline' }); }
+  }
+  async cloudPull() {
+    try {
+      const ks = this.cloudKeys();
+      const { data, error } = await this._cloud.from('app_state').select('key,value').in('key', ks);
+      if (error) throw error;
+      const cloud = {}; (data || []).forEach((r) => { cloud[r.key] = r.value; });
+      for (const k of ks) {
+        if (cloud[k] != null) { try { localStorage.setItem(k, JSON.stringify(cloud[k])); } catch (e) {} }
+        else { let lv = null; try { const s = localStorage.getItem(k); if (s != null) lv = JSON.parse(s); } catch (e) {} if (lv != null) { try { await this._cloud.from('app_state').upsert({ key: k, value: lv }); } catch (e) {} } }
+      }
+      this.setState({ sync: 'online' }); this.cloudApply();
+    } catch (e) { this.setState({ sync: 'offline' }); }
+  }
+  cloudPush(key) {
+    if (!this._cloud) return;
+    let v = null; try { const s = localStorage.getItem(key); if (s != null) v = JSON.parse(s); } catch (e) {}
+    this._cloud.from('app_state').upsert({ key, value: v }).then(() => {}, () => {});
+  }
+  cloudRetry() { this.setState({ sync: 'connecting' }); if (this.sb) { this._cloud = this.sb; this.cloudPull(); } else if (this._cloud) { this.cloudPull(); } else { this.cloudConnect(0); } }
+  syncBadge() {
+    const m = { online: ['☁ 已同步雲端', '#6e8763', '#eef3ea'], offline: ['☁ 離線 · 點此重連', '#a8823a', '#f6efdf'], connecting: ['☁ 連線中…', '#8a939c', '#ece9df'] };
+    const s = m[this.state.sync || 'connecting'] || m.connecting;
+    return { onSync: () => this.cloudRetry(), syncText: s[0], syncStyle: `position:fixed; left:28px; bottom:24px; z-index:60; display:flex; align-items:center; gap:6px; padding:7px 13px; border-radius:20px; font-size:11px; letter-spacing:.5px; user-select:none; cursor:pointer; color:${s[1]}; background:${s[2]}; border:1px solid ${s[1]}33;` };
+  }
+  undoBtnStyle() { const un = (this._undo || []).length; return `position:fixed; right:28px; bottom:24px; z-index:60; display:flex; align-items:center; gap:7px; padding:10px 16px; border-radius:30px; font-size:12px; transition:all .2s ease; user-select:none; ${un ? 'background:#37424d; color:#fff; cursor:pointer; box-shadow:0 14px 30px -12px rgba(55,66,77,.65);' : 'background:#fff; color:#c9d0d6; border:1px solid #ece7dd; cursor:default;'}`; }
 
   setPath(path, val) {
     const c = JSON.parse(JSON.stringify(this.cfg()));
@@ -509,7 +548,7 @@ class Component extends DCLogic {
   setReinvest(mode) { const c = this.clone(); c.reinvestMode = mode; this.save(c); }
   setReinvestPct(v) { const c = this.clone(); c.reinvestPct = v; c.reinvestMode = 'custom'; this.save(c); }
 
-  componentDidMount() { const c = this.cfg(); this.setState({ cfg: c }); }
+  componentDidMount() { const c = this.cfg(); this.setState({ cfg: c }); this.cloudConnect(0); }
 
   fmt(n) { return Math.round(n).toLocaleString('en-US'); }
   kf(n) { return n >= 1e8 ? (n / 1e8).toFixed(2) + '億' : Math.round(n / 10000).toLocaleString('en-US') + '萬'; }
@@ -708,6 +747,7 @@ class Component extends DCLogic {
 
     return {
       navItems,
+      onUndo: () => this.undo(), undoStyle: this.undoBtnStyle(), ...this.syncBadge(),
       monthly: this.fmt(monthlyTotal), monthlyShort: 'NT$' + this.fmt(monthlyTotal),
       yoyPct: c.yoyPct,
       targetLabel: 'NT$' + this.fmt(target),
